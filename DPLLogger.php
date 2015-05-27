@@ -15,28 +15,34 @@ class DPLLogger {
 	 * Parameters from user input must be escaped for HTML *before* passing to this function
 	 */
 	function msg( $msgid ) {
-
 		if ( $this->iDebugLevel >= ExtDynamicPageList::$debugMinLevels[$msgid] ) {
 			$args = func_get_args();
 			array_shift( $args );
 			$val = '';
-			if ( array_key_exists( 0, $args ) ) $val = $args[0];
+			if ( array_key_exists( 0, $args ) ) {
+				$val = $args[0];
+			}
 			array_shift( $args );
 			/**
 			 * @todo add a DPL id to identify the DPL tag that generates the message, in case of multiple DPLs in the page
 			 */
-			 $text = '';
+			$text = '';
 			if ( ExtDynamicPageList::$behavingLikeIntersection ) {
-				if 		( $msgid == ExtDynamicPageList::FATAL_TOOMANYCATS ) $text = wfMsg( 'intersection_toomanycats', $args );
-				else if ( $msgid == ExtDynamicPageList::FATAL_TOOFEWCATS )  $text = wfMsg( 'intersection_toofewcats', $args );
-				else if ( $msgid == ExtDynamicPageList::WARN_NORESULTS )   	$text = wfMsg( 'intersection_noresults', $args );
-				else if ( $msgid == ExtDynamicPageList::FATAL_NOSELECTION ) $text = wfMsg( 'intersection_noincludecats', $args );
+				if ( $msgid == ExtDynamicPageList::FATAL_TOOMANYCATS ) {
+					$text = wfMsg( 'intersection_toomanycats', $args );
+				} elseif ( $msgid == ExtDynamicPageList::FATAL_TOOFEWCATS ) {
+					$text = wfMsg( 'intersection_toofewcats', $args );
+				} elseif ( $msgid == ExtDynamicPageList::WARN_NORESULTS ) {
+					$text = wfMsg( 'intersection_noresults', $args );
+				} elseif ( $msgid == ExtDynamicPageList::FATAL_NOSELECTION ) {
+					$text = wfMsg( 'intersection_noincludecats', $args );
+				}
 			}
 			if ( $text == '' ) {
 				$text = wfMsg( 'dpl_log_' . $msgid, $args );
 				$text = str_replace( '$0', $val, $text );
 			}
-			return '<p>Extension:DynamicPageList (DPL), version ' . ExtDynamicPageList::$DPLVersion . ' : ' .  $text . '</p>';
+			return '<p>Extension:DynamicPageList (DPL), version ' . ExtDynamicPageList::$DPLVersion . ' : ' . $text . '</p>';
 		}
 		return '';
 	}

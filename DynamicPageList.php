@@ -63,7 +63,7 @@ $wgExtensionFunctions[]        = array( 'ExtDynamicPageList', 'setupDPL' );
 $wgHooks['LanguageGetMagic'][] = 'ExtDynamicPageList__languageGetMagic';
 
 $wgMessagesDirs['DynamicPageList'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['DynamicPageList'] =  dirname( __FILE__ ) . '/DynamicPageList.i18n.php';
+$wgExtensionMessagesFiles['DynamicPageList'] = __DIR__ . '/DynamicPageList.i18n.php';
 
 $DPLVersion = '2.3.0';
 
