@@ -55,7 +55,7 @@
 // we also register the tag <DynamicPageList> because DPL is downward compatible with Extension:Intersection
 // This means that your LocalSettings.php MUST NO LONGER include Extension:Intersection;
 
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
     die( 'This is not a valid entry point to MediaWiki.' );
 }
 
@@ -81,5 +81,5 @@ require_once( 'DPLSetup.php' );
 ExtDynamicPageList::$DPLVersion = $DPLVersion;
 
 // use full functionality by default
-ExtDynamicPageList::setFunctionalRichness(4);
+ExtDynamicPageList::setFunctionalRichness( 4 );
 

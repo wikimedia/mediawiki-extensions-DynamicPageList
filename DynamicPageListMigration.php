@@ -28,7 +28,7 @@
 
 */
 
-if (!defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This is not a valid entry point to MediaWiki.' );
 }
 
@@ -58,10 +58,10 @@ $wgExtensionCredits['parserhook'][] = array(
 require_once( 'DPLSetup.php' );
 
 $wgMessagesDirs['DynamicPageList'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['DynamicPageList'] = dirname(__FILE__).'/DynamicPageList.i18n.php';
+$wgExtensionMessagesFiles['DynamicPageList'] = dirname( __FILE__ ) . '/DynamicPageList.i18n.php';
 
 ExtDynamicPageList::$DPLVersion = $DPLVersion;
 
 // be extremely restrictive by default: do not allow anything that goes beyond Extension:Intersection
 // can be extended by a different call to this function in LocalSettings.php after the require_once()
-ExtDynamicPageList::setFunctionalRichness(0);
+ExtDynamicPageList::setFunctionalRichness( 0 );

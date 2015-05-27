@@ -22,11 +22,11 @@ class DPLArticle {
 	public $mUserLink = ''; 	// link to editor (first/last, depending on user's request) 's page or contributions if not registered
 	public $mUser = ''; 		// name of editor (first/last, depending on user's request) or contributions if not registered
 	public $mComment = ''; 	// revision comment / edit summary
-	public $mContribution= ''; // number of bytes changed
-	public $mContrib= '';      // short string indicating the size of a contribution
-	public $mContributor= '';  // user who made the changes
-	
-	function __construct($title, $namespace) {
+	public $mContribution = ''; // number of bytes changed
+	public $mContrib = '';      // short string indicating the size of a contribution
+	public $mContributor = '';  // user who made the changes
+
+	function __construct( $title, $namespace ) {
 		$this->mTitle     = $title;
 		$this->mNamespace = $namespace;
 	}
