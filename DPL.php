@@ -666,7 +666,7 @@ class DPL {
 				if ( $article->mCounter != '' && $mode->name != 'userformat' ) {
 					// Adapted from SpecialPopularPages::formatResult()
 					// $nv = $this->msgExt( 'nviews', array( 'parsemag', 'escape'), $wgLang->formatNum( $article->mCounter ) );
-					$nv = $this->msgExt( 'nviews', array( 'escape' ), $wgLang->formatNum( $article->mCounter ) );
+					$nv = $this->msgExt( 'dpl-nviews', array( 'escape' ), $wgLang->formatNum( $article->mCounter ) );
 					$rBody .= ' ' . $wgContLang->getDirMark() . '(' . $nv . ')';
 				}
 				if ( $article->mUserLink != '' )	{
