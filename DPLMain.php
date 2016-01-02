@@ -2978,13 +2978,11 @@ class DPLMain {
 				$sTitleText = substr( $sTitleText, 0, $iTitleMaxLen ) . '...';
 			}
 			if ( $bShowCurID && isset( $row->page_id ) ) {
-				// $articleLink = '<html>'.Linker::makeKnownLinkObj($title, htmlspecialchars($sTitleText),'curid='.$row->page_id).'</html>';
 				$articleLink = '[{{fullurl:' . $title->getText() . '|curid=' . $row->page_id . '}} ' . htmlspecialchars( $sTitleText ) . ']';
 			} else if ( !$bEscapeLinks || ( $pageNamespace != 14 && $pageNamespace != 6 ) ) {
 				// links to categories or images need an additional ":"
 				$articleLink = '[[' . $title->getPrefixedText() . '|' . $wgContLang->convert( $sTitleText ) . ']]';
 			} else {
-				// $articleLink = '<html>'.Linker::makeKnownLinkObj($title, htmlspecialchars($sTitleText)).'</html>';
 				$articleLink = '[{{fullurl:' . $title->getText() . '}} ' . htmlspecialchars( $sTitleText ) . ']';
 			}
 
