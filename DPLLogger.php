@@ -29,17 +29,17 @@ class DPLLogger {
 			$text = '';
 			if ( ExtDynamicPageList::$behavingLikeIntersection ) {
 				if ( $msgid == ExtDynamicPageList::FATAL_TOOMANYCATS ) {
-					$text = wfMsg( 'intersection_toomanycats', $args );
+					$text = wfMessage( 'intersection_toomanycats', $args )->escaped();
 				} elseif ( $msgid == ExtDynamicPageList::FATAL_TOOFEWCATS ) {
-					$text = wfMsg( 'intersection_toofewcats', $args );
+					$text = wfMessage( 'intersection_toofewcats', $args )->escaped();
 				} elseif ( $msgid == ExtDynamicPageList::WARN_NORESULTS ) {
-					$text = wfMsg( 'intersection_noresults', $args );
+					$text = wfMessage( 'intersection_noresults', $args )->escaped();
 				} elseif ( $msgid == ExtDynamicPageList::FATAL_NOSELECTION ) {
-					$text = wfMsg( 'intersection_noincludecats', $args );
+					$text = wfMessage( 'intersection_noincludecats', $args )->escaped();
 				}
 			}
 			if ( $text == '' ) {
-				$text = wfMsg( 'dpl_log_' . $msgid, $args );
+				$text = wfMessage( 'dpl_log_' . $msgid, $args )->escaped();
 				$text = str_replace( '$0', $val, $text );
 			}
 			return '<p>Extension:DynamicPageList (DPL), version ' . ExtDynamicPageList::$DPLVersion . ' : ' . $text . '</p>';

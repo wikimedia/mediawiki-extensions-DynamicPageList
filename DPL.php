@@ -680,7 +680,7 @@ class DPL {
 				}
 
 				if ( !empty( $article->mCategoryLinks ) ) {
-					$rBody .= ' . . <SMALL>' . wfMsg( 'categories' ) . ': ' . implode( ' | ', $article->mCategoryLinks ) . '</SMALL>';
+					$rBody .= ' . . <SMALL>' . wfMessage( 'categories' )->text() . ': ' . implode( ' | ', $article->mCategoryLinks ) . '</SMALL>';
 				}
 				if ( $this->mAddExternalLink && $article->mExternalLink != '' ) {
 					$rBody .= ' → ' . $article->mExternalLink;
@@ -1523,7 +1523,7 @@ class DPL {
 			$options = array( $options );
 		}
 
-		$string = wfMsgNoTrans( $key );
+		$string = wfMessage( $key )->plain();
 
 		$string = wfMsgReplaceArgs( $string, $args );
 

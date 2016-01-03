@@ -3099,7 +3099,7 @@ class DPLMain {
 							$aHeadings[$row->cl_to] = isset( $aHeadings[$row->cl_to] ) ? $aHeadings[$row->cl_to] + 1 : 1;
 							if ( $row->cl_to == '' ) {
 								// uncategorized page (used if ordermethod=category,...)
-								$dplArticle->mParentHLink = '[[:Special:Uncategorizedpages|' . wfMsg( 'uncategorizedpages' ) . ']]';
+								$dplArticle->mParentHLink = '[[:Special:Uncategorizedpages|' . wfMessage( 'uncategorizedpages' )->text() . ']]';
 							} else {
 								$dplArticle->mParentHLink = '[[:Category:' . $row->cl_to . '|' . str_replace( '_', ' ', $row->cl_to ) . ']]';
 							}
