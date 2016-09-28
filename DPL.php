@@ -359,19 +359,20 @@ class DPL {
 			$article = $this->mArticles[$i];
 			$pagename = $article->mTitle->getPrefixedText();
 			$imageUrl = '';
-			if ( $article->mNamespace == 6 ) {
+			if ( $article->mNamespace == NS_FILE ) {
 				// calculate URL for existing images
-				// $img = Image::newFromName($article->mTitle->getText());
-				$img = wfFindFile( Title::makeTitle( NS_IMAGE, $article->mTitle->getText() ) );
+				$img = wfFindFile( Title::makeTitle( NS_FILE, $article->mTitle->getText() ) );
 				if ( $img && $img->exists() ) {
 					$imageUrl = $img->getURL();
 					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', $imageUrl );
 				} else {
-					$iTitle = Title::makeTitleSafe( 6, $article->mTitle->getDBkey() );
+					$iTitle = Title::makeTitleSafe( NS_FILE, $article->mTitle->getDBkey() );
 					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', RepoGroup::singleton()->getLocalRepo()->newFile( $iTitle )->getPath() );
 				}
 			}
-			if ( $this->mEscapeLinks && ( $article->mNamespace == 14 || $article->mNamespace == 6 ) ) {
+			if ( $this->mEscapeLinks && ( $article->mNamespace == NS_CATEGORY
+					|| $article->mNamespace == NS_FILE
+				) ) {
 				// links to categories or images need an additional ":"
 				$pagename = ':' . $pagename;
 			}
