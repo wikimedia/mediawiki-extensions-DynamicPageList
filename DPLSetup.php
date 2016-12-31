@@ -1232,11 +1232,15 @@ class ExtDynamicPageList {
 			$title = Title::newFromText( 'Template:Extension DPL' );
 			global $wgUser;
 			if ( !$title->exists() && $wgUser->isAllowed( 'edit' ) ) {
-				$article = new Article( $title );
-				$article->doEdit(
+				$page = WikiPage::factory( $title );
+				$pageContent = ContentHandler::makeContent(
 					"<noinclude>This page was automatically created. It serves as an anchor page for " .
 					"all '''[[Special:WhatLinksHere/Template:Extension_DPL|invocations]]''' " .
 					"of [http://mediawiki.org/wiki/Extension:DynamicPageList Extension:DynamicPageList (DPL)].</noinclude>",
+					$page->getTitle()
+				);
+				$page->doEditContent(
+					$pageContent,
 					$title,
 					EDIT_NEW | EDIT_FORCE_BOT
 				);

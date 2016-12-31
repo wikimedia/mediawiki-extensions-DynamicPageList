@@ -1068,9 +1068,14 @@ class DPL {
 		$titleX = Title::newFromText( $title );
 		$permissionErrors = $titleX->getUserPermissionsErrors( 'edit', $wgUser );
 		if ( count( $permissionErrors ) == 0 ) {
-			$articleX = new Article( $titleX );
-			$articleX->doEdit( $text, $summary, EDIT_UPDATE | EDIT_DEFER_UPDATES | EDIT_AUTOSUMMARY );
-			$wgOut->redirect( $titleX->getFullURL( $articleX->isRedirect() ? 'redirect=no' : '' ) );
+			$pageX = WikiPage::factory( $titleX );
+			$pageXContent = ContentHandler::makeContent( $text, $pageX->getTitle() );
+			$pageX->doEditContent(
+				$pageXContent,
+				$summary,
+				EDIT_UPDATE | EDIT_DEFER_UPDATES | EDIT_AUTOSUMMARY
+			);
+			$wgOut->redirect( $titleX->getFullURL( $pageX->isRedirect() ? 'redirect=no' : '' ) );
 			return '';
 		} else {
 			$wgOut->showPermissionsErrorPage( $permissionErrors );
