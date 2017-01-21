@@ -1486,7 +1486,6 @@ class DPL {
 			$aArticles_start_char[] = $this->mArticles[$i]->mStartChar;
 			$this->filteredCount = $this->filteredCount + 1;
 		}
-		require_once( 'CategoryPage.php' );
 		if ( count( $aArticles ) > ExtDynamicPageList::$categoryStyleListCutoff ) {
 			return '__NOTOC____NOEDITSECTION__' . CategoryViewer::columnList( $aArticles, $aArticles_start_char );
 		} elseif ( count( $aArticles ) > 0 ) {
