@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Fulup"
-        ]
-    },
-    "intersection_toomanycats": "Error: Re a rummadoù !",
-    "intersection_toofewcats": "Error: Re nebeut a rummadoù !",
-    "intersection_noresults": "Error: Disoc'h ebet !"
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"intersection_toomanycats": "Error: Re a rummadoù !",
+	"intersection_toofewcats": "Error: Re nebeut a rummadoù !",
+	"intersection_noresults": "Error: Disoc'h ebet !"
 }

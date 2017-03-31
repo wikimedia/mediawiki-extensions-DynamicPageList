@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Paucabot",
-            "SMP"
-        ]
-    },
-    "intersection-desc": "Genera una llista d'elements recents en una categoria o en la intersecció de diverses.",
-    "intersection_toomanycats": "Error: Massa categories!",
-    "intersection_toofewcats": "Error: Massa poques categories!",
-    "intersection_noresults": "Error: Cap resultat!",
-    "intersection_noincludecats": "Error: Heu d'incloure almenys una categoria o especificar un espai de noms!"
+	"@metadata": {
+		"authors": [
+			"Paucabot",
+			"SMP"
+		]
+	},
+	"intersection-desc": "Genera una llista d'elements recents en una categoria o en la intersecció de diverses.",
+	"intersection_toomanycats": "Error: Massa categories!",
+	"intersection_toofewcats": "Error: Massa poques categories!",
+	"intersection_noresults": "Error: Cap resultat!",
+	"intersection_noincludecats": "Error: Heu d'incloure almenys una categoria o especificar un espai de noms!"
 }
