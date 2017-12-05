@@ -3235,10 +3235,13 @@ class DPLMain {
 			}
 			$cacheTimeStamp = self::prettyTimeStamp( date( 'YmdHis' ) );
 			$cFile = fopen( $cacheFile, 'w' );
-			fwrite( $cFile, $originalInput );
-			fwrite( $cFile, "+++\n" );
-			fwrite( $cFile, $output );
-			fclose( $cFile );
+			if ( $cFile !== false ) {
+				fwrite( $cFile, $originalInput );
+				fwrite( $cFile, "+++\n" );
+				fwrite( $cFile, $output );
+				fclose( $cFile );
+			}
+			// @todo log something if couldn't write to cache?
 			$dplElapsedTime = time() -$dplStartTime;
 			if ( $logger->iDebugLevel >= 2 ) {
 				$output .= "{{Extension DPL cache|mode=update|page={{FULLPAGENAME}}|cache=$DPLCache|date=$cacheTimeStamp|age=0|now=" .
