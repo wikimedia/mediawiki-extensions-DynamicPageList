@@ -1376,7 +1376,7 @@ class DPLMain {
 
 				case 'dplcache':
 					if ( $sArg != '' ) {
-						$DPLCache = $parser->mTitle->getArticleID() . '_' . str_replace( '/', '_', $sArg ) . '.dplc';
+						$DPLCache = sha1( $parser->mTitle->getArticleID() . '_' . str_replace( '/', '_', $sArg ) ) . '.dplc';
 						$DPLCachePath = $parser->mTitle->getArticleID() % 10;
 					} else {
 						$output .= $logger->msgWrongParam( 'dplcache', $sArg );
