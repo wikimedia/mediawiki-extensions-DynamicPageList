@@ -178,7 +178,6 @@ class DPLInclude {
 	/// Generate a regex to match the section(s) we're interested in.
 	private static function createSectionPattern( $sec, $to, &$any ) {
 		$any = false;
-		$to_sec = ( $to == '' ) ? $sec : $to;
 		if ( $sec[0] == '*' ) {
 			$any = true;
 			if ( $sec == '**' )	{
@@ -188,15 +187,6 @@ class DPLInclude {
 			}
 		} else {
 			$sec = preg_quote( $sec, '/' );
-		}
-		if ( $to_sec[0] == '*' ) {
-			if ( $to_sec == '**' ) {
-				$to_sec = '[^\/>"' . "']+";
-			} else {
-				$to_sec = str_replace( '/', '\/', substr( $to_sec, 1 ) );
-			}
-		} else {
-			$to_sec = preg_quote( $to_sec, '/' );
 		}
 
 		$ws = "(?:\s+[^>]+)?"; // was like $ws="\s*"
@@ -638,7 +628,7 @@ class DPLInclude {
 				$n++;
 				continue;
 			}
-			$c = $tCall[0];
+
 			// normally we construct a call for template2 with the parameters of template1
 			if ( count( $extractParm ) == 0 ) {
 				// find the end of the call: bracket level must be zero
