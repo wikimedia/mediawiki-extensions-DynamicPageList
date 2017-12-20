@@ -1,6 +1,4 @@
 <?php
-// this file is UTF-8 encoded and contains some special characters.
-// Editing this file with an ASCII editor will potentially destroy it!
 
 class DPL {
 

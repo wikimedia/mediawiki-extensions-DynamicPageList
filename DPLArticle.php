@@ -1,6 +1,8 @@
 <?php
 
-// Simple Article/Page class with properties used in the DPL
+/**
+ * Simple Article/Page class with properties used in the DPL
+ */
 class DPLArticle {
 
 	/**
@@ -34,4 +36,5 @@ class DPLArticle {
 		$this->mTitle     = $title;
 		$this->mNamespace = $namespace;
 	}
+
 }

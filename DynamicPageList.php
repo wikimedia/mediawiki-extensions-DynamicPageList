@@ -48,7 +48,6 @@
 	           revision level
 	-  level=4 adds a few additional features which are useful for private websites (like batch updates)
                but should not be made available on huge public websites.
-
 */
 
 // we register the tag <dpl> and function #dpl
@@ -81,4 +80,3 @@ ExtDynamicPageList::$DPLVersion = $DPLVersion;
 
 // use full functionality by default
 ExtDynamicPageList::setFunctionalRichness( 4 );
-

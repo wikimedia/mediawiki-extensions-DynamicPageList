@@ -25,7 +25,6 @@
    This will open the door to a rich set of additional functionality.
    You can decide how much of that additional functionality you want to offer to your users.
    See the documentation in DynamicPageList.php for more details.
-
 */
 
 if ( !defined( 'MEDIAWIKI' ) ) {

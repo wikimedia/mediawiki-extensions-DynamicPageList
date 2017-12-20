@@ -1,6 +1,7 @@
 <?php
 
 class DPLListMode {
+
 	public $name;
 	public $sListStart = '';
 	public $sListEnd = '';
@@ -84,4 +85,5 @@ class DPLListMode {
 				break;
 		}
 	}
+
 }

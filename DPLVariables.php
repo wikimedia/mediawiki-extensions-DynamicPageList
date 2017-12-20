@@ -1,6 +1,7 @@
 <?php
 
 class DPLVariables {
+
 	static $memoryVar   = array();
 	static $memoryArray = array();
 

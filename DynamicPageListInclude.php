@@ -1,6 +1,4 @@
 <?php
-// this file is UTF-8 encoded and contains some special characters.
-// Editing this file with an ASCII editor will potentially destroy it!
 
 /**#@+
  * This is a modified and enhanced copy of a mediawiki extension called
@@ -97,7 +95,6 @@
  *			UNIQ-QINU-Bug: replaced parser->replaceVariables by parser->preprocess
  * @version 2.0
  *			added %ARGS% to template surrogate call
-
  */
 
 class DPLInclude {

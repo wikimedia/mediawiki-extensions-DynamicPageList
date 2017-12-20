@@ -1,6 +1,5 @@
 <?php
-// this file is UTF-8 encoded and contains some special characters.
-// Editing this file with an ASCII editor will potentially destroy it!
+
 /**
  * This file handles the configuration setup for the DynamicPageList extension of MediaWiki.
  * This code is released under the GNU General Public License.
@@ -420,7 +419,6 @@
  *          re-merged all changes from SVN since DPL 1.8.6
  *
  * when making changes here you must update the version field in DynamicPageList.php and DynamicPageListMigration.php !
- *
  */
 
 function ExtDynamicPageList__languageGetMagic( &$magicWords, $langCode ) {
@@ -445,7 +443,6 @@ class ExtDynamicPageList {
 
 	// Debug stuff
 
-	// FATAL
 	const FATAL_WRONGNS                             = 1;    // $0: 'namespace' or 'notnamespace'
                                                             // $1: wrong parameter given by user
                                                             // $3: list of possible titles of namespaces (except pseudo-namespaces: Media, Special)
@@ -475,10 +472,6 @@ class ExtDynamicPageList {
 
 	const FATAL_OPENREFERENCES                      = 12;
 
-	// ERROR
-
-	// WARN
-
 	const WARN_UNKNOWNPARAM                         = 13;   // $0: unknown parameter given by user
                                                             // $1: list of DPL available parameters separated by ', '
 
@@ -499,15 +492,7 @@ class ExtDynamicPageList {
 
 	const WARN_TRANSCLUSIONLOOP                     = 20;   // $0: title of page that creates an infinite transclusion loop
 
-	// INFO
-
-	// DEBUG
-
 	const DEBUG_QUERY                               = 21;   // $0: SQL query executed to generate the dynamic page list
-
-	// TRACE
-															// Output formatting
-                                                            // $1: number of articles
 
 	/**
 	 * Extension options

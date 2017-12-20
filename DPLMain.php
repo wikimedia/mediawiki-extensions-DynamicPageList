@@ -1,17 +1,9 @@
 <?php
-// this file is UTF-8 encoded and contains some special characters.
-// Editing this file with an ASCII editor will potentially destroy it!
 
 class DPLMain {
 
-	/* ============================================================================================================
-	/									  MAIN FUNCTION
-	/  ============================================================================================================
-	*/
-
 	// The real callback function for converting the input text to wiki text output
 	public static function dynamicPageList( $input, $params, $parser, &$bReset, $calledInMode ) {
-		// Output
 		$output = '';
 
 		error_reporting( E_ALL );
@@ -3565,4 +3557,5 @@ class DPLMain {
 			$articles[$a] = $cArticles[$key];
 		}
 	}
+
 }
