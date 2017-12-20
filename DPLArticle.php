@@ -2,6 +2,10 @@
 
 // Simple Article/Page class with properties used in the DPL
 class DPLArticle {
+
+	/**
+	 * @var Title
+	 */
 	public $mTitle = ''; 		// title
 	public $mNamespace = -1;	// namespace (number)
 	public $mID = 0;			// page_id
