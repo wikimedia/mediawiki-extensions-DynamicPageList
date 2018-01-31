@@ -1349,8 +1349,7 @@ class DPL {
 				$wgOut->showPermissionsErrorPage( $permissionErrors );
 				return 'permission error';
 			} else if ( wfReadOnly() ) {
-				$wgOut->readOnlyPage();
-				return 'DPL: read only mode';
+				throw new ReadOnlyError;
 			} else {
 				$articleX = new Article( $titleX );
 				$articleX->doDelete( $reason );
