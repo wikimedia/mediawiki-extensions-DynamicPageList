@@ -4,6 +4,9 @@
 
 class DPL {
 
+	/**
+	 * @var DPLArticle[]
+	 */
 	public $mArticles;
 	public $mHeadingType; 	// type of heading: category, user, etc. (depends on 'ordermethod' param)
 	public $mHListMode; 	// html list mode for headings
@@ -16,6 +19,10 @@ class DPL {
 	public $mIncSecLabelsMatch    = array(); // array of match patterns for sections to transclude
 	public $mIncSecLabelsNotMatch = array(); // array of NOT match patterns for sections to transclude
 	public $mIncParsed;    // whether to match raw parameters or parsed contents
+
+	/**
+	 * @var Parser
+	 */
 	public $mParser;
 	public $mParserOptions;
 	public $mParserTitle;
@@ -23,6 +30,10 @@ class DPL {
 	public $mOutput;
 	public $mReplaceInTitle;
  	public $filteredCount = 0;	// number of (filtered) row count
+
+	/**
+	 * @var string[]
+	 */
 	public $nameSpaces;
 	public $mTableRow;	// formatting rules for table fields
 
@@ -31,7 +42,7 @@ class DPL {
 				 $includeseclabelsnotmatch, $includematchparsed, &$parser, $logger, $replaceInTitle, $iTitleMaxLen,
 				 $defaultTemplateSuffix, $aTableRow, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules ) {
 
-		global $wgContLang;
+		global $wgContLang, $wgHooks;
 		$this->nameSpaces = $wgContLang->getNamespaces();
 		$this->mArticles = $articles;
 		$this->mListMode = $listmode;
@@ -70,30 +81,12 @@ class DPL {
 
 		// The CITE extension registers a hook on parser->clearState
 		// We must UNDO the effect of that call (Cite->clearState) because otherwise all Cititations would be lost
-		// that were made before a DPL call; we borrow a handle to the cite object from the parser´s tag hooks
+		// that were made before a DPL call
 
-		$citeObject = null;
-		// store current state of Cite Object
-		if ( isset( $parser->mTagHooks['references'] ) ) {
-			$citeObject	=	$parser->mTagHooks['references'][0];
-			$tmpCiteGroupCnt			= $citeObject->mGroupCnt;
-			$tmpCiteOutCnt				= $citeObject->mOutCnt;
-			$tmpCiteCallCnt				= $citeObject->mCallCnt;
-			$tmpCiteRefs				= $citeObject->mRefs;
-			$tmpCiteReferencesErrors	= $citeObject->mReferencesErrors;
-			$tmpCiteRefCallStack		= $citeObject->mRefCallStack;
-		}
-		// now clear the state
+		$clearStateHooks = $wgHooks['ParserClearState'];
+		$wgHooks['ParserClearState'] = [];
 		$this->mParser->clearState(); // eliminated to avoid conflict with CITE extension
-		// restore Cite Object
-		if ( $citeObject != null ) {
-			$citeObject->mGroupCnt			= $tmpCiteGroupCnt;
-			$citeObject->mOutCnt			= $tmpCiteOutCnt;
-			$citeObject->mCallCnt			= $tmpCiteCallCnt;
-			$citeObject->mRefs				= $tmpCiteRefs;
-			$citeObject->mReferencesErrors	= $tmpCiteReferencesErrors;
-			$citeObject->mRefCallStack		= $tmpCiteRefCallStack;
-		}
+		$wgHooks['ParserClearState'] = $clearStateHooks;
 
 		$this->mParserOptions = $parser->mOptions;
 		$this->mParserTitle = $parser->mTitle;
