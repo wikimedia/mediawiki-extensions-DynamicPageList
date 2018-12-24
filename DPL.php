@@ -997,7 +997,7 @@ class DPL {
 					foreach ( $parameter as $nr => $parm ) {
 						// set parameters to values specified in the dpl source or get them from the HTTP request
 						if ( $exec == 'set' ) {
-							$myvalue = $value[$nr];
+							$myValue = $value[$nr];
 						} else {
 							if ( $call >= $matchCount ) {
 								break;
