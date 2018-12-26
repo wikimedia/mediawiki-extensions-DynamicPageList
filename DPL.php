@@ -133,7 +133,6 @@ class DPL {
 						if ( $greml > 0 ) {
 							$this->mOutput .= $this->formatList( $nstart -$offset, $portion, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
 							$nstart += $portion;
-							$portion = 0;
 							break;
 						} else {
 							$this->mOutput .= $this->formatList( $nstart -$offset, $portion + $greml, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
@@ -237,7 +236,6 @@ class DPL {
 	}
 
 	function formatCount( $numart ) {
-		global $wgLang;
 		if ( $this->mHeadingType == 'category' ) {
 			$message = 'categoryarticlecount';
 		} else {
@@ -334,7 +332,7 @@ class DPL {
 	}
 
 	function formatList( $iStart, $iCount, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules ) {
-		global $wgUser, $wgLang, $wgContLang;
+		global $wgLang, $wgContLang;
 
 		$mode = $this->mListMode;
 		// categorypage-style list output mode
@@ -761,7 +759,6 @@ class DPL {
 		$optional = array();
 
 		$lastCmd = '';
-		$message = '';
 		$summary = '';
 		$editForm = false;
 		$action = '';
@@ -771,7 +768,6 @@ class DPL {
 		$table = '';
 		$fieldFormat = '';
 
-		// $message .= 'updaterules=<pre><nowiki>';
 		$nr = -1;
 		foreach ( $rules as $rule ) {
 			if ( preg_match( '/^\s*#/', $rule ) > 0 ) {
@@ -891,8 +887,6 @@ class DPL {
 				$summary .= "\n after   $after\n insertionAfter";
 			}
 		}
-
-		// $message.= '</nowiki></pre>';
 
 		// perform changes to the wiki source text =======================================
 

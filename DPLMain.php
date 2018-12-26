@@ -8,7 +8,7 @@ class DPLMain {
 
 		error_reporting( E_ALL );
 
-		global $wgUser, $wgLang, $wgContLang, $wgRequest;
+		global $wgLang, $wgContLang, $wgRequest;
 		global $wgNonincludableNamespaces;
 
 		// logger (display of debug messages)
@@ -26,7 +26,6 @@ class DPLMain {
 
 		// Local parser created. See http://www.mediawiki.org/wiki/Extensions_FAQ#How_do_I_render_wikitext_in_my_extension.3F
 		$localParser = new Parser();
-		$pOptions = $parser->mOptions;
 
 		// check if DPL shall only be executed from protected pages
 		if ( array_key_exists( 'RunFromProtectedPagesOnly', ExtDynamicPageList::$options ) &&
@@ -153,8 +152,6 @@ class DPLMain {
 		$bEscapeLinks = ExtDynamicPageList::$options['escapelinks']['default'];
 		$bSkipThisPage = ExtDynamicPageList::$options['skipthispage']['default'];
 
-		$sHiddenCategories = ExtDynamicPageList::$options['hiddencategories']['default'];
-
 		$sMinorEdits = null;
 		$acceptOpenReferences = self::argBoolean( ExtDynamicPageList::$options['openreferences']['default'] );
 
@@ -172,7 +169,6 @@ class DPLMain {
 		$sQuality   = ExtDynamicPageList::$options['qualitypages']['default'];
 		$sStable	= ExtDynamicPageList::$options['stablepages']['default'];
 
-		$bSuppressErrors  = self::argBoolean( ExtDynamicPageList::$options['suppresserrors']['default'] );
 		$sResultsHeader   = ExtDynamicPageList::$options['resultsheader']['default'];
 		$sResultsFooter   = ExtDynamicPageList::$options['resultsfooter']['default'];
 		$sNoResultsHeader = ExtDynamicPageList::$options['noresultsheader']['default'];
@@ -268,8 +264,6 @@ class DPLMain {
 
 		$_sIncludeMaxLen = ExtDynamicPageList::$options['includemaxlength']['default'];
 		$iIncludeMaxLen = ( $_sIncludeMaxLen == '' ) ? null : intval( $_sIncludeMaxLen );
-
-		$bScroll = self::argBoolean( ExtDynamicPageList::$options['scroll']['default'] );
 
 		$aLinksTo	   = array();
 		$aNotLinksTo	= array();
@@ -446,9 +440,7 @@ class DPLMain {
 					}
 					break;
 				case 'hiddencategories':
-					if ( in_array( $sArg, ExtDynamicPageList::$options['hiddencategories'] ) ) {
-						$sHiddenCategories = $sArg;
-					} else {
+					if ( !in_array( $sArg, ExtDynamicPageList::$options['hiddencategories'] ) ) {
 						$output .= $logger->msgWrongParam( 'hiddencategories', $sArg );
 					}
 					break;
@@ -2875,9 +2867,6 @@ class DPLMain {
 			$dbr->freeResult( $res );
 			return $output;
 		}
-
-		// generate title for Special:Contributions (used if adduser=true)
-		$sSpecContribs = '[[:Special:Contributions|Contributions]]';
 
 		$aHeadings = array(); // maps heading to count (# of pages under each heading)
 		$aArticles = array();

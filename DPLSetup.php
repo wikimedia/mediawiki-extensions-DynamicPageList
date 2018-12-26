@@ -1288,9 +1288,8 @@ class ExtDynamicPageList {
 		// entry point for user tag <dpl> or <DynamicPageList>
 		// create list and do a recursive parse of the output
 
-		// $dump1 = self::dumpParsedRefs($parser,"before DPL tag");
 		$text = DPLMain::dynamicPageList( $input, $params, $parser, $reset, 'tag' );
-		// $dump2 = self::dumpParsedRefs($parser,"after DPL tag");
+
 		if ( $reset[1] ) { // we can remove the templates by save/restore
 			$saveTemplates = $parser->mOutput->mTemplates;
 		}
@@ -1300,7 +1299,9 @@ class ExtDynamicPageList {
 		if ( $reset[3] ) { // we can remove the images by save/restore
 			$saveImages = $parser->mOutput->mImages;
 		}
+
 		$parsedDPL = $parser->recursiveTagParse( $text );
+
 		if ( $reset[1] ) { // TEMPLATES
 			$parser->mOutput->mTemplates = $saveTemplates;
 		}
@@ -1310,8 +1311,7 @@ class ExtDynamicPageList {
 		if ( $reset[3] ) { // IMAGES
 			$parser->mOutput->mImages = $saveImages;
 		}
-		// $dump3 = self::dumpParsedRefs($parser,"after tag parse");
-		// return $dump1.$parsedDPL.$dump2.$dump3;
+
 		return $parsedDPL;
 	}
 
@@ -1338,13 +1338,6 @@ class ExtDynamicPageList {
 			$p1 = $arg_list[$i];
 			$input .= str_replace( "\n", '', $p1 ) . "\n";
 		}
-		// for debugging you may want to uncomment the following statement
-		// return str_replace('§','<','§pre>§nowiki>'.$input.'§/nowiki>§/pre>');
-
-		// $dump1 = self::dumpParsedRefs($parser,"before DPL func");
-		// $text = DPLMain::dynamicPageList($input, $params, $parser, $reset, 'func');
-		// $dump2 = self::dumpParsedRefs($parser,"after DPL func");
-		// return $dump1.$text.$dump2;
 
 		$dplresult = DPLMain::dynamicPageList( $input, $params, $parser, $reset, 'func' );
 		return array( // parser needs to be coaxed to do further recursive processing
@@ -1356,7 +1349,7 @@ class ExtDynamicPageList {
 
 	public static function dplNumParserFunction( &$parser, $text = '' ) {
 		$num = str_replace( '&#160;', ' ', $text );
-		$num = str_replace( '&nbsp;', ' ', $text );
+		$num = str_replace( '&nbsp;', ' ', $num );
 		$num = preg_replace( '/([0-9])([.])([0-9][0-9]?[^0-9,])/', '\1,\3', $num );
 		$num = preg_replace( '/([0-9.]+),([0-9][0-9][0-9])\s*Mrd/', '\1\2 000000 ', $num );
 		$num = preg_replace( '/([0-9.]+),([0-9][0-9])\s*Mrd/', '\1\2 0000000 ', $num );
@@ -1425,7 +1418,7 @@ class ExtDynamicPageList {
 		$sources = array();
 		$targets = array();
 		$from = '';
-		$to = '';
+
 		if ( $flip == '' | $flip == 'normal' ) {
 			$flip = false;
 		} else {
@@ -1506,24 +1499,6 @@ class ExtDynamicPageList {
 		}
 	}
 
-	private static function dumpParsedRefs( $parser, $label ) {
-		// if (!preg_match("/Query Q/",$parser->mTitle->getText())) return '';
-		echo '<pre>parser mLinks: ';
-		ob_start();
-		var_dump( $parser->mOutput->mLinks );
-		$a = ob_get_contents();
-		ob_end_clean();
-		echo htmlspecialchars( $a, ENT_QUOTES );
-		echo '</pre>';
-		echo '<pre>parser mTemplates: ';
-		ob_start();
-		var_dump( $parser->mOutput->mTemplates );
-		$a = ob_get_contents();
-		ob_end_clean();
-		echo htmlspecialchars( $a, ENT_QUOTES );
-		echo '</pre>';
-	}
-
 	// remove section markers in case the LabeledSectionTransclusion extension is not installed.
 	public static function removeSectionMarkers( $in, $assocArgs = array(), $parser = null ) {
 		return '';
@@ -1544,7 +1519,6 @@ class ExtDynamicPageList {
 					self::$fixedCategories[$key] = $val;
 				}
 			}
-			// $text .= self::dumpParsedRefs($parser,"before final reset");
 			if ( self::$createdLinks['resetLinks'] ) {
 				$parser->mOutput->mLinks = array();
 			}
@@ -1557,7 +1531,6 @@ class ExtDynamicPageList {
 			if ( self::$createdLinks['resetImages'] ) {
 				$parser->mOutput->mImages = array();
 			}
-			// $text .= self::dumpParsedRefs($parser,"after final reset");
 			self::$fixedCategories = array();
 		}
 		return true;
@@ -1566,16 +1539,13 @@ class ExtDynamicPageList {
 	public static function endEliminate( &$parser, &$text ) {
 		// called during the final output phase; removes links created by DPL
 		if ( isset( self::$createdLinks ) ) {
-			// self::dumpParsedRefs($parser,"before final eliminate");
 			if ( array_key_exists( 0, self::$createdLinks ) ) {
 				foreach ( $parser->mOutput->getLinks() as $nsp => $link ) {
 					if ( !array_key_exists( $nsp, self::$createdLinks[0] ) ) {
 						continue;
 					}
-					// echo ("<pre> elim: created Links [$nsp] = ". count(ExtDynamicPageList::$createdLinks[0][$nsp])."</pre>\n");
-					// echo ("<pre> elim: parser Links [$nsp] = ". count($parser->mOutput->mLinks[$nsp])			."</pre>\n");
+
 					$parser->mOutput->mLinks[$nsp] = array_diff_assoc( $parser->mOutput->mLinks[$nsp], self::$createdLinks[0][$nsp] );
-					// echo ("<pre> elim: parser Links [$nsp] nachher = ". count($parser->mOutput->mLinks[$nsp])	 ."</pre>\n");
 					if ( count( $parser->mOutput->mLinks[$nsp] ) == 0 ) {
 						unset( $parser->mOutput->mLinks[$nsp] );
 					}
@@ -1586,10 +1556,8 @@ class ExtDynamicPageList {
 					if ( !array_key_exists( $nsp, self::$createdLinks[1] ) ) {
 						continue;
 					}
-					// echo ("<pre> elim: created Tpls [$nsp] = ". count(ExtDynamicPageList::$createdLinks[1][$nsp])."</pre>\n");
-					// echo ("<pre> elim: parser Tpls [$nsp] = ". count($parser->mOutput->mTemplates[$nsp])			."</pre>\n");
+
 					$parser->mOutput->mTemplates[$nsp] = array_diff_assoc( $parser->mOutput->mTemplates[$nsp], self::$createdLinks[1][$nsp] );
-					// echo ("<pre> elim: parser Tpls [$nsp] nachher = ". count($parser->mOutput->mTemplates[$nsp])	 ."</pre>\n");
 					if ( count( $parser->mOutput->mTemplates[$nsp] ) == 0 ) {
 						unset( $parser->mOutput->mTemplates[$nsp] );
 					}
@@ -1601,7 +1569,6 @@ class ExtDynamicPageList {
 			if ( isset( self::$createdLinks ) && array_key_exists( 3, self::$createdLinks ) ) {
 				$parser->mOutput->mImages = array_diff_assoc( $parser->mOutput->mImages, self::$createdLinks[3] );
 			}
-			// $text .= self::dumpParsedRefs($parser,"after final eliminate".$parser->mTitle->getText());
 		}
 
 		// self::$createdLinks=array(
