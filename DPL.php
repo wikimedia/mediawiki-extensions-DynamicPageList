@@ -717,7 +717,9 @@ class DPL {
 		$actStart = $mode->sListStart;
 		$start = preg_replace( '/.*start=([0-9]+).*/', '\1', $actStart );
 		if ( $start != '' ) {
-			$start += $iCount;
+			// cast to integer else will throw non-numeric value is encountered
+			// warning as experienced from PHP 7.1+ (as $start is a string here)
+			$start = (int)$start + $iCount;
 			$mode->sListStart = preg_replace( '/start=[0-9]+/', "start=$start", $actStart );
 		}
 
