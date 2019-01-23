@@ -542,8 +542,7 @@ class DPL {
  							$template2 = trim( str_replace( '}', '', substr( $sSecLabel, 1 ) ) );
 							// alternate syntax: {template|surrogate}
 							if ( $template2 == $template1 && strpos( $template1, '|' ) > 0 ) {
-								$template1 = preg_replace( '/\|.*/' , '', $template1 );
-								$template2 = preg_replace( '/^.+\|/', '', $template2 );
+								list( $template1, $template2 ) = explode( '|', $template1, 2 );
 							}
 							$secPieces = DPLInclude::includeTemplate(
 								$this->mParser, $this, $s, $article, $template1,
@@ -776,8 +775,8 @@ class DPL {
 				continue; // # is comment symbol
 			}
 
-			$rule = preg_replace( '/^[\s]*/', '', $rule ); // strip leading white space
-			$cmd = preg_split( "/ +/", $rule, 2 );
+			$rule = preg_replace( '/^\s+/', '', $rule ); // strip leading white space
+			$cmd = preg_split( '/ +/', $rule, 2 );
 			if ( count( $cmd ) > 1 ) {
 				$arg = $cmd[1];
 			} else {
@@ -1070,8 +1069,7 @@ class DPL {
 	}
 
 	function editTemplateCall( $text, $template, $call, $parameter, $type, $value, $format, $legend, $instruction, $optional, $fieldFormat ) {
-		$matches = array();
-		$nlCount = preg_match_all( '/\n/', $value, $matches );
+		$nlCount = substr_count( $value, "\n" );
 		if ( $nlCount > 0 ) {
 			$rows = $nlCount + 1;
 		} else {
@@ -1308,8 +1306,8 @@ class DPL {
 				continue; // # is comment symbol
 			}
 
-			$rule = preg_replace( '/^[\s]*/', '', $rule ); // strip leading white space
-			$cmd = preg_split( "/ +/", $rule, 2 );
+			$rule = preg_replace( '/^\s+/', '', $rule ); // strip leading white space
+			$cmd = preg_split( '/ +/', $rule, 2 );
 			if ( count( $cmd ) > 1 ) {
 				$arg = $cmd[1];
 			} else {
