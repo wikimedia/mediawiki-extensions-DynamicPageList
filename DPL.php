@@ -531,7 +531,7 @@ class DPL {
 								$dominantPieces = $secPieces;
 							}
 							if ( ( $mustMatch != '' || $mustNotMatch != '' ) && count( $secPieces ) <= 0 ) {
-								$matchFailed = true; // NOTHING MATCHED
+								$matchFailed = true;
 								break;
 							}
 
@@ -557,7 +557,7 @@ class DPL {
 								$dominantPieces = $secPieces;
 							}
 							if ( ( $mustMatch != '' || $mustNotMatch != '' ) && count( $secPieces ) <= 1 && $secPieces[0] == '' ) {
-								$matchFailed = true; // NOTHING MATCHED
+								$matchFailed = true;
 								break;
 							}
 						} else {
