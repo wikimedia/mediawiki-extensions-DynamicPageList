@@ -6,34 +6,106 @@ class DPL {
 	 * @var DPLArticle[]
 	 */
 	public $mArticles;
-	public $mHeadingType; 	// type of heading: category, user, etc. (depends on 'ordermethod' param)
-	public $mHListMode; 	// html list mode for headings
-	public $mListMode;		// html list mode for pages
-	public $mEscapeLinks;	// whether to escape img/cat or not
-	public $mAddExternalLink; // whether to add the text of an external link or not
-	public $mIncPage; 		// true only if page transclusion is enabled
-	public $mIncMaxLen; 	// limit for text to include
-	public $mIncSecLabels         = array(); // array of labels of sections to transclude
-	public $mIncSecLabelsMatch    = array(); // array of match patterns for sections to transclude
-	public $mIncSecLabelsNotMatch = array(); // array of NOT match patterns for sections to transclude
-	public $mIncParsed;    // whether to match raw parameters or parsed contents
+
+	/**
+	 * @var string Type of heading: category, user, etc. (depends on 'ordermethod' param)
+	 */
+	public $mHeadingType;
+
+	/**
+	 * @var DPLListMode HTML list mode for headings
+	 */
+	public $mHListMode;
+
+	/**
+	 * @var DPLListMode HTML list mode for pages
+	 */
+	public $mListMode;
+
+	/**
+	 * @var bool Whether to escape img/cat or not
+	 */
+	public $mEscapeLinks;
+
+	/**
+	 * @var bool Whether to add the text of an external link or not
+	 */
+	public $mAddExternalLink;
+
+	/**
+	 * @var bool True only if page transclusion is enabled
+	 */
+	public $mIncPage;
+
+	/**
+	 * @var int Limit for text to include
+	 */
+	public $mIncMaxLen;
+
+	/**
+	 * @var string[] Array of labels of sections to transclude
+	 */
+	public $mIncSecLabels = array();
+
+	/**
+	 * @var string[] Array of matching regular expression patterns for sections to transclude
+	 */
+	public $mIncSecLabelsMatch = array();
+
+	/**
+	 * @var string[] Array of *not* matching regular expression patterns for sections to transclude
+	 */
+	public $mIncSecLabelsNotMatch = array();
+
+	/**
+	 * @var bool Whether to match raw parameters or parsed contents
+	 */
+	public $mIncParsed;
 
 	/**
 	 * @var Parser
 	 */
 	public $mParser;
+
+	/**
+	 * @var ParserOptions
+	 */
 	public $mParserOptions;
+
+	/**
+	 * @var Title
+	 */
 	public $mParserTitle;
-	public $mLogger; 		// DPLLogger
+
+	/**
+	 * @var DPLLogger
+	 */
+	public $mLogger;
+
+	/**
+	 * @var string Wikitext
+	 */
 	public $mOutput;
-	public $mReplaceInTitle;
-	public $filteredCount = 0; // number of (filtered) row count
 
 	/**
 	 * @var string[]
 	 */
+	public $mReplaceInTitle;
+
+	/**
+	 * @var int Number of (filtered) row count
+	 */
+	public $filteredCount = 0;
+
+	/**
+	 * @var string[] List of localized namespace names, indexed by numeric namespace ID.
+	 */
 	public $nameSpaces;
-	public $mTableRow; // formatting rules for table fields
+
+	/**
+	 * @var string[] Formatting rules for table fields
+	 */
+	public $mTableRow;
 
 	function __construct( $headings, $bHeadingCount, $iColumns, $iRows, $iRowSize, $sRowColFormat, $articles, $headingtype, $hlistmode,
 				 $listmode, $bescapelinks, $baddexternallink, $includepage, $includemaxlen, $includeseclabels, $includeseclabelsmatch,

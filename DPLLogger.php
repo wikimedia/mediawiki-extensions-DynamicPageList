@@ -2,8 +2,14 @@
 
 class DPLLogger {
 
+	/**
+	 * @var bool
+	 */
 	static $loaded = true;
 
+	/**
+	 * @var int
+	 */
 	public $iDebugLevel;
 
 	function __construct() {

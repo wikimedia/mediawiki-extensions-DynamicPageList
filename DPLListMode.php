@@ -2,7 +2,11 @@
 
 class DPLListMode {
 
+	/**
+	 * @var string
+	 */
 	public $name;
+
 	public $sListStart = '';
 	public $sListEnd = '';
 	public $sHeadingStart = '';

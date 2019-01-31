@@ -1251,7 +1251,11 @@ class ExtDynamicPageList {
 					',
 	);
 
+	/**
+	 * @var int[]
+	 */
 	public static $debugMinLevels = array();
+
 	public static $createdLinks; // the links created by DPL are collected here;
 								// they can be removed during the final ouput
 								// phase of the MediaWiki parser

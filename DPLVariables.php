@@ -2,7 +2,14 @@
 
 class DPLVariables {
 
-	static $memoryVar   = array();
+	/**
+	 * @var string[]
+	 */
+	static $memoryVar = array();
+
+	/**
+	 * @var array[]
+	 */
 	static $memoryArray = array();
 
 	// expects pairs of 'variable name' and 'value'
