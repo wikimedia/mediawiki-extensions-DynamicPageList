@@ -1369,7 +1369,7 @@ class ExtDynamicPageList {
 		$args = func_get_args();
 		if ( $cmd == 'set' ) {
 			return DPLVariables::setVar( $args );
-		} else if ( $cmd == 'default' ) {
+		} elseif ( $cmd == 'default' ) {
 			return DPLVariables::setVarDefault( $args );
 		}
 		return DPLVariables::getVar( $cmd );
@@ -1450,7 +1450,7 @@ class ExtDynamicPageList {
 					}
 					$m[$from[0]] = array();
 				}
-			} else if ( trim( $line ) != '' ) {
+			} elseif ( trim( $line ) != '' ) {
 				$to = preg_split( ' *\~\~ *', trim( $line ), 2 );
 				if ( count( $to ) < 2 || $to[1] == '' ) {
 					$targets[$to[0]] = $to[0];

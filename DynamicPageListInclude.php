@@ -346,7 +346,7 @@ class DPLInclude {
 				}
 			}
 			return $cut . $link;
-		} else if ( $limit == 0 ) {
+		} elseif ( $limit == 0 ) {
 			return $link;
 		} else {
 			// otherwise we recurse and try again with twice the limit size; this will lead to bigger output but
@@ -401,7 +401,7 @@ class DPLInclude {
 			} else {
 				if ( $nr != 0 ) {
 					$pat = '^(={1,6})\s*[^=\s\n][^\n=]*\s*\1\s*($)';
-				} else if ( $isPlain ) {
+				} elseif ( $isPlain ) {
 					$pat = '^(={1,6})\s*' . preg_quote( $sec, '/' ) . '\s*\1\s*($)';
 				} else {
 					$pat = '^(={1,6})\s*' . str_replace( '/', '\/', $sec ) . '\s*\1\s*($)';
@@ -412,7 +412,7 @@ class DPLInclude {
 					$begin_off = $m[$no_parenthesis][1];
 					$head_len = strlen( $m[1][0] );
 					$headLine = trim( $m[0][0], "\n =\t" );
-				} else if ( $nr == -2 ) {
+				} elseif ( $nr == -2 ) {
 					$m[1][1] = strlen( $text ) + 1; // take whole article if no heading found
 				} else {
 					// match failed
@@ -424,9 +424,9 @@ class DPLInclude {
 			$link = $cLink;
 			if ( $link == 'default' ) {
 				$link = ' [[' . $page . '#' . $headLine . '|..→]]';
-			} else if ( strstr( $link, 'img=' ) != false ) {
+			} elseif ( strstr( $link, 'img=' ) != false ) {
 				$link = str_replace( 'img=', "<linkedimage>page=" . $page . '#' . $headLine . "\nimg=Image:", $link ) . "\n</linkedimage>";
-			} else if ( strstr( $link, '%SECTION%' ) == false ) {
+			} elseif ( strstr( $link, '%SECTION%' ) == false ) {
 				$link = ' [[' . $page . '#' . $headLine . '|' . $link . ']]';
 			} else {
 				$link = str_replace( '%SECTION%', $page . '#' . $headLine, $link );
@@ -463,7 +463,7 @@ class DPLInclude {
 				}
 				if ( preg_match( "/$pat/im", $text, $mm, PREG_OFFSET_CAPTURE, $begin_off ) ) {
 					$end_off = $mm[0][1] -1;
-				} else if ( $sec == '' ) {
+				} elseif ( $sec == '' ) {
 					$end_off = -1;
 				}
 			}
@@ -549,7 +549,7 @@ class DPLInclude {
 					$tCalls[$i][$n] = ' ';
 				}
 			}
-		} else if ( $template1 != '' && $template1[0] == '~' ) {
+		} elseif ( $template1 != '' && $template1[0] == '~' ) {
 			// --------------------------------------------- looking for an XML tag extension call
 			$template1 = substr( $template1, 1 );
 			$template2 = substr( $template2, 1 );

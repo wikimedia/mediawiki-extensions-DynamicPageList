@@ -395,7 +395,7 @@ class DPLMain {
 					foreach ( $aParams as $sParam ) {
 						$sParam = trim( $sParam );
 						if ( $sParam == '' ) { // ignore empty line
-						} else if ( $sParam == '_none_' ) { // include uncategorized pages (special value: empty string)
+						} elseif ( $sParam == '_none_' ) { // include uncategorized pages (special value: empty string)
 							$aParams[$sParam] = '';
 							$bIncludeUncat = true;
 							$aCategories[] = '';
@@ -460,7 +460,7 @@ class DPLMain {
 						if ( in_array( $sNs, ExtDynamicPageList::$options['namespace'] ) ) {
 							$aNamespaces[] = $wgContLang->getNsIndex( $sNs );
 							$bSelectionCriteriaFound = true;
-						} else if ( array_key_exists( $sNs, array_keys( ExtDynamicPageList::$options['namespace'] ) ) ) {
+						} elseif ( array_key_exists( $sNs, array_keys( ExtDynamicPageList::$options['namespace'] ) ) ) {
 							$aNamespaces[] = $sNs;
 							$bSelectionCriteriaFound = true;
 						} else {
@@ -555,7 +555,7 @@ class DPLMain {
 						if ( $sArg == 'none' ) {
 							$sPageListMode = 'inline';
 							$sInlTxt = '<br/>';
-						} else if ( $sArg == 'userformat' ) {
+						} elseif ( $sArg == 'userformat' ) {
 							// userformat resets inline text to empty string
 							$sInlTxt = '';
 							$sPageListMode = $sArg;
@@ -671,7 +671,7 @@ class DPLMain {
 					if ( in_array( $sArg, ExtDynamicPageList::$options['distinct'] ) ) {
 						if ( $sArg == 'strict' ) {
 							$sDistinctResultSet = 'strict';
-						} else if ( self::argBoolean( $sArg ) ) {
+						} elseif ( self::argBoolean( $sArg ) ) {
 							$sDistinctResultSet = 'true';
 						} else {
 							$sDistinctResultSet = 'false';
@@ -688,7 +688,7 @@ class DPLMain {
 				case 'ordercollation':
 					if ( $sArg == 'bridge' ) {
 						$bOrderSuitSymbols = true;
-					} else if ( $sArg != '' ) {
+					} elseif ( $sArg != '' ) {
 						$sOrderCollation = "COLLATE $sArg";
 					}
 					break;
@@ -1387,20 +1387,20 @@ class DPLMain {
 						}
 						if ( !in_array( $arg, ExtDynamicPageList::$options['reset'] ) ) {
 							$output .= $logger->msgWrongParam( 'reset', $arg );
-						} else if ( $arg == 'links' ) {
+						} elseif ( $arg == 'links' ) {
 							$bReset[0] = true;
-						} else if ( $arg == 'templates' ) {
+						} elseif ( $arg == 'templates' ) {
 							$bReset[1] = true;
-						} else if ( $arg == 'categories' ) {
+						} elseif ( $arg == 'categories' ) {
 							$bReset[2] = true;
-						} else if ( $arg == 'images' ) {
+						} elseif ( $arg == 'images' ) {
 							$bReset[3] = true;
-						} else if ( $arg == 'all' ) {
+						} elseif ( $arg == 'all' ) {
 							$bReset[0] = true;
 							$bReset[1] = true;
 							$bReset[2] = true;
 							$bReset[3] = true;
-						} else if ( $arg == 'none' ); // do nothing
+						} elseif ( $arg == 'none' ); // do nothing
 					}
 					break;
 
@@ -1412,20 +1412,20 @@ class DPLMain {
 						}
 						if ( !in_array( $arg, ExtDynamicPageList::$options['eliminate'] ) ) {
 							$output .= $logger->msgWrongParam( 'eliminate', $arg );
-						} else if ( $arg == 'links' ) {
+						} elseif ( $arg == 'links' ) {
 							$bReset[4] = true;
-						} else if ( $arg == 'templates' ) {
+						} elseif ( $arg == 'templates' ) {
 							$bReset[5] = true;
-						} else if ( $arg == 'categories' ) {
+						} elseif ( $arg == 'categories' ) {
 							$bReset[6] = true;
-						} else if ( $arg == 'images' ) {
+						} elseif ( $arg == 'images' ) {
 							$bReset[7] = true;
-						} else if ( $arg == 'all' ) {
+						} elseif ( $arg == 'all' ) {
 							$bReset[4] = true;
 							$bReset[5] = true;
 							$bReset[6] = true;
 							$bReset[7] = true;
-						} else if ( $arg == 'none' ) {
+						} elseif ( $arg == 'none' ) {
 							$bReset[4] = false;
 							$bReset[5] = false;
 							$bReset[6] = false;
@@ -2914,7 +2914,7 @@ class DPLMain {
 			if ( $sGoal == 'categories' ) {
 				$pageNamespace = 14; // CATEGORY
 				$pageTitle	 = $row->cl_to;
-			} else if ( $acceptOpenReferences ) {
+			} elseif ( $acceptOpenReferences ) {
 				if ( count( $aImageContainer ) > 0 ) {
 					$pageNamespace = 6;
 					$pageTitle	 = $row->il_to;
@@ -2960,7 +2960,7 @@ class DPLMain {
 			}
 			if ( $bShowCurID && isset( $row->page_id ) ) {
 				$articleLink = '[{{fullurl:' . $title->getText() . '|curid=' . $row->page_id . '}} ' . htmlspecialchars( $sTitleText ) . ']';
-			} else if ( !$bEscapeLinks || ( $pageNamespace != 14 && $pageNamespace != 6 ) ) {
+			} elseif ( !$bEscapeLinks || ( $pageNamespace != 14 && $pageNamespace != 6 ) ) {
 				// links to categories or images need an additional ":"
 				$articleLink = '[[' . $title->getPrefixedText() . '|' . $wgContLang->convert( $sTitleText ) . ']]';
 			} else {
@@ -3138,7 +3138,7 @@ class DPLMain {
 		$header = '';
 		if ( $sOneResultHeader != '' && $rowcount == 1 ) {
 			$header = str_replace( '%TOTALPAGES%', $rowcount, str_replace( '%PAGES%', 1, $sOneResultHeader ) );
-		} else if ( $rowcount == 0 ) {
+		} elseif ( $rowcount == 0 ) {
 			$header = str_replace( '%TOTALPAGES%', $rowcount, str_replace( '%PAGES%', $dpl->getRowCount(), $sNoResultsHeader ) );
 			if ( $sNoResultsHeader != '' ) {
 				$output .= str_replace( '\n', "\n", str_replace( "¶", "\n", $header ) );
@@ -3204,7 +3204,7 @@ class DPLMain {
 		if ( $DPLCache != '' ) {
 			if ( !is_writeable( $cacheFile ) ) {
 				wfMkdirParents( dirname( $cacheFile ) );
-			} else if (
+			} elseif (
 				( $bDPLRefresh || $wgRequest->getVal( 'action', 'view' ) == 'submit' ) &&
 				strpos( $DPLCache, '/' ) > 0 && strpos( $DPLCache, '..' ) === false
 			)
@@ -3516,20 +3516,20 @@ class DPLMain {
 					$suit = substr( $tok, 1 );
 					if ( $suit == '♣' ) {
 						$newkey .= '1';
-					} else if ( $suit == '♦' ) {
+					} elseif ( $suit == '♦' ) {
 						$newkey .= '2';
-					} else if ( $suit == '♥' ) {
+					} elseif ( $suit == '♥' ) {
 						$newkey .= '3';
-					} else if ( $suit == '♠' ) {
+					} elseif ( $suit == '♠' ) {
 						$newkey .= '4';
-					} else if ( $suit == 'sa' || $suit == 'SA' || $suit == 'nt' || $suit == 'NT' ) {
+					} elseif ( $suit == 'sa' || $suit == 'SA' || $suit == 'nt' || $suit == 'NT' ) {
 						$newkey .= '5 ';
 					} else {
 						$newkey .= $suit;
 					}
-				} else if ( $initial == 'P' || $initial == 'p' ) {
+				} elseif ( $initial == 'P' || $initial == 'p' ) {
 					$newkey .= '0 ';
-				} else if ( $initial == 'X' || $initial == 'x' ) {
+				} elseif ( $initial == 'X' || $initial == 'x' ) {
 					$newkey .= '8 ';
 				} else {
 					$newkey .= $tok;

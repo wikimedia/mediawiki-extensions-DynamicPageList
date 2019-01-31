@@ -176,7 +176,7 @@ class DPL {
 				}
 				$this->mOutput .= $hlistmode->sListEnd;
 			}
-		} else if ( $iColumns != 1 || $iRows != 1 ) {
+		} elseif ( $iColumns != 1 || $iRows != 1 ) {
 			// repeat outer tags for each of the specified columns / rows in the output
 			$nstart = 0;
 			$count = count( $articles );
@@ -208,7 +208,7 @@ class DPL {
 				}
 			}
 			$this->mOutput .= "\n|}\n";
-		} else if ( $iRowSize > 0 ) {
+		} elseif ( $iRowSize > 0 ) {
 			// repeat row header after n lines of output
 			$nstart = 0;
 			$nsize = $iRowSize;
@@ -395,7 +395,7 @@ class DPL {
 							$message = $this->updateArticleByRule( $title, $text, $updateRules );
 							// append update message to output
 							$incwiki .= $message;
-						} else if ( $deleteRules != '' ) {
+						} elseif ( $deleteRules != '' ) {
 							$message = $this->deleteArticleByRule( $title, $text, $deleteRules );
 							// append delete message to output
 							$incwiki .= $message;
@@ -439,7 +439,7 @@ class DPL {
 							// if maxlen was 0 we suppress all output; note that for matching we used the full text
 							$secPieces = array( '' );
 							$this->formatSingleItems( $secPieces, $s, $article );
-						} else if ( $sSecLabel[0] != '{' ) {
+						} elseif ( $sSecLabel[0] != '{' ) {
 							$limpos = strpos( $sSecLabel, '[' );
 							$cutLink = 'default';
 							$skipPattern = array();
@@ -480,7 +480,7 @@ class DPL {
 						$sectionHeading[0] = '';
 						if ( $sSecLabel == '-' ) {
 							$secPiece[$s] = $secPieces[0];
-						} else if ( $sSecLabel[0] == '#' || $sSecLabel[0] == '@' ) {
+						} elseif ( $sSecLabel[0] == '#' || $sSecLabel[0] == '@' ) {
 							$sectionHeading[0] = substr( $sSecLabel, 1 );
 							// Uses DPLInclude::includeHeading() from LabeledSectionTransclusion extension to include headings from the page
 							$secPieces = DPLInclude::includeHeading( $this->mParser, $article->mTitle->getPrefixedText(), substr( $sSecLabel, 1 ), '',
@@ -535,7 +535,7 @@ class DPL {
 								break;
 							}
 
-						} else if ( $sSecLabel[0] == '{' ) {
+						} elseif ( $sSecLabel[0] == '{' ) {
 							// Uses DPLInclude::includeTemplate() from LabeledSectionTransclusion extension to include templates from the page
 							// primary syntax {template}suffix
  							$template1 = trim( substr( $sSecLabel, 1, strpos( $sSecLabel, '}' ) -1 ) );
@@ -582,7 +582,7 @@ class DPL {
 						if ( count( $mode->sSectionTags ) == 1 ) {
 							// If there is only one separator tag use it always
 							$septag[$s * 2] = str_replace( '%SECTION%', $sectionHeading[0], $this->substTagParm( $mode->sSectionTags[0], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ) );
-						} else if ( isset( $mode->sSectionTags[$s * 2] ) ) {
+						} elseif ( isset( $mode->sSectionTags[$s * 2] ) ) {
 							$septag[$s * 2] = str_replace( '%SECTION%', $sectionHeading[0], $this->substTagParm( $mode->sSectionTags[$s * 2], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ) );
 						} else {
 							$septag[$s * 2] = '';
@@ -986,7 +986,7 @@ class DPL {
 				}
 				$form .= "</form></html>\n";
 				return $form;
-			} else if ( $exec == 'set' || $exec == 'preview' ) {
+			} elseif ( $exec == 'set' || $exec == 'preview' ) {
 				// loop over all invocations and parameters, this could be improved to enhance performance
 				$matchCount = 10;
 				for ( $call = 0; $call < 10; $call++ ) {
@@ -1019,7 +1019,7 @@ class DPL {
 
 		if 	( $exec == 'set' )	{
 			return $this->updateArticle( $title, $text, $summary );
-		} else if ( $exec == 'preview' ) {
+		} elseif ( $exec == 'preview' ) {
 			global $wgScriptPath, $wgRequest;
 			$titleX = Title::newFromText( $title );
 			$articleX = new Article( $titleX );
@@ -1335,7 +1335,7 @@ class DPL {
 			if ( count( $permissionErrors ) > 0 ) {
 				$wgOut->showPermissionsErrorPage( $permissionErrors );
 				return 'permission error';
-			} else if ( wfReadOnly() ) {
+			} elseif ( wfReadOnly() ) {
 				throw new ReadOnlyError;
 			} else {
 				$articleX = new Article( $titleX );
