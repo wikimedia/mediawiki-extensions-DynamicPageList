@@ -433,7 +433,7 @@ class DPLMain {
 						if ( $bHeading ) {
 							$aCatHeadings = array_unique( $aCatHeadings + $aCategories );
 						}
-						if ( $bNotHeading )	{
+						if ( $bNotHeading ) {
 							$aCatNotHeadings = array_unique( $aCatNotHeadings + $aCategories );
 						}
 						$bConflictsWithOpenReferences = true;
@@ -1671,8 +1671,7 @@ class DPLMain {
 					if (
 						$wgRequest->getVal( 'action', 'view' ) != 'submit' ||
 						( $originalInput == substr( $cachedOutput, 0, $cachedOutputPos ) )
-					)
-					{
+					) {
 						$cacheTimeStamp = self::prettyTimeStamp( date( 'YmdHis', filemtime( $cacheFile ) ) );
 						$cachePeriod = self::durationTime( $iDPLCachePeriod );
 						$diffTime = self::durationTime( $diff );
@@ -1742,8 +1741,7 @@ class DPLMain {
 					in_array( 'ExtDynamicPageList::endReset', $wgHooks['ParserAfterTidy'] ) ||
 					in_array( array( 'ExtDynamicPageList', 'endReset' ), $wgHooks['ParserAfterTidy'], true )
 				)
-			)
-			{
+			) {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endReset';
 			}
 		}
@@ -1841,9 +1839,10 @@ class DPLMain {
 		}
 
 		// add*** parameters have no effect with 'mode=category' (only namespace/title can be viewed in this mode)
-		if ( $sPageListMode == 'category' && ( $bAddCategories || $bAddEditDate || $bAddFirstCategoryDate || $bAddPageTouchedDate
-											|| $bIncPage || $bAddUser || $bAddAuthor || $bAddContribution || $bAddLastEditor ) )
-		{
+		if ( $sPageListMode == 'category' &&
+			( $bAddCategories || $bAddEditDate || $bAddFirstCategoryDate || $bAddPageTouchedDate
+				|| $bIncPage || $bAddUser || $bAddAuthor || $bAddContribution || $bAddLastEditor )
+		) {
 			$output .= $logger->escapeMsg( ExtDynamicPageList::WARN_CATOUTPUTBUTWRONGPARAMS );
 		}
 
@@ -1867,7 +1866,7 @@ class DPLMain {
 			$sInlTxt = '';
 			$withHLink = "[[%PAGE%|%TITLE%]]\n|";
 			foreach ( explode( ',', $sTable ) as $tabnr => $tab ) {
-				if ( $tabnr == 0 ) 	{
+				if ( $tabnr == 0 ) {
 					if ( $tab == '' ) {
 						$tab = 'class=wikitable';
 					}
@@ -1891,7 +1890,7 @@ class DPLMain {
 			$aListSeparators[3] = "\n|}";
 
 			for ( $i = 0; $i < count( $aSecLabels ); $i++ ) {
-				if ( $i == 0 )	{
+				if ( $i == 0 ) {
 					$aSecSeparators[0] = "\n|-\n|" . $withHLink; // ."\n";
 					$aSecSeparators[1] = '';
 					$aMultiSecSeparators[0] = "\n|-\n|" . $withHLink; // ."\n";
@@ -1928,8 +1927,7 @@ class DPLMain {
 			!ExtDynamicPageList::$allowUnlimitedResults &&
 			$sGoal != 'categories' &&
 			strpos( $sResultsHeader . $sResultsFooter . $sNoResultsHeader, '%TOTALPAGES%' ) !== false
-		)
-		{
+		) {
 			$sSqlCalcFoundRows = 'SQL_CALC_FOUND_ROWS';
 		}
 		if ( $sDistinctResultSet == 'false' ) {
@@ -1941,8 +1939,7 @@ class DPLMain {
 		if (
 			$sDistinctResultSet == 'strict' &&
 			( count( $aLinksTo ) + count( $aNotLinksTo ) + count( $aLinksFrom ) + count( $aNotLinksFrom ) + count( $aLinksToExternal ) + count( $aImageUsed ) ) > 0
-		)
-		{
+		) {
 			$sSqlGroupBy = 'page_title';
 		}
 		$sSqlSortkey = '';
@@ -2319,7 +2316,7 @@ class DPLMain {
 					$sSqlCond_page_pl .= ' OR ';
 				}
 				$sSqlCond_page_pl .= '(tl.tl_namespace=' . intval( $link->getNamespace() );
-				if ( $bIgnoreCase )	{
+				if ( $bIgnoreCase ) {
 					$sSqlCond_page_pl .= ' AND LOWER(CAST(tl.tl_title AS char))=LOWER(' . $dbr->addQuotes( $link->getDBkey() ) . '))';
 				} else {
 					$sSqlCond_page_pl .= ' AND tl.tl_title=' . $dbr->addQuotes( $link->getDBkey() ) . ')';
@@ -2338,7 +2335,7 @@ class DPLMain {
 					$sSqlCond_page_pl .= ' OR ';
 				}
 				$sSqlCond_page_pl .= '(' . $sTemplateLinksTable . '.tl_namespace=' . intval( $link->getNamespace() );
-				if ( $bIgnoreCase )	{
+				if ( $bIgnoreCase ) {
 					$sSqlCond_page_pl .= ' AND LOWER(CAST(' . $sTemplateLinksTable . '.tl_title AS char))=LOWER(' . $dbr->addQuotes( $link->getDBkey() ) . '))';
 				} else {
 					$sSqlCond_page_pl .= ' AND ' . $sTemplateLinksTable . '.tl_title=' . $dbr->addQuotes( $link->getDBkey() ) . ')';
@@ -2683,8 +2680,7 @@ class DPLMain {
 			is_array( $wgNonincludableNamespaces ) &&
 			array_count_values( $wgNonincludableNamespaces ) > 0 &&
 			implode( ',', $wgNonincludableNamespaces ) != ''
-		)
-		{
+		) {
 			$sSqlWhere .= ' AND ' . $sPageTable . '.page_namespace NOT IN (' . implode( ',', $wgNonincludableNamespaces ) . ')';
 		}
 
@@ -2811,7 +2807,7 @@ class DPLMain {
 		if ( ( !ExtDynamicPageList::$allowUnlimitedResults || $iCount >= 0 ) && $sGoal != 'categories' ) {
 			if ( $iCount < 0 ) {
 				$iCount = intval( ExtDynamicPageList::$options['count']['default'] );
-	 		}
+			}
 			$sSqlWhere .= " LIMIT $iCount OFFSET $iOffset ";
 		}
 
@@ -2913,21 +2909,21 @@ class DPLMain {
 
 			if ( $sGoal == 'categories' ) {
 				$pageNamespace = 14; // CATEGORY
-				$pageTitle	 = $row->cl_to;
+				$pageTitle = $row->cl_to;
 			} elseif ( $acceptOpenReferences ) {
 				if ( count( $aImageContainer ) > 0 ) {
 					$pageNamespace = 6;
-					$pageTitle	 = $row->il_to;
+					$pageTitle = $row->il_to;
 				} else {
 					// maybe non-existing title
 					$pageNamespace = $row->pl_namespace;
-					$pageTitle	 = $row->pl_title;
+					$pageTitle = $row->pl_title;
 				}
 			}
 			else {
 				// existing PAGE TITLE
 				$pageNamespace = $row->page_namespace;
-				$pageTitle	 = $row->page_title;
+				$pageTitle = $row->page_title;
 			}
 
 			// if subpages are to be excluded: skip them
@@ -2987,7 +2983,7 @@ class DPLMain {
 			}
 
 			// external link
-			if ( isset( $row->el_to ) )	{
+			if ( isset( $row->el_to ) ) {
 				$dplArticle->mExternalLink = $row->el_to;
 			}
 
@@ -3003,10 +2999,10 @@ class DPLMain {
 			// STORE initially selected PAGE
 			if ( count( $aLinksTo ) > 0 || count( $aLinksFrom ) > 0 ) {
 				if ( !isset( $row->sel_title ) ) {
-					$dplArticle->mSelTitle	 = 'unknown page';
+					$dplArticle->mSelTitle = 'unknown page';
 					$dplArticle->mSelNamespace = 0;
 				} else {
-					$dplArticle->mSelTitle	 = $row->sel_title;
+					$dplArticle->mSelTitle = $row->sel_title;
 					$dplArticle->mSelNamespace = $row->sel_ns;
 				}
 			}
@@ -3207,8 +3203,7 @@ class DPLMain {
 			} elseif (
 				( $bDPLRefresh || $wgRequest->getVal( 'action', 'view' ) == 'submit' ) &&
 				strpos( $DPLCache, '/' ) > 0 && strpos( $DPLCache, '..' ) === false
-			)
-			{
+			) {
 				// if the cache file contains a path and the user requested a
 				// refesh (or saved the file) we delete all brothers
 				wfRecursiveRemoveDir( dirname( $cacheFile ) );
@@ -3274,8 +3269,7 @@ class DPLMain {
 				!isset( $wgHooks['ParserAfterTidy'] ) ||
 				!( in_array( 'ExtDynamicPageList::endEliminate', $wgHooks['ParserAfterTidy'] ) ||
 				in_array( array( 'ExtDynamicPageList', 'endEliminate' ), $wgHooks['ParserAfterTidy'], true ) )
-			)
-			{
+			) {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endEliminate';
 			}
 			$parserOutput = $localParser->parse( $output, $parser->mTitle, $parser->mOptions );

@@ -130,8 +130,18 @@ class DPLInclude {
 	 * Handle recursive substitution here, so we can break cycles, and set up
 	 * return values so that edit sections will resolve correctly.
 	 */
-	private static function parse( $parser, $title, $text, $part1, $skiphead = 0, $recursionCheck = true, $maxLength = -1, $link = '', $trim = false, $skipPattern = array() )
-	{
+	private static function parse(
+		$parser,
+		$title,
+		$text,
+		$part1,
+		$skiphead = 0,
+		$recursionCheck = true,
+		$maxLength = -1,
+		$link = '',
+		$trim = false,
+		$skipPattern = array()
+	) {
 		// if someone tries something like<section begin=blah>lst only</section>
 		// text, may as well do the right thing.
 		$text = str_replace( '</section>', '', $text );
@@ -177,7 +187,7 @@ class DPLInclude {
 		$any = false;
 		if ( $sec[0] == '*' ) {
 			$any = true;
-			if ( $sec == '**' )	{
+			if ( $sec == '**' ) {
 				$sec = '[^\/>"' . "']+";
 			} else {
 				$sec = str_replace( '/', '\/', substr( $sec, 1 ) );
@@ -223,7 +233,7 @@ class DPLInclude {
 
 	/// section inclusion - include all matching sections
 	public static function includeSection( $parser, $page = '', $sec = '', $to = '', $recursionCheck = true, $trim = false, $skipPattern = array() ) {
-	  	$output = array();
+		$output = array();
 		if ( self::text( $parser, $page, $title, $text ) == false ) {
 			$output[] = $text;
 			return $output;
@@ -356,9 +366,18 @@ class DPLInclude {
 		}
 	}
 
-	public static function includeHeading( $parser, $page = '', $sec = '', $to = '', &$sectionHeading, $recursionCheck = true, $maxLength = -1,
-										  $link = 'default', $trim = false, $skipPattern = array() )
-	{
+	public static function includeHeading(
+		$parser,
+		$page = '',
+		$sec = '',
+		$to = '',
+		&$sectionHeading,
+		$recursionCheck = true,
+		$maxLength = -1,
+		$link = 'default',
+		$trim = false,
+		$skipPattern = array()
+	) {
 		$output = array();
 		if ( self::text( $parser, $page, $title, $text ) == false ) {
 			$output[0] = $text;
@@ -445,7 +464,7 @@ class DPLInclude {
 
 			if ( $to != '' ) {
 				// if $to is supplied, try and match it. If we don't match, just ignore it.
-				if ( $isPlain )	{
+				if ( $isPlain ) {
 					$pat = '^(={1,6})\s*' . preg_quote( $to, '/' ) . '\s*\1\s*$';
 				} else {
 					$pat = '^(={1,6})\s*' . str_replace( '/', '\/', $to ) . '\s*\1\s*$';
@@ -456,7 +475,7 @@ class DPLInclude {
 			}
 
 			if ( !isset( $end_off ) ) {
-				if ( $nr != 0 )	{
+				if ( $nr != 0 ) {
 					$pat = '^(={1,6})\s*[^\s\n=][^\n=]*\s*\1\s*$';
 				} else {
 					$pat = '^(={1,' . $head_len . '})(?!=)\s*.*?\1\s*$';
@@ -526,9 +545,20 @@ class DPLInclude {
 	// we return an array containing all occurences of the template call which match the condition "$mustMatch"
 	// and do NOT match the condition "$mustNotMatch" (if specified)
 	// we use a callback function to format retrieved parameters, accessible via $dpl->formatTemplateArg()
-	public static function includeTemplate( $parser, $dpl, $dplNr, $article, $template1 = '', $template2 = '', $defaultTemplate,
-										   $mustMatch, $mustNotMatch, $matchParsed, $iTitleMaxLen, $catlist )
-	{
+	public static function includeTemplate(
+		$parser,
+		$dpl,
+		$dplNr,
+		$article,
+		$template1 = '',
+		$template2 = '',
+		$defaultTemplate,
+		$mustMatch,
+		$mustNotMatch,
+		$matchParsed,
+		$iTitleMaxLen,
+		$catlist
+	) {
 		$page = $article->mTitle->getPrefixedText();
 		$date = $article->myDate;
 		$user = $article->mUserLink;
@@ -645,8 +675,7 @@ class DPLInclude {
 						if (
 							( $mustMatch == '' || preg_match( $mustMatch, substr( $templateCall, 0, $i - 1 ) ) ) &&
 							( $mustNotMatch == '' || !preg_match( $mustNotMatch, substr( $templateCall, 0, $i - 1 ) ) )
-						)
-						{
+						) {
 							$invocation = substr( $templateCall, 0, $i - 1 );
 							$argChain = $invocation . '|%PAGE%=' . $page . '|%TITLE%=' . $title->getText();
 							if ( $catlist != '' ) {
@@ -702,8 +731,7 @@ class DPLInclude {
 								( ( $matchParsed && !preg_match( $mustNotMatch, $parser->recursiveTagParse( $callText ) ) ) ||
 									( !$matchParsed && !preg_match( $mustNotMatch, $callText ) ) )
 							)
-						)
-						{
+						) {
 							$output[++$n] = '';
 							$second = false;
 							foreach ( $extractParm as $exParmKey => $exParm ) {

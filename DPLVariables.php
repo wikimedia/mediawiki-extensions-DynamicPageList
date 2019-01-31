@@ -68,8 +68,7 @@ class DPLVariables {
 		if (
 			0 !== strpos( $delimiter, '/' ) ||
 			( strlen( $delimiter ) -1 ) !== strrpos( $delimiter, '/' )
-		)
-		{
+		) {
 			$delimiter = '/\s*' . $delimiter . '\s*/';
 		}
 		self::$memoryArray[$var] = preg_split( $delimiter, $value );
