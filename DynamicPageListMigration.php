@@ -31,7 +31,6 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This is not a valid entry point to MediaWiki.' );
 }
 
-
 // we do NOT register the tag <dpl> or the function #dpl
 // we do NOT register the tag <DynamicPageList> - so this extension CAN CO-EXIST with Extension:Intersection
 // instead we register the tag <Intersection> - so you can test in parallel
@@ -44,13 +43,13 @@ $wgExtensionFunctions[] = array( 'ExtDynamicPageList', 'setupMigration' );
 $DPLVersion = '2.01';
 
 $wgExtensionCredits['parserhook'][] = array(
-	'path' 				=> __FILE__,
-	'name' 				=> 'DynamicPageList',
-	'author' 			=>  '[http://de.wikipedia.org/wiki/Benutzer:Algorithmix Gero Scholz]',
-	'url' 				=> 'https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)',
-	'descriptionmsg' 	=> 'dpl-desc',
-  	'version' 			=> $DPLVersion
-  );
+	'path' => __FILE__,
+	'name' => 'DynamicPageList',
+	'author' => '[http://de.wikipedia.org/wiki/Benutzer:Algorithmix Gero Scholz]',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)',
+	'descriptionmsg' => 'dpl-desc',
+	'version' => $DPLVersion
+);
 
 require_once( 'DPLSetup.php' );
 

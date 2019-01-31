@@ -27,13 +27,13 @@ class DPL {
 	public $mLogger; 		// DPLLogger
 	public $mOutput;
 	public $mReplaceInTitle;
- 	public $filteredCount = 0;	// number of (filtered) row count
+	public $filteredCount = 0; // number of (filtered) row count
 
 	/**
 	 * @var string[]
 	 */
 	public $nameSpaces;
-	public $mTableRow;	// formatting rules for table fields
+	public $mTableRow; // formatting rules for table fields
 
 	function __construct( $headings, $bHeadingCount, $iColumns, $iRows, $iRowSize, $sRowColFormat, $articles, $headingtype, $hlistmode,
 				 $listmode, $bescapelinks, $baddexternallink, $includepage, $includemaxlen, $includeseclabels, $includeseclabelsmatch,
@@ -307,7 +307,7 @@ class DPL {
 			$sTag = str_replace( '%USER%', $article->mUser, $sTag );
 		}
 		if ( $article->mSelTitle != '' ) {
-			if ( $article->mSelNamespace == 0 )	{
+			if ( $article->mSelNamespace == 0 ) {
 				$sTag = str_replace( '%PAGESEL%', str_replace( '_', ' ', $article->mSelTitle ), $sTag );
 			} else {
 				$sTag = str_replace( '%PAGESEL%', $this->nameSpaces[$article->mSelNamespace] . ':' . str_replace( '_', ' ', $article->mSelTitle ), $sTag );
@@ -383,8 +383,7 @@ class DPL {
 							!preg_match( $this->mIncSecLabelsMatch[0], $text ) == false ) &&
 						( count( $this->mIncSecLabelsNotMatch ) <= 0 || $this->mIncSecLabelsNotMatch[0] == '' ||
 							preg_match( $this->mIncSecLabelsNotMatch[0], $text ) == false )
-					)
-					{
+					) {
 						if ( $this->mIncMaxLen > 0 && ( strlen( $text ) > $this->mIncMaxLen ) ) {
 							$text = DPLInclude::limitTranscludedText( $text, $this->mIncMaxLen, ' [[' . $title . '|..→]]' );
 						}
@@ -426,10 +425,10 @@ class DPL {
 						$sSecLabel = trim( $sSecLabel );
 						if ( $sSecLabel == '' ) {
 							break;
- 						}
+						}
 
 						// if sections are identified by number we have a % at the beginning
- 						if ( $sSecLabel[0] == '%' ) {
+						if ( $sSecLabel[0] == '%' ) {
 							$sSecLabel = '#' . $sSecLabel;
 						}
 
@@ -492,8 +491,7 @@ class DPL {
 									if (
 										( $mustMatch != '' && preg_match( $mustMatch, $onePiece ) == false ) ||
 										( $mustNotMatch != '' && preg_match( $mustNotMatch, $onePiece ) != false )
-									)
-									{
+									) {
 										array_splice( $secPieces, $nr -$offset, 1 );
 										$offset++;
 									}
@@ -527,7 +525,10 @@ class DPL {
 								}
 								$secPiece[$s] .= $secPieces[$sp];
 							}
- 							if ( $mode->iDominantSection >= 0 && $s == $mode->iDominantSection && count( $secPieces ) > 1 )	{
+							if ( $mode->iDominantSection >= 0 &&
+								$s == $mode->iDominantSection &&
+								count( $secPieces ) > 1
+							) {
 								$dominantPieces = $secPieces;
 							}
 							if ( ( $mustMatch != '' || $mustNotMatch != '' ) && count( $secPieces ) <= 0 ) {
@@ -538,8 +539,8 @@ class DPL {
 						} elseif ( $sSecLabel[0] == '{' ) {
 							// Uses DPLInclude::includeTemplate() from LabeledSectionTransclusion extension to include templates from the page
 							// primary syntax {template}suffix
- 							$template1 = trim( substr( $sSecLabel, 1, strpos( $sSecLabel, '}' ) -1 ) );
- 							$template2 = trim( str_replace( '}', '', substr( $sSecLabel, 1 ) ) );
+							$template1 = trim( substr( $sSecLabel, 1, strpos( $sSecLabel, '}' ) -1 ) );
+							$template2 = trim( str_replace( '}', '', substr( $sSecLabel, 1 ) ) );
 							// alternate syntax: {template|surrogate}
 							if ( $template2 == $template1 && strpos( $template1, '|' ) > 0 ) {
 								list( $template1, $template2 ) = explode( '|', $template1, 2 );
@@ -550,9 +551,21 @@ class DPL {
 								$mustNotMatch, $this->mIncParsed, $iTitleMaxLen,
 								implode( ', ', $article->mCategoryLinks )
 							);
- 							$secPiece[$s] = implode( isset( $mode->aMultiSecSeparators[$s] ) ?
- 								$this->substTagParm( $mode->aMultiSecSeparators[$s], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ):'', $secPieces );
- 							if ( $mode->iDominantSection >= 0 && $s == $mode->iDominantSection && count( $secPieces ) > 1 )	{
+							$secPiece[$s] = implode(
+								isset( $mode->aMultiSecSeparators[$s] ) ? $this->substTagParm(
+									$mode->aMultiSecSeparators[$s],
+									$pagename,
+									$article,
+									$imageUrl,
+									$this->filteredCount,
+									$iTitleMaxLen
+								) : '',
+								$secPieces
+							);
+							if ( $mode->iDominantSection >= 0 &&
+								$s == $mode->iDominantSection &&
+								count( $secPieces ) > 1
+							) {
 								$dominantPieces = $secPieces;
 							}
 							if ( ( $mustMatch != '' || $mustNotMatch != '' ) && count( $secPieces ) <= 1 && $secPieces[0] == '' ) {
@@ -562,16 +575,27 @@ class DPL {
 						} else {
 							// Uses DPLInclude::includeSection() from LabeledSectionTransclusion extension to include labeled sections from the page
 							$secPieces = DPLInclude::includeSection( $this->mParser, $article->mTitle->getPrefixedText(), $sSecLabel, '', false, $bIncludeTrim, $skipPattern );
- 							$secPiece[$s] = implode( isset( $mode->aMultiSecSeparators[$s] ) ?
- 								$this->substTagParm( $mode->aMultiSecSeparators[$s], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ):'', $secPieces );
- 							if ( $mode->iDominantSection >= 0 && $s == $mode->iDominantSection && count( $secPieces ) > 1 )	{
+							$secPiece[$s] = implode(
+								isset( $mode->aMultiSecSeparators[$s] ) ? $this->substTagParm(
+									$mode->aMultiSecSeparators[$s],
+									$pagename,
+									$article,
+									$imageUrl,
+									$this->filteredCount,
+									$iTitleMaxLen
+								) : '',
+								$secPieces
+							);
+							if ( $mode->iDominantSection >= 0 &&
+								$s == $mode->iDominantSection &&
+								count( $secPieces ) > 1
+							) {
 								$dominantPieces = $secPieces;
 							}
 							if (
 								( $mustMatch != '' && preg_match( $mustMatch, $secPiece[$s] ) == false ) ||
 								( $mustNotMatch != '' && preg_match( $mustNotMatch, $secPiece[$s] ) != false )
-							)
-							{
+							) {
 								$matchFailed = true;
 								break;
 							}
@@ -658,7 +682,7 @@ class DPL {
 					$nv = $this->msgExt( 'dpl-nviews', array( 'escape' ), $wgLang->formatNum( $article->mCounter ) );
 					$rBody .= ' ' . $wgContLang->getDirMark() . '(' . $nv . ')';
 				}
-				if ( $article->mUserLink != '' )	{
+				if ( $article->mUserLink != '' ) {
 					$rBody .= ' . . [[User:' . $article->mUser . '|' . $article->mUser . ']]';
 					if ( $article->mComment != '' ) {
 						$rBody .= ' { ' . $article->mComment . ' }';
@@ -835,7 +859,7 @@ class DPL {
 			if ( $cmd[0] == 'legend' ) {
 				$legendPage = $arg;
 			}
-			if ( $cmd[0] == 'instruction' )	{
+			if ( $cmd[0] == 'instruction' ) {
 				$instructionPage = $arg;
 			}
 			if ( $cmd[0] == 'table' ) {
@@ -1016,7 +1040,7 @@ class DPL {
 			}
 		}
 
-		if 	( $exec == 'set' )	{
+		if ( $exec == 'set' ) {
 			return $this->updateArticle( $title, $text, $summary );
 		} elseif ( $exec == 'preview' ) {
 			global $wgScriptPath, $wgRequest;
@@ -1355,12 +1379,12 @@ class DPL {
 			$pagename = ':' . $pagename;
 		}
 		return $this->substTagParm( $tag, $pagename, $article, $this->filteredCount, '', $iTitleMaxLen );
- 	}
+	}
 
 	// format one item of an entry in the output list (i.e. the collection of occurences of one item from the include parameter)
 	function formatItem( $piece, $tagStart, $tagEnd ) {
 		return $tagStart . $piece . $tagEnd;
- 	}
+	}
 
 	// format one single item of an entry in the output list (i.e. one occurence of one item from the include parameter)
 	function formatSingleItems( &$pieces, $s, $article ) {
@@ -1375,8 +1399,7 @@ class DPL {
 						$n === false ||
 						!( strpos( substr( $this->mTableRow[$s], 0, $n ), '{' ) === false ) ||
 						!( strpos( substr( $this->mTableRow[$s], 0, $n ), '[' ) === false )
-					)
-					{
+					) {
 						$pieces[$key] = str_replace( '%%', $val, $this->mTableRow[$s] );
 					} else {
 						$pieces[$key] = str_replace( '%%', $val, substr( $this->mTableRow[$s], $n + 1 ) );
@@ -1398,7 +1421,7 @@ class DPL {
 			}
 			$firstCall = false;
 		}
- 	}
+	}
 
 	// format one single template argument of one occurence of one item from the include parameter
 	// is called via a backlink from DPLInclude::includeTemplate()
@@ -1416,8 +1439,7 @@ class DPL {
 					$n === false ||
 					!( strpos( substr( $this->mTableRow["$s.$argNr"], 0, $n ), '{' ) === false ) ||
 					!( strpos( substr( $this->mTableRow["$s.$argNr"], 0, $n ), '[' ) === false )
-				)
-				{
+				) {
 					$n = -1;
 				}
 			}
@@ -1438,12 +1460,12 @@ class DPL {
 		} else {
 			return $result;
 		}
- 	}
+	}
 
 	// return the total number of rows (filtered)
 	function getRowCount() {
- 		return $this->filteredCount;
- 	}
+		return $this->filteredCount;
+	}
 
 	/**
 	 * Truncate a portion of wikitext so that ..
@@ -1451,7 +1473,7 @@ class DPL {
 	 * ... it is balanced in terms of braces, brackets and tags
 	 * ... can be used as content of a wikitable field without spoiling the whole surrounding wikitext structure
 	 * @param int $lim Limit of character count for the result
- 	 * @param string $text The wikitext to be truncated
+	 * @param string $text The wikitext to be truncated
 	 * @return string The truncated text; note that in some cases it may be slightly longer than the given limit
 	 *         if the text is alread shorter than the limit or if the limit is negative, the text
 	 *         will be returned without any checks for balance of tags
@@ -1459,9 +1481,9 @@ class DPL {
 	function cutAt( $lim, $text ) {
 		if ( $lim < 0 ) {
 			return $text;
- 		}
+		}
 		return DPLInclude::limitTranscludedText( $text, $lim );
- 	}
+	}
 
 	// slightly different from CategoryViewer::formatList() (no need to instantiate a CategoryViewer object)
 	function formatCategoryList( $iStart, $iCount ) {

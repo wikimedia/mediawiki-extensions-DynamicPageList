@@ -55,10 +55,10 @@
 // This means that your LocalSettings.php MUST NO LONGER include Extension:Intersection;
 
 if ( !defined( 'MEDIAWIKI' ) ) {
-    die( 'This is not a valid entry point to MediaWiki.' );
+	die( 'This is not a valid entry point to MediaWiki.' );
 }
 
-$wgExtensionFunctions[]        = array( 'ExtDynamicPageList', 'setupDPL' );
+$wgExtensionFunctions[] = array( 'ExtDynamicPageList', 'setupDPL' );
 
 $wgMessagesDirs['DynamicPageList'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['DynamicPageListMagic'] = __DIR__ . '/DynamicPageList.i18n.magic.php';
@@ -66,13 +66,13 @@ $wgExtensionMessagesFiles['DynamicPageListMagic'] = __DIR__ . '/DynamicPageList.
 $DPLVersion = '2.3.0';
 
 $wgExtensionCredits['parserhook'][] = array(
-	'path' 				=> __FILE__,
-	'name' 				=> 'DynamicPageList (third party)',
-	'author' 			=>  '[http://de.wikipedia.org/wiki/Benutzer:Algorithmix Gero Scholz]',
-	'url' 				=> 'https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)',
-	'descriptionmsg' 	=> 'dpl-desc',
-  	'version' 			=> $DPLVersion
-  );
+	'path' => __FILE__,
+	'name' => 'DynamicPageList (third party)',
+	'author' => '[http://de.wikipedia.org/wiki/Benutzer:Algorithmix Gero Scholz]',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)',
+	'descriptionmsg' => 'dpl-desc',
+	'version' => $DPLVersion
+);
 
 require_once( 'DPLSetup.php' );
 

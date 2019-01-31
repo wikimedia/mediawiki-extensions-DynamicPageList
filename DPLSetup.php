@@ -1023,7 +1023,7 @@ class ExtDynamicPageList {
 	// ExtDynamicPageList::$options['RunFromProtectedPagesOnly'] = "<small><i>Extension DPL (warning): current configuration allows execution from protected pages only.</i></small>";
 
 	public static $validParametersForRichnessLevel = array(
-			0 =>	'
+			0 => '
 					addfirstcategorydate
 					category
 					count
@@ -1040,7 +1040,7 @@ class ExtDynamicPageList {
 					stablepages
 					suppresserrors
 					',
-			1 => 	'
+			1 => '
 					allowcachedresults
 					execandexit
 					columns
@@ -1072,7 +1072,7 @@ class ExtDynamicPageList {
 					titlemaxlength
 					userdateformat
 					',
-			2 =>	'
+			2 => '
 					addauthor
 					addcategories
 					addcontribution
@@ -1131,7 +1131,7 @@ class ExtDynamicPageList {
 					usedby
 					uses
 					',
-			3 =>	'
+			3 => '
 					allrevisionsbefore
 					allrevisionssince
 					articlecategory
@@ -1148,7 +1148,7 @@ class ExtDynamicPageList {
 					openreferences
 					titleregexp
 					',
-			4 => 	'
+			4 => '
 					deleterules
 					goal
 					updaterules
