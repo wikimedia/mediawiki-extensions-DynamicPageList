@@ -298,7 +298,7 @@ class DPLMain {
 
 		$aNamespaces = array();
 
-		$aExcludeNamespaces  = array();
+		$aExcludeNamespaces = array();
 
 		$sArticleCategory = null;
 
@@ -1811,7 +1811,7 @@ class DPLMain {
 		 * @todo allow to add user for other order methods.
 		 * The fact is a page may be edited by multiple users. Which user(s) should we show? all? the first or the last one?
 		 * Ideally, we could use values such as 'all', 'first' or 'last' for the adduser parameter.
-		*/
+		 */
 		if ( $bAddUser && !array_intersect( $aOrderMethods, array( 'firstedit', 'lastedit' ) ) & ( $sLastRevisionBefore . $sAllRevisionsBefore . $sFirstRevisionSince . $sAllRevisionsSince == '' ) ) {
 			return $output . $logger->escapeMsg( ExtDynamicPageList::FATAL_WRONGORDERMETHOD, 'adduser=true', 'firstedit | lastedit' );
 		}

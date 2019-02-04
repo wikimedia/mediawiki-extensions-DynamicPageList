@@ -392,7 +392,6 @@ class DPLInclude {
 	// section inclusion - include all matching sections (return array)
 	public static function extractHeadingFromText( $parser, $page, $title, $text, $sec = '', $to = '', &$sectionHeading, $recursionCheck = true,
 												  $maxLength = -1, $cLink = 'default', $trim = false, $skipPattern = array() ) {
-
 		$continueSearch = true;
 		$n = 0;
 		$output[$n] = '';

@@ -3,12 +3,12 @@
    This is a side entry point for Extension:DPL which is intended for migration purpose ONLY
    -----------------------------------------------------------------------------------------
 
-   If your wiki has been using Extension:Intersection you can require_once() this file
+   If your wiki has been using Extension:Intersection you can require_once this file
    to install Extension:DPL in PARALLEL to Extension:Intersection.
 
    In your LocalSettings.php you write:
 
-        require_once( "$IP/extensions/DynamicPageList/DynamicPageListMigration.php" );
+        require_once '$IP/extensions/DynamicPageList/DynamicPageListMigration.php';
 
    In this case DPL will NOT register the <DynamicPageList> tag.
    Instead it will register a tag named <Intersection> which behaves like <DynamicPageList>.
@@ -59,5 +59,5 @@ $wgExtensionMessagesFiles['DynamicPageListMagic'] = __DIR__ . '/DynamicPageList.
 ExtDynamicPageList::$DPLVersion = $DPLVersion;
 
 // be extremely restrictive by default: do not allow anything that goes beyond Extension:Intersection
-// can be extended by a different call to this function in LocalSettings.php after the require_once()
+// can be extended by a different call to this function in LocalSettings.php after the require_once
 ExtDynamicPageList::setFunctionalRichness( 0 );

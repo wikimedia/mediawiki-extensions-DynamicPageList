@@ -39,7 +39,6 @@ class DPL {
 				 $listmode, $bescapelinks, $baddexternallink, $includepage, $includemaxlen, $includeseclabels, $includeseclabelsmatch,
 				 $includeseclabelsnotmatch, $includematchparsed, &$parser, $logger, $replaceInTitle, $iTitleMaxLen,
 				 $defaultTemplateSuffix, $aTableRow, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules ) {
-
 		global $wgContLang, $wgHooks;
 		$this->nameSpaces = $wgContLang->getNamespaces();
 		$this->mArticles = $articles;

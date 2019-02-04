@@ -4,8 +4,7 @@
 		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
 		<exclude name="Generic.Files.LineLength" />
-		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
-		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
 		<exclude name="MediaWiki.Commenting.FunctionAnnotations" />
 		<exclude name="MediaWiki.Commenting.FunctionComment" />
 		<exclude name="MediaWiki.Commenting.LicenseComment" />
@@ -14,7 +13,6 @@
 		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions" />
 		<exclude name="MediaWiki.Usage.DbrQueryUsage" />
 		<exclude name="MediaWiki.Usage.DeprecatedConstantUsage" />
-		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
 		<exclude name="PSR2.Classes.PropertyDeclaration" />
 		<exclude name="Squiz.Scope.MemberVarScope" />

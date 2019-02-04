@@ -6,11 +6,11 @@
 
 	In your LocalSettings.php you write:
 
-        require_once( "$IP/extensions/DynamicPageList/DynamicPageList.php" );
+        require_once '$IP/extensions/DynamicPageList/DynamicPageList.php';
 
 	DPL has many features. If you do not want to enable all of them
 	you can define the "Level of Functional Richness" you want to offer to your users.
-	Make the following call in your LocalSettings.php after the require_once() statement:
+	Make the following call in your LocalSettings.php after the require_once statement:
 
         ExtDynamicPageList::setFunctionalRichness(  <n>  );
 
@@ -29,7 +29,7 @@
 
 	If your wiki has been using Extension:Intersection you may want to install
 	DPL in parallel to that extension before you replace Extension:Intersection by DPL.
-	In this case you must require_once("DynamicPageListMigration.php") instead of the current file
+	In this case you must require_once 'DynamicPageListMigration.php' instead of the current file
 	in your LocalSettings.php.
 
 	Some functions of DPL are quite useful but if abused (by error or bad intention) they may put severe load
