@@ -74,7 +74,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'version' => $DPLVersion
 );
 
-require_once( 'DPLSetup.php' );
+require_once 'DPLSetup.php';
 
 ExtDynamicPageList::$DPLVersion = $DPLVersion;
 

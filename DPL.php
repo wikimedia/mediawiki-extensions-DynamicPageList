@@ -126,16 +126,16 @@ class DPL {
 					$offset += $hspace;
 					$nstart += $hspace;
 					$portion = $headingCount;
-					$greml-=$hspace;
+					$greml -= $hspace;
 					do {
 						$greml -= $portion;
 						// $this->mOutput .= "nsize=$nsize, portion=$portion, greml=$greml";
 						if ( $greml > 0 ) {
-							$this->mOutput .= $this->formatList( $nstart -$offset, $portion, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
+							$this->mOutput .= $this->formatList( $nstart - $offset, $portion, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
 							$nstart += $portion;
 							break;
 						} else {
-							$this->mOutput .= $this->formatList( $nstart -$offset, $portion + $greml, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
+							$this->mOutput .= $this->formatList( $nstart - $offset, $portion + $greml, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules );
 							$nstart += ( $portion + $greml );
 							$portion = ( -$greml );
 							if ( $iColumns != 1 ) {
@@ -215,7 +215,9 @@ class DPL {
 			$count = count( $articles );
 			$this->mOutput .= '{|' . $sRowColFormat . "\n|\n";
 			do {
-				if ( $nstart + $nsize > $count ) $nsize = $count - $nstart;
+				if ( $nstart + $nsize > $count ) {
+					$nsize = $count - $nstart;
+				}
 				$this->mOutput .= $this->formatList(
 					$nstart, $nsize, $iTitleMaxLen, $defaultTemplateSuffix,
 					$bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules
@@ -284,7 +286,7 @@ class DPL {
 			$sTag = str_replace( '%SIZE%', $article->mSize, $sTag );
 		}
 		if ( $article->mSize != '' ) {
-			$sTag = str_replace( '%SIZEFS%', floor( sqrt( log( $article->mSize ) ) * 2.5 -5 ), $sTag );
+			$sTag = str_replace( '%SIZEFS%', floor( sqrt( log( $article->mSize ) ) * 2.5 - 5 ), $sTag );
 		}
 		if ( $article->mDate != '' ) {
 			// note: we must avoid literals in the code which could create confusion when transferred via HTTP
@@ -492,7 +494,7 @@ class DPL {
 										( $mustMatch != '' && preg_match( $mustMatch, $onePiece ) == false ) ||
 										( $mustNotMatch != '' && preg_match( $mustNotMatch, $onePiece ) != false )
 									) {
-										array_splice( $secPieces, $nr -$offset, 1 );
+										array_splice( $secPieces, $nr - $offset, 1 );
 										$offset++;
 									}
 								}
@@ -539,7 +541,7 @@ class DPL {
 						} elseif ( $sSecLabel[0] == '{' ) {
 							// Uses DPLInclude::includeTemplate() from LabeledSectionTransclusion extension to include templates from the page
 							// primary syntax {template}suffix
-							$template1 = trim( substr( $sSecLabel, 1, strpos( $sSecLabel, '}' ) -1 ) );
+							$template1 = trim( substr( $sSecLabel, 1, strpos( $sSecLabel, '}' ) - 1 ) );
 							$template2 = trim( str_replace( '}', '', substr( $sSecLabel, 1 ) ) );
 							// alternate syntax: {template|surrogate}
 							if ( $template2 == $template1 && strpos( $template1, '|' ) > 0 ) {
@@ -671,7 +673,7 @@ class DPL {
 				}
 				if ( $article->mSize != '' && $mode->name != 'userformat' ) {
 					if ( strlen( $article->mSize ) > 3 ) {
-						$rBody .= ' [' . substr( $article->mSize, 0, strlen( $article->mSize ) -3 ) . ' kB]';
+						$rBody .= ' [' . substr( $article->mSize, 0, strlen( $article->mSize ) - 3 ) . ' kB]';
 					} else {
 						$rBody .= ' [' . $article->mSize . ' B]';
 					}
@@ -733,8 +735,9 @@ class DPL {
 				asort( $rowsKey );
 			}
 			$rBody = '';
-			foreach ( $rowsKey as $index => $val )
+			foreach ( $rowsKey as $index => $val ) {
 				$rBody .= "\n|-" . $rows[$index];
+			}
 		}
 		// increase start value of ordered lists at multi-column output
 		$actStart = $mode->sListStart;
@@ -833,8 +836,8 @@ class DPL {
 				$nr++;
 				$parameter[$nr] = $arg;
 				if ( $nr > 0 ) {
-					$afterparm[$nr] = array( $parameter[$nr -1] );
-					$n = $nr -1;
+					$afterparm[$nr] = array( $parameter[$nr - 1] );
+					$n = $nr - 1;
 					while ( $n > 0 && array_key_exists( $n, $optional ) ) {
 						$n--;
 						$afterparm[$nr][] = $parameter[$n];
@@ -975,7 +978,7 @@ class DPL {
 								break;
 							}
 						}
-						$myFormat = '' ;
+						$myFormat = '';
 						if ( array_key_exists( $nr, $format ) ) {
 							$myFormat = $format[$nr];
 						}
@@ -1225,7 +1228,7 @@ class DPL {
 					// there is already a list of parameters; we search to the end of the template call
 					$cbrackets = 2;
 					$parm = '';
-					$pos = $start + strlen( $match ) -1;
+					$pos = $start + strlen( $match ) - 1;
 					$textLen = strlen( $text );
 					for ( $i = $pos + 1; $i < $textLen; $i++ ) {
 						$c = $text[$i];

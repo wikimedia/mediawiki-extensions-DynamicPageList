@@ -288,7 +288,8 @@ class DPLInclude {
 
 		$brackets = 0;
 		$cbrackets = 0;
-		$n0 = -1; $nb = 0;
+		$n0 = -1;
+		$nb = 0;
 		for ( $i = 0; $i < $limit; $i++ ) {
 			$c = $text[$i];
 			if ( $c == '[' ) {
@@ -453,7 +454,7 @@ class DPLInclude {
 
 			if ( $nr == -2 ) {
 				// output text before first section and done
-				$piece = substr( $text, 0, $m[1][1] -1 );
+				$piece = substr( $text, 0, $m[1][1] - 1 );
 				$output[0] = self::parse( $parser, $title, $piece, "#lsth:${page}|${sec}", 0, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 				return $output;
 			}
@@ -481,7 +482,7 @@ class DPLInclude {
 					$pat = '^(={1,' . $head_len . '})(?!=)\s*.*?\1\s*$';
 				}
 				if ( preg_match( "/$pat/im", $text, $mm, PREG_OFFSET_CAPTURE, $begin_off ) ) {
-					$end_off = $mm[0][1] -1;
+					$end_off = $mm[0][1] - 1;
 				} elseif ( $sec == '' ) {
 					$end_off = -1;
 				}
@@ -721,7 +722,7 @@ class DPLInclude {
 						}
 						array_splice( $parms, 0, 1 ); // remove artifact;
 						// if we must match a condition: test against it
-						$callText = substr( $templateCall, 0, $i -1 );
+						$callText = substr( $templateCall, 0, $i - 1 );
 						if (
 							( $mustMatch == '' ||
 								( ( $matchParsed && preg_match( $mustMatch, $parser->recursiveTagParse( $callText ) ) ) ||
@@ -748,7 +749,7 @@ class DPLInclude {
 								}
 								$found = false;
 								// % in parameter name
-								if ( strpos( $exParm, '%' ) !== FALSE ) {
+								if ( strpos( $exParm, '%' ) !== false ) {
 									// %% is a short form for inclusion of %PAGE% and %TITLE%
 									$found = true;
 									$output[$n] .= $dpl->formatTemplateArg( $dpl->articleLink( $exParm, $article, $iTitleMaxLen ), $dplNr, $exParmKey, $firstCall, $maxlen, $article );

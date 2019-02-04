@@ -65,7 +65,7 @@ class DPLLogger {
 	 */
 	function msgWrongParam( $paramvar, $val ) {
 		$msgid = ExtDynamicPageList::WARN_WRONGPARAM;
-		switch( $paramvar ) {
+		switch ( $paramvar ) {
 			case 'namespace':
 			case 'notnamespace':
 				$msgid = ExtDynamicPageList::FATAL_WRONGNS;

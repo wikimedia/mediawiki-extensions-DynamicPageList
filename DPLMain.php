@@ -161,9 +161,9 @@ class DPLMain {
 		$sAllRevisionsSince  = ExtDynamicPageList::$options['allrevisionssince']['default'];
 
 		$_sMinRevisions = ExtDynamicPageList::$options['minrevisions']['default'];
-		$iMinRevisions  = ( $_sMinRevisions == '' ) ? null: intval( $_sMinRevisions );
+		$iMinRevisions  = ( $_sMinRevisions == '' ) ? null : intval( $_sMinRevisions );
 		$_sMaxRevisions = ExtDynamicPageList::$options['maxrevisions']['default'];
-		$iMaxRevisions  = ( $_sMaxRevisions == '' ) ? null: intval( $_sMaxRevisions );
+		$iMaxRevisions  = ( $_sMaxRevisions == '' ) ? null : intval( $_sMaxRevisions );
 
 		$sRedirects = ExtDynamicPageList::$options['redirects']['default'];
 		$sQuality   = ExtDynamicPageList::$options['qualitypages']['default'];
@@ -229,13 +229,13 @@ class DPLMain {
 		$iDominantSection = ExtDynamicPageList::$options['dominantsection']['default'];
 
 		$_sColumns = ExtDynamicPageList::$options['columns']['default'];
-		$iColumns  = ( $_sColumns == '' ) ? 1: intval( $_sColumns );
+		$iColumns  = ( $_sColumns == '' ) ? 1 : intval( $_sColumns );
 
 		$_sRows	= ExtDynamicPageList::$options['rows']['default'];
-		$iRows	 = ( $_sRows == '' ) ? 1: intval( $_sRows );
+		$iRows	 = ( $_sRows == '' ) ? 1 : intval( $_sRows );
 
 		$_sRowSize = ExtDynamicPageList::$options['rowsize']['default'];
-		$iRowSize  = ( $_sRowSize == '' ) ? 0: intval( $_sRowSize );
+		$iRowSize  = ( $_sRowSize == '' ) ? 0 : intval( $_sRowSize );
 
 		$sRowColFormat = ExtDynamicPageList::$options['rowcolformat']['default'];
 
@@ -254,7 +254,7 @@ class DPLMain {
 		$sHItemHtmlAttr = ExtDynamicPageList::$options['hitemattr']['default'];
 
 		$_sTitleMaxLen = ExtDynamicPageList::$options['titlemaxlength']['default'];
-		$iTitleMaxLen = ( $_sTitleMaxLen == '' ) ? null: intval( $_sTitleMaxLen );
+		$iTitleMaxLen = ( $_sTitleMaxLen == '' ) ? null : intval( $_sTitleMaxLen );
 
 		$aReplaceInTitle[0] = '';
 		$aReplaceInTitle[1] = '';
@@ -360,7 +360,6 @@ class DPLMain {
 
 			// for each level of functionalRichness we have a separate block of options
 			// the first block is always active ($functionalRichness>=0)
-
 
 			// ------------------------------------------------------------------------------------------- level 0
 
@@ -570,7 +569,9 @@ class DPLMain {
 				case 'showcurid':
 					if ( in_array( $sArg, ExtDynamicPageList::$options['showcurid'] ) ) {
 						$bShowCurID = self::argBoolean( $sArg );
-						if ( $bShowCurID == true ) $bConflictsWithOpenReferences = true;
+						if ( $bShowCurID == true ) {
+							$bConflictsWithOpenReferences = true;
+						}
 					} else {
 						$output .= $logger->msgWrongParam( 'showcurid', $sArg );
 					}
@@ -604,7 +605,6 @@ class DPLMain {
 					// in this case we prevent the parser cache from being disabled by later statements
 					$sExecAndExit = $sArg;
 					break;
-
 
 				/**
 				 * UNKNOWN PARAMETER
@@ -643,7 +643,7 @@ class DPLMain {
 				case 'offset':
 					// ensure that $iOffset is a number
 					if ( preg_match( ExtDynamicPageList::$options['offset']['pattern'], $sArg ) ) {
-						$iOffset = ( $sArg == '' ) ? 0: intval( $sArg );
+						$iOffset = ( $sArg == '' ) ? 0 : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'offset', $sArg );
 					}
@@ -652,7 +652,7 @@ class DPLMain {
 				case 'randomseed':
 					// ensure that $iRandomSeed is a number;
 					if ( preg_match( ExtDynamicPageList::$options['randomseed']['pattern'], $sArg ) ) {
-						$iRandomSeed = ( $sArg == '' ) ? null: intval( $sArg );
+						$iRandomSeed = ( $sArg == '' ) ? null : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'randomseed', $sArg );
 					}
@@ -661,7 +661,7 @@ class DPLMain {
 				case 'randomcount':
 					// ensure that $iRandomCount is a number;
 					if ( preg_match( ExtDynamicPageList::$options['randomcount']['pattern'], $sArg ) ) {
-						$iRandomCount = ( $sArg == '' ) ? null: intval( $sArg );
+						$iRandomCount = ( $sArg == '' ) ? null : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'randomcount', $sArg );
 					}
@@ -701,7 +701,7 @@ class DPLMain {
 				case 'columns':
 					// ensure that $iColumns is a number
 					if ( preg_match( ExtDynamicPageList::$options['columns']['pattern'], $sArg ) ) {
-						$iColumns = ( $sArg == '' ) ? 1: intval( $sArg );
+						$iColumns = ( $sArg == '' ) ? 1 : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'columns', $sArg );
 					}
@@ -710,7 +710,7 @@ class DPLMain {
 				case 'rows':
 					// ensure that $iRows is a number
 					if ( preg_match( ExtDynamicPageList::$options['rows']['pattern'], $sArg ) ) {
-						$iRows = ( $sArg == '' ) ? 1: intval( $sArg );
+						$iRows = ( $sArg == '' ) ? 1 : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'rows', $sArg );
 					}
@@ -719,7 +719,7 @@ class DPLMain {
 				case 'rowsize':
 					// ensure that $iRowSize is a number
 					if ( preg_match( ExtDynamicPageList::$options['rowsize']['pattern'], $sArg ) ) {
-						$iRowSize = ( $sArg == '' ) ? 0: intval( $sArg );
+						$iRowSize = ( $sArg == '' ) ? 0 : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'rowsize', $sArg );
 					}
@@ -752,7 +752,7 @@ class DPLMain {
 					$sArg = self::killHtmlTags( $sArg );
 					$sArg = str_replace( '\n', "\n", $sArg );
 					$sArg = str_replace( "¶", "\n", $sArg ); // the paragraph delimiter is utf8-escaped
-					$aListSeparators = explode ( ',', $sArg, 4 );
+					$aListSeparators = explode( ',', $sArg, 4 );
 					// mode=userformat will be automatically assumed
 					$sPageListMode = 'userformat';
 					$sInlTxt = '';
@@ -824,7 +824,7 @@ class DPLMain {
 				case 'titlemaxlength':
 					// processed like 'count' param
 					if ( preg_match( ExtDynamicPageList::$options['titlemaxlength']['pattern'], $sArg ) ) {
-						$iTitleMaxLen = ( $sArg == '' ) ? null: intval( $sArg );
+						$iTitleMaxLen = ( $sArg == '' ) ? null : intval( $sArg );
 					} else { // wrong value
 						$output .= $logger->msgWrongParam( 'titlemaxlength', $sArg );
 					}
@@ -832,7 +832,7 @@ class DPLMain {
 
 				case 'replaceintitle':
 					// we offer a possibility to replace some part of the title
-					$aReplaceInTitle = explode ( ',', $sArg, 2 );
+					$aReplaceInTitle = explode( ',', $sArg, 2 );
 					if ( isset( $aReplaceInTitle[1] ) ) {
 						$aReplaceInTitle[1] = self::killHtmlTags( $aReplaceInTitle[1] );
 					}
@@ -886,7 +886,6 @@ class DPLMain {
 				$output .= $logger->escapeMsg( ExtDynamicPageList::WARN_UNKNOWNPARAM, $sType, self::validParametersList() );
 				continue;
 			}
-
 
 			// ------------------------------------------------------------------------------------------- level 2
 
@@ -1134,8 +1133,9 @@ class DPLMain {
 					if ( in_array( $sArg, ExtDynamicPageList::$options['addcategories'] ) ) {
 						$bAddCategories = self::argBoolean( $sArg );
 						$bConflictsWithOpenReferences = true;
-					} else
+					} else {
 						$output .= $logger->msgWrongParam( 'addcategories', $sArg );
+					}
 					break;
 
 				case 'addeditdate':
@@ -1295,7 +1295,7 @@ class DPLMain {
 					if ( trim( $sArg ) == '' ) {
 						$aTableRow = array();
 					} else {
-						$aTableRow = explode ( ',', $sArg );
+						$aTableRow = explode( ',', $sArg );
 					}
 					break;
 
@@ -1400,7 +1400,9 @@ class DPLMain {
 							$bReset[1] = true;
 							$bReset[2] = true;
 							$bReset[3] = true;
-						} elseif ( $arg == 'none' ); // do nothing
+						} elseif ( $arg == 'none' ) {
+							// do nothing
+						}
 					}
 					break;
 
@@ -1449,7 +1451,6 @@ class DPLMain {
 				$output .= $logger->escapeMsg( ExtDynamicPageList::WARN_UNKNOWNPARAM, $sType, self::validParametersList() );
 				continue;
 			}
-
 
 			// ------------------------------------------------------------------------------------------- level 3
 
@@ -1565,7 +1566,6 @@ class DPLMain {
 				$output .= $logger->escapeMsg( ExtDynamicPageList::WARN_UNKNOWNPARAM, $sType, self::validParametersList() );
 				continue;
 			}
-
 
 			// ------------------------------------------------------------------------------------------- level 4
 
@@ -1745,7 +1745,6 @@ class DPLMain {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endReset';
 			}
 		}
-
 
 		// ###### CHECKS ON PARAMETERS ######
 
@@ -2374,7 +2373,6 @@ class DPLMain {
 			}
 		}
 
-
 		// recent changes  =============================
 
 		if ( $bAddContribution ) {
@@ -2455,10 +2453,11 @@ class DPLMain {
 			' WHERE ' . $sCategorylinksTable . '.cl_from=page_id)';
 		}
 
-		if ( $bAddFirstCategoryDate )
+		if ( $bAddFirstCategoryDate ) {
 			// format cl_timestamp field (type timestamp) to string in same format AS rev_timestamp field
 			// to make it compatible with $wgLang->date() function used in function DPLOutputListStyle() to show "firstcategorydate"
 			$sSqlCl_timestamp = ", DATE_FORMAT(cl0.cl_timestamp, '%Y%m%d%H%i%s') AS cl_timestamp";
+		}
 		if ( $bAddPageCounter ) {
 			$sSqlPage_counter = ", $sPageTable.page_counter AS page_counter";
 		}
@@ -2567,9 +2566,9 @@ class DPLMain {
 				}
 			} else {
 				if ( $acceptOpenReferences ) {
-					$sSqlWhere .= 'pl_title >' . $dbr->addQuotes( $sTitleGE ) ;
+					$sSqlWhere .= 'pl_title >' . $dbr->addQuotes( $sTitleGE );
 				} else {
-					$sSqlWhere .= $sPageTable . '.page_title >' . $dbr->addQuotes( $sTitleGE ) ;
+					$sSqlWhere .= $sPageTable . '.page_title >' . $dbr->addQuotes( $sTitleGE );
 				}
 			}
 			$sSqlWhere .= ')';
@@ -2835,7 +2834,6 @@ class DPLMain {
 			return $output;
 		}
 
-
 		// ###### PROCESS SQL QUERY ######
 		try {
 			$res = $dbr->query( $sSqlSelectFrom . $sSqlWhere );
@@ -2875,7 +2873,7 @@ class DPLMain {
 			if ( isset( $iRandomSeed ) ) {
 				mt_srand( $iRandomSeed );
 			} else {
-				mt_srand( (float) microtime() * 10000000 );
+				mt_srand( (float)microtime() * 10000000 );
 			}
 			if ( $iRandomCount > $nResults ) {
 				$iRandomCount = $nResults;
@@ -2919,8 +2917,7 @@ class DPLMain {
 					$pageNamespace = $row->pl_namespace;
 					$pageTitle = $row->pl_title;
 				}
-			}
-			else {
+			} else {
 				// existing PAGE TITLE
 				$pageNamespace = $row->page_namespace;
 				$pageTitle = $row->page_title;
@@ -3173,9 +3170,9 @@ class DPLMain {
 		// replace %LASTTITLE% / %LASTNAMESPACE% by the last title found in header and footer
 		if ( ( $n = count( $aArticles ) ) > 0 ) {
 			$firstNamespaceFound = str_replace( ' ', '_', $aArticles[0]->mTitle->getNamespace() );
-			$firstTitleFound 	 = str_replace( ' ', '_', $aArticles[0]->mTitle->getText() );
-			$lastNamespaceFound  = str_replace( ' ', '_', $aArticles[$n -1]->mTitle->getNamespace() );
-			$lastTitleFound 	 = str_replace( ' ', '_', $aArticles[$n -1]->mTitle->getText() );
+			$firstTitleFound = str_replace( ' ', '_', $aArticles[0]->mTitle->getText() );
+			$lastNamespaceFound = str_replace( ' ', '_', $aArticles[$n - 1]->mTitle->getNamespace() );
+			$lastTitleFound = str_replace( ' ', '_', $aArticles[$n - 1]->mTitle->getText() );
 		}
 		$header = str_replace( '%FIRSTNAMESPACE%', 	$firstNamespaceFound, $header );
 		$footer = str_replace( '%FIRSTNAMESPACE%', 	$firstNamespaceFound, $footer );
@@ -3198,7 +3195,7 @@ class DPLMain {
 
 		// save generated wiki text to dplcache page if desired
 		if ( $DPLCache != '' ) {
-			if ( !is_writeable( $cacheFile ) ) {
+			if ( !is_writable( $cacheFile ) ) {
 				wfMkdirParents( dirname( $cacheFile ) );
 			} elseif (
 				( $bDPLRefresh || $wgRequest->getVal( 'action', 'view' ) == 'submit' ) &&
@@ -3218,7 +3215,7 @@ class DPLMain {
 				fclose( $cFile );
 			}
 			// @todo log something if couldn't write to cache?
-			$dplElapsedTime = time() -$dplStartTime;
+			$dplElapsedTime = time() - $dplStartTime;
 			if ( $logger->iDebugLevel >= 2 ) {
 				$output .= "{{Extension DPL cache|mode=update|page={{FULLPAGENAME}}|cache=$DPLCache|date=$cacheTimeStamp|age=0|now=" .
 							date( 'H:i:s' ) . "|dpltime=$dplElapsedTime|offset=$iOffset}}";
@@ -3255,7 +3252,6 @@ class DPLMain {
 			// CacheAPI::addDependencies ( $parser->mTitle->getArticleID(), $conditionTypes, $conditions);
 */
 		}
-
 
 		// The following requires an extra parser step which may consume some time
 		// we parse the DPL output and save all references found in that output in a global list
@@ -3299,9 +3295,7 @@ class DPLMain {
 		return $output;
 	}
 
-
 	// auxiliary functions ===============================================================================
-
 
 	// get a list of valid page names; returns true if valid args found
 	private static function getPageNameList( $cmd, $text, &$aLinks, &$bSelectionCriteriaFound, $logger, $mustExist = true ) {
@@ -3532,7 +3526,7 @@ class DPLMain {
 			$skey[$a] = "$newkey#$a";
 		}
 		for ( $a = 0; $a < count( $articles ); $a++ ) {
-			$cArticles[$a] = clone ( $articles[$a] );
+			$cArticles[$a] = clone $articles[$a];
 		}
 		sort( $skey );
 		for ( $a = 0; $a < count( $cArticles ); $a++ ) {

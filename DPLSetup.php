@@ -9,7 +9,7 @@
  *       There once was a version called "DynamicPageList2" which is obsolete
  *
  * Usage:
- * 	require_once("extensions/DynamicPageList/DynamicPageList.php"); in LocalSettings.php
+ * 	require_once 'extensions/DynamicPageList/DynamicPageList.php'; in LocalSettings.php
  *
  * @file
  * @ingroup Extensions
@@ -1174,16 +1174,16 @@ class ExtDynamicPageList {
 		// DPL offers the same functionality as Intersection; so we register the <DynamicPageList> tag
 		// in case LabeledSection extension is not installed we need to remove section markers
 
-		$wgParser->setHook( 'section',            array( __CLASS__, 'removeSectionMarkers'     ) );
-		$wgParser->setHook( 'DPL',                array( __CLASS__, 'dplTag'                   ) );
-		$wgParser->setHook( 'DynamicPageList',    array( __CLASS__, 'intersectionTag'          ) );
+		$wgParser->setHook( 'section', array( __CLASS__, 'removeSectionMarkers' ) );
+		$wgParser->setHook( 'DPL', array( __CLASS__, 'dplTag' ) );
+		$wgParser->setHook( 'DynamicPageList', array( __CLASS__, 'intersectionTag' ) );
 
-		$wgParser->setFunctionHook( 'dpl',        array( __CLASS__, 'dplParserFunction'        ) );
-		$wgParser->setFunctionHook( 'dplnum',     array( __CLASS__, 'dplNumParserFunction'     ) );
-		$wgParser->setFunctionHook( 'dplvar',     array( __CLASS__, 'dplVarParserFunction'     ) );
+		$wgParser->setFunctionHook( 'dpl', array( __CLASS__, 'dplParserFunction' ) );
+		$wgParser->setFunctionHook( 'dplnum', array( __CLASS__, 'dplNumParserFunction' ) );
+		$wgParser->setFunctionHook( 'dplvar', array( __CLASS__, 'dplVarParserFunction' ) );
 		$wgParser->setFunctionHook( 'dplreplace', array( __CLASS__, 'dplReplaceParserFunction' ) );
 		$wgParser->setFunctionHook( 'dplchapter', array( __CLASS__, 'dplChapterParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplmatrix',  array( __CLASS__, 'dplMatrixParserFunction'  ) );
+		$wgParser->setFunctionHook( 'dplmatrix', array( __CLASS__, 'dplMatrixParserFunction' ) );
 
 		self::commonSetup();
 	}
@@ -1228,7 +1228,7 @@ class ExtDynamicPageList {
 				die( header( 'Location: ' . Title::newFromText( 'Template:Extension DPL' )->getFullURL() ) );
 			}
 		}
-        require_once( 'DPLVariables.php' );
+        require_once 'DPLVariables.php';
 	}
 
 	private static function loadMessages() {
@@ -1256,13 +1256,13 @@ class ExtDynamicPageList {
 
 		self::loadMessages();
 
-		require_once( 'DynamicPageListInclude.php' );
-		require_once( 'DPL.php' );
-		require_once( 'DPLMain.php' );
-		require_once( 'DPLArticle.php' );
-		require_once( 'DPLListMode.php' );
-		require_once( 'DPLVariables.php' );
-		require_once( 'DPLLogger.php' );
+		require_once 'DynamicPageListInclude.php';
+		require_once 'DPL.php';
+		require_once 'DPLMain.php';
+		require_once 'DPLArticle.php';
+		require_once 'DPLListMode.php';
+		require_once 'DPLVariables.php';
+		require_once 'DPLLogger.php';
 
 		self::$modulesLoaded = true;
 	}
@@ -1479,7 +1479,7 @@ class ExtDynamicPageList {
 				}
 				$targets[$to] .= "\n|--\n";
 			}
-			return "{|class=dplmatrix\n|$name" . "\n" . $header . "|--\n!" . join( "\n!", $targets ) . "\n|}";
+			return "{|class=dplmatrix\n|$name" . "\n" . $header . "|--\n!" . implode( "\n!", $targets ) . "\n|}";
 		} else {
 			foreach ( $targets as $to => $toName ) {
 				$header .= "![[$to|" . $toName . "]]\n";
@@ -1495,7 +1495,7 @@ class ExtDynamicPageList {
 				}
 				$sources[$from] .= "\n|--\n";
 			}
-			return "{|class=dplmatrix\n|$name" . "\n" . $header . "|--\n!" . join( "\n!", $sources ) . "\n|}";
+			return "{|class=dplmatrix\n|$name" . "\n" . $header . "|--\n!" . implode( "\n!", $sources ) . "\n|}";
 		}
 	}
 

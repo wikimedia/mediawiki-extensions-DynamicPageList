@@ -3,34 +3,22 @@
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
-		<exclude name="Generic.ControlStructures.InlineControlStructure" />
 		<exclude name="Generic.Files.LineLength" />
-		<exclude name="Generic.Formatting.DisallowMultipleStatements" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
-		<exclude name="Generic.Formatting.NoSpaceAfterCast" />
-		<exclude name="Generic.PHP.LowerCaseConstant" />
 		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
 		<exclude name="MediaWiki.Commenting.FunctionAnnotations" />
 		<exclude name="MediaWiki.Commenting.FunctionComment" />
 		<exclude name="MediaWiki.Commenting.LicenseComment" />
 		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />
-		<exclude name="MediaWiki.ControlStructures.IfElseStructure" />
-		<exclude name="MediaWiki.ExtraCharacters.ParenthesesAroundKeyword" />
 		<exclude name="MediaWiki.Files.ClassMatchesFilename" />
 		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions" />
 		<exclude name="MediaWiki.Usage.DbrQueryUsage" />
 		<exclude name="MediaWiki.Usage.DeprecatedConstantUsage" />
-		<exclude name="MediaWiki.Usage.ForbiddenFunctions" />
 		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions" />
-		<exclude name="MediaWiki.WhiteSpace.MultipleEmptyLines" />
-		<exclude name="MediaWiki.WhiteSpace.SpaceAfterControlStructure" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
-		<exclude name="MediaWiki.WhiteSpace.SpaceyParenthesis" />
 		<exclude name="PSR2.Classes.PropertyDeclaration" />
 		<exclude name="Squiz.Scope.MemberVarScope" />
 		<exclude name="Squiz.Scope.MethodScope" />
-		<exclude name="Squiz.WhiteSpace.OperatorSpacing" />
-		<exclude name="Squiz.WhiteSpace.SemicolonSpacing" />
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php" />
