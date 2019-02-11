@@ -832,6 +832,11 @@ class DPL {
 	 *
 	 * "other changes" means that a regexp can be applied to the source text or arbitrary text can be
 	 * inserted before or after a pattern occuring in the text
+	 *
+	 * @param string $title
+	 * @param string $text
+	 * @param string $rulesText
+	 * @return string
 	 */
 	function updateArticleByRule( $title, $text, $rulesText ) {
 		// we use ; as command delimiter; \; stands for a semicolon
@@ -1194,12 +1199,16 @@ class DPL {
 
 	/**
 	 * return an array of template invocations; each element is an associative array of parameter and value
+	 *
+	 * @param string $text
+	 * @param string $template
+	 * @return array[]
 	 */
 	function getTemplateParmValues( $text, $template ) {
 		$matches = array();
 		$noMatches = preg_match_all( '/\{\{\s*' . preg_quote( $template, '/' ) . '\s*[|}]/i', $text, $matches, PREG_OFFSET_CAPTURE );
 		if ( $noMatches <= 0 ) {
-			return '';
+			return [];
 		}
 		$textLen = strlen( $text );
 		$tval = array(); // the result array of template values
@@ -1261,6 +1270,16 @@ class DPL {
 
 	/**
 	 * Changes a single parameter value within a certain call of a template
+	 *
+	 * @param int &$matchCount
+	 * @param string $text
+	 * @param string $template
+	 * @param int $call
+	 * @param string $parameter
+	 * @param string $value
+	 * @param string[] $afterParm
+	 * @param bool $optional
+	 * @return string
 	 */
 	function updateTemplateCall( &$matchCount, $text, $template, $call, $parameter, $value, $afterParm, $optional ) {
 		// if parameter is optional and value is empty we leave everything as it is (i.e. we do not remove the parm)
@@ -1546,6 +1565,7 @@ class DPL {
 	 * ... it is not larger that $lim characters
 	 * ... it is balanced in terms of braces, brackets and tags
 	 * ... can be used as content of a wikitable field without spoiling the whole surrounding wikitext structure
+	 *
 	 * @param int $lim Limit of character count for the result
 	 * @param string $text The wikitext to be truncated
 	 * @return string The truncated text; note that in some cases it may be slightly longer than the given limit
@@ -1579,7 +1599,7 @@ class DPL {
 	 * Prepends an image name with its hash path.
 	 *
 	 * @param string $imgName Name of the image (may start with Image: or File:)
-	 * @return $uniq_prefix
+	 * @return string
 	 */
 	static function imageWithPath( $imgName ) {
 		$title = Title::newfromText( 'Image:' . $imgName );
@@ -1597,6 +1617,10 @@ class DPL {
 	 * This is meant to be equivalent to wfMsgExt() with parse, parsemag and
 	 * escape as available options but using the DPL local parser instead of
 	 * the global one (bugfix).
+	 *
+	 * @param string $key
+	 * @param string[]|string $options
+	 * @return string HTML
 	 */
 	function msgExt( $key, $options ) {
 		$args = func_get_args();

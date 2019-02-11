@@ -10,7 +10,7 @@
  *
  * @author Steve Sanbeg
  * @copyright Copyright © 2006, Steve Sanbeg
- * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
+ * @license GPL-2.0-or-later
  *
  *
  * This copy was made to avoid version conflicts between the two extensions.
@@ -262,14 +262,15 @@ class DPLInclude {
 	 * ... it is balanced in terms of braces, brackets and tags
 	 * ... it is cut at a word boundary (white space) if possible
 	 * ... can be used as content of a wikitable field without spoiling the whole surrounding wikitext structure
-	 * @param int $lim Limit of character count for the result
+	 *
 	 * @param string $text The wikitext to be truncated
+	 * @param int $limit Limit of character count for the result
 	 * @param string $link An optional link which will be appended to the text if it was truncated
 	 * @return string The truncated text;
-	 *		 note that the returned text may be longer than the limit if this is necessary
-	 *		 to return something at all. We do not want to return an empty string if the input is not empty
-	 *		 if the text is already shorter than the limit, the text
-	 *		 will be returned without any checks for balance of tags
+	 *  Note that the returned text may be longer than the limit if this is necessary to return
+	 *  something at all. We do not want to return an empty string if the input is not empty.
+	 *  If the text is already shorter than the limit, the text will be returned without any checks
+	 *  for balance of tags.
 	 */
 	public static function limitTranscludedText( $text, $limit, $link = '' ) {
 		// if text is smaller than limit return complete text

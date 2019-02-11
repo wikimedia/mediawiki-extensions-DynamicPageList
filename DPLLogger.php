@@ -19,6 +19,9 @@ class DPLLogger {
 	/**
 	 * Get a message, with optional parameters
 	 * Parameters from user input must be escaped for HTML *before* passing to this function
+	 *
+	 * @param int $msgid
+	 * @return string HTML
 	 */
 	function msg( $msgid ) {
 		if ( $this->iDebugLevel >= ExtDynamicPageList::$debugMinLevels[$msgid] ) {
@@ -56,6 +59,9 @@ class DPLLogger {
 	/**
 	 * Get a message.
 	 * Parameters may be unescaped, this function will escape them for HTML.
+	 *
+	 * @param int $msgid
+	 * @return string HTML
 	 */
 	function escapeMsg( $msgid ) {
 		$args = func_get_args();
@@ -65,9 +71,10 @@ class DPLLogger {
 
 	/**
 	 * Get a "wrong parameter" message.
-	 * @param $paramvar The parameter name
-	 * @param $val The unescaped input value
-	 * @return HTML error message
+	 *
+	 * @param string $paramvar The parameter name
+	 * @param string $val The unescaped input value
+	 * @return string HTML error message
 	 */
 	function msgWrongParam( $paramvar, $val ) {
 		$msgid = ExtDynamicPageList::WARN_WRONGPARAM;

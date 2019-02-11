@@ -19,7 +19,7 @@
  * @author w:de:Benutzer:Unendlich
  * @author m:User:Dangerman <cyril.dangerville@gmail.com>
  * @author m:User:Algorithmix <gero.scholz@gmx.de>
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @license GPL-2.0-or-later
  * @version 0.9.1
  *          problem with adduser solved
  * @version 0.9.2
@@ -420,9 +420,20 @@
  * when making changes here you must update the version field in DynamicPageList.php and DynamicPageListMigration.php !
  */
 
+/**
+ * @param Parser &$parser
+ * @param string $text
+ * @return true
+ */
 function ExtDynamicPageList__endReset( &$parser, $text ) {
 	return ExtDynamicPageList::endReset( $parser, $text );
 }
+
+/**
+ * @param Parser &$parser
+ * @param string $text
+ * @return true
+ */
 function ExtDynamicPageList__endEliminate( &$parser, $text ) {
 	return ExtDynamicPageList::endEliminate( $parser, $text );
 }
@@ -746,8 +757,11 @@ class ExtDynamicPageList {
 		 * includepage =*
 		 * To include sections labeled 'sec1' or 'sec2' or... from the page (see the doc of the LabeledSectionTransclusion extension for more info):
 		 * includepage = sec1,sec2,..
-		 * To include from the first occurrence of the heading 'heading1' (resp. 'heading2') until the next heading of the same or lower level. Note that this comparison is case insensitive. (See http://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion#Transcluding_visual_headings.) :
+		 * To include from the first occurrence of the heading 'heading1' (resp. 'heading2') until
+		 * the next heading of the same or lower level. Note that this comparison is case
+		 * insensitive:
 		 * includepage = #heading1,#heading2,....
+		 * @see http://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion#Transcluding_sections_by_headings
 		 * You can combine:
 		 * includepage= sec1,#heading1,...
 		 * To include nothing from the page (no transclusion), leave empty:
