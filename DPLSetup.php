@@ -985,19 +985,19 @@ class ExtDynamicPageList {
 		/**
 		 * lastrevisionbefore = select the latest revision which was existent before the specified point in time
 		 */
-		'lastrevisionbefore'   => array( 'default' => '', 'pattern' => '#^[-./:0-9]+$#' ),
+		'lastrevisionbefore'   => array( 'default' => '', 'pattern' => '#^[-./:\d]+$#' ),
 		/**
 		 * allrevisionsbefore = select the revisions which were created before the specified point in time
 		 */
-		'allrevisionsbefore'   => array( 'default' => '', 'pattern' => '#^[-./:0-9]+$#' ),
+		'allrevisionsbefore'   => array( 'default' => '', 'pattern' => '#^[-./:\d]+$#' ),
 		/**
 		 * firstrevisionsince = select the first revision which was created after the specified point in time
 		 */
-		'firstrevisionsince'   => array( 'default' => '', 'pattern' => '#^[-./:0-9]+$#' ),
+		'firstrevisionsince'   => array( 'default' => '', 'pattern' => '#^[-./:\d]+$#' ),
 		/**
 		 * allrevisionssince = select the latest revisions which were created after the specified point in time
 		 */
-		'allrevisionssince'    => array( 'default' => '', 'pattern' => '#^[-./:0-9]+$#' ),
+		'allrevisionssince'    => array( 'default' => '', 'pattern' => '#^[-./:\d]+$#' ),
 		/**
 		 * Minimum/Maximum number of revisions required
 		 */
@@ -1491,18 +1491,18 @@ class ExtDynamicPageList {
 	public static function dplNumParserFunction( &$parser, $text = '' ) {
 		$num = str_replace( '&#160;', ' ', $text );
 		$num = str_replace( '&nbsp;', ' ', $num );
-		$num = preg_replace( '/([0-9])([.])([0-9][0-9]?[^0-9,])/', '\1,\3', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9][0-9][0-9])\s*Mrd/', '\1\2 000000 ', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9][0-9])\s*Mrd/', '\1\2 0000000 ', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9])\s*Mrd/', '\1\2 00000000 ', $num );
+		$num = preg_replace( '/(\d)\.(\d\d?[^\d,])/', '\1,\2', $num );
+		$num = preg_replace( '/([\d.]+),(\d\d\d)\s*Mrd/', '\1\2 000000 ', $num );
+		$num = preg_replace( '/([\d.]+),(\d\d)\s*Mrd/', '\1\2 0000000 ', $num );
+		$num = preg_replace( '/([\d.]+),(\d)\s*Mrd/', '\1\2 00000000 ', $num );
 		$num = preg_replace( '/\s*Mrd/', '000000000 ', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9][0-9][0-9])\s*Mio/', '\1\2 000 ', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9][0-9])\s*Mio/', '\1\2 0000 ', $num );
-		$num = preg_replace( '/([0-9.]+),([0-9])\s*Mio/', '\1\2 00000 ', $num );
+		$num = preg_replace( '/([\d.]+),(\d\d\d)\s*Mio/', '\1\2 000 ', $num );
+		$num = preg_replace( '/([\d.]+),(\d\d)\s*Mio/', '\1\2 0000 ', $num );
+		$num = preg_replace( '/([\d.]+),(\d)\s*Mio/', '\1\2 00000 ', $num );
 		$num = preg_replace( '/\s*Mio/', '000000 ', $num );
 		$num = preg_replace( '/[. ]/', '', $num );
-		$num = preg_replace( '/^[^0-9]+/', '', $num );
-		$num = preg_replace( '/[^0-9].*/', '', $num );
+		$num = preg_replace( '/^\D+/', '', $num );
+		$num = preg_replace( '/\D.*/', '', $num );
 		return $num;
 	}
 

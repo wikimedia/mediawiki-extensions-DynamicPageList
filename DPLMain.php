@@ -1514,7 +1514,7 @@ class DPLMain {
 				case 'firstrevisionsince':
 				case 'allrevisionssince':
 					if ( preg_match( ExtDynamicPageList::$options[$sType]['pattern'], $sArg ) ) {
-						$date = str_pad( preg_replace( '/[^0-9]/', '', $sArg ), 14, '0' );
+						$date = str_pad( preg_replace( '/\D+/', '', $sArg ), 14, '0' );
 						$date = $wgLang->userAdjust( $date );
 						if ( ( $sType ) == 'lastrevisionbefore' ) {
 							$sLastRevisionBefore = $date;
@@ -3509,11 +3509,11 @@ class DPLMain {
 	 */
 	private static function killHtmlTags( $text ) {
 		// escape <html>
-		$text = preg_replace( '/<([^>]*[hH][tT][mM][lL][^>]*)>/', '&lt;$1&gt;', $text );
+		$text = preg_replace( '/<([^>]*html[^>]*)>/i', '&lt;$1&gt;', $text );
 		// if we still have <html>, someone is doing something weird, like double nesting to get
 		// around the escaping - just escape it all. <html> should never be here unless someone
 		// is being naughty, so it shouldn't cause problems.
-		if ( preg_match( '/<[^>]*[hH][tT][mM][lL][^>]*>/', $text ) ) {
+		if ( preg_match( '/<[^>]*html[^>]*>/i', $text ) ) {
 			$text = htmlspecialchars( $text );
 		}
 		return $text;
