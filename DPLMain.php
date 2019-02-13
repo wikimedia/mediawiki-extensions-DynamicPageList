@@ -1,8 +1,19 @@
 <?php
 
+use MediaWiki\Linker\LinkTarget;
+
 class DPLMain {
 
-	// The real callback function for converting the input text to wiki text output
+	/**
+	 * The real callback function for converting the input text to wiki text output
+	 *
+	 * @param string $input
+	 * @param string[] $params
+	 * @param Parser $parser
+	 * @param bool[] &$bReset
+	 * @param string $calledInMode
+	 * @return string
+	 */
 	public static function dynamicPageList( $input, $params, $parser, &$bReset, $calledInMode ) {
 		$output = '';
 
@@ -2079,6 +2090,7 @@ class DPLMain {
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id=pl.pl_from AND ';
 			$sSqlSelPage = ', pl.pl_title AS sel_title, pl.pl_namespace AS sel_ns';
 			$n = 0;
+			/** @var LinkTarget[] $linkGroup */
 			foreach ( $aLinksTo as $linkGroup ) {
 				if ( ++$n > 1 ) {
 					break;
@@ -2137,6 +2149,7 @@ class DPLMain {
 		if ( count( $aNotLinksTo ) > 0 ) {
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id NOT IN (SELECT ' . $sPageLinksTable . '.pl_from FROM ' . $sPageLinksTable . ' WHERE (';
 			$n = 0;
+			/** @var LinkTarget[] $links */
 			foreach ( $aNotLinksTo as $links ) {
 				foreach ( $links as $link ) {
 					if ( $n > 0 ) {
@@ -2164,6 +2177,7 @@ class DPLMain {
 			if ( $acceptOpenReferences ) {
 				$sSqlCond_page_pl .= ' AND (';
 				$n = 0;
+				/** @var Title[] $links */
 				foreach ( $aLinksFrom as $links ) {
 					foreach ( $links as $link ) {
 						if ( $n > 0 ) {
@@ -2179,6 +2193,7 @@ class DPLMain {
 				$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_namespace = plf.pl_namespace AND ' . $sPageTable . '.page_title = plf.pl_title AND pagesrc.page_id=plf.pl_from AND (';
 				$sSqlSelPage = ', pagesrc.page_title AS sel_title, pagesrc.page_namespace AS sel_ns';
 				$n = 0;
+				/** @var Title[] $links */
 				foreach ( $aLinksFrom as $links ) {
 					foreach ( $links as $link ) {
 						if ( $n > 0 ) {
@@ -3297,7 +3312,17 @@ class DPLMain {
 
 	// auxiliary functions ===============================================================================
 
-	// get a list of valid page names; returns true if valid args found
+	/**
+	 * Get a list of valid page names; returns true if valid args found
+	 *
+	 * @param string $cmd
+	 * @param string $text
+	 * @param array[] &$aLinks
+	 * @param bool &$bSelectionCriteriaFound
+	 * @param DPLLogger $logger
+	 * @param bool $mustExist
+	 * @return string
+	 */
 	private static function getPageNameList( $cmd, $text, &$aLinks, &$bSelectionCriteriaFound, $logger, $mustExist = true ) {
 		$theLinks = array();
 		$errorMsg = '';
@@ -3478,6 +3503,9 @@ class DPLMain {
 	 * So it is left in here.
 	 * Note, $text should be from user. It should never contain <html> in it unless someone is
 	 * being naughty.
+	 *
+	 * @param string $text
+	 * @return string
 	 */
 	private static function killHtmlTags( $text ) {
 		// escape <html>

@@ -12,8 +12,13 @@ class DPLVariables {
 	 */
 	static $memoryArray = array();
 
-	// expects pairs of 'variable name' and 'value'
-	// if the first parameter is empty it will be ignored {{#vardefine:|a|b}} is the same as {{#vardefine:a|b}}
+	/**
+	 * Expects pairs of 'variable name' and 'value'
+	 * if the first parameter is empty it will be ignored {{#vardefine:|a|b}} is the same as {{#vardefine:a|b}}
+	 *
+	 * @param string[] $arg
+	 * @return string
+	 */
 	static function setVar( $arg ) {
 		$numargs = count( $arg );
 		if ( $numargs >= 3 && $arg[2] == '' ) {

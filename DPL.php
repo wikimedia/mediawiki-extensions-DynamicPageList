@@ -317,7 +317,17 @@ class DPL {
 		return '<p>' . $this->msgExt( $message, array(), $numart ) . '</p>';
 	}
 
-	// substitute symbolic names within a user defined format tag
+	/**
+	 * Substitute symbolic names within a user defined format tag
+	 *
+	 * @param string $tag
+	 * @param string $pagename
+	 * @param DPLArticle $article
+	 * @param string $imageUrl
+	 * @param int|string $nr
+	 * @param int|null $titleMaxLength
+	 * @return string
+	 */
 	function substTagParm( $tag, $pagename, $article, $imageUrl, $nr, $titleMaxLength ) {
 		global $wgLang;
 
@@ -1464,7 +1474,14 @@ class DPL {
 		return $message;
 	}
 
-	// generate a hyperlink to the article
+	/**
+	 * Generate a hyperlink to the article
+	 *
+	 * @param string $tag
+	 * @param DPLArticle $article
+	 * @param int $iTitleMaxLen
+	 * @return string
+	 */
 	function articleLink( $tag, $article, $iTitleMaxLen ) {
 		$pagename = $article->mTitle->getPrefixedText();
 		if ( $this->mEscapeLinks && ( $article->mNamespace == 14 || $article->mNamespace == 6 ) ) {
@@ -1474,12 +1491,25 @@ class DPL {
 		return $this->substTagParm( $tag, $pagename, $article, $this->filteredCount, '', $iTitleMaxLen );
 	}
 
-	// format one item of an entry in the output list (i.e. the collection of occurences of one item from the include parameter)
+	/**
+	 * Format one item of an entry in the output list (i.e. the collection of occurences of one item from the include parameter)
+	 *
+	 * @param string $piece
+	 * @param string $tagStart
+	 * @param string $tagEnd
+	 * @return string
+	 */
 	function formatItem( $piece, $tagStart, $tagEnd ) {
 		return $tagStart . $piece . $tagEnd;
 	}
 
-	// format one single item of an entry in the output list (i.e. one occurence of one item from the include parameter)
+	/**
+	 * Format one single item of an entry in the output list (i.e. one occurence of one item from the include parameter)
+	 *
+	 * @param string[] &$pieces
+	 * @param int $s
+	 * @param DPLArticle $article
+	 */
 	function formatSingleItems( &$pieces, $s, $article ) {
 		$firstCall = true;
 		foreach ( $pieces as $key => $val ) {
@@ -1516,8 +1546,18 @@ class DPL {
 		}
 	}
 
-	// format one single template argument of one occurence of one item from the include parameter
-	// is called via a backlink from DPLInclude::includeTemplate()
+	/**
+	 * Format one single template argument of one occurence of one item from the include parameter
+	 * is called via a backlink from DPLInclude::includeTemplate()
+	 *
+	 * @param string $arg
+	 * @param int $s
+	 * @param int $argNr
+	 * @param bool $firstCall
+	 * @param int $maxlen
+	 * @param DPLArticle $article
+	 * @return string
+	 */
 	function formatTemplateArg( $arg, $s, $argNr, $firstCall, $maxlen, $article ) {
 		// we could try to format fields differently within the first call of a template
 		// currently we do not make such a difference
@@ -1555,7 +1595,11 @@ class DPL {
 		}
 	}
 
-	// return the total number of rows (filtered)
+	/**
+	 * Return the total number of rows (filtered)
+	 *
+	 * @return int
+	 */
 	function getRowCount() {
 		return $this->filteredCount;
 	}
@@ -1579,7 +1623,13 @@ class DPL {
 		return DPLInclude::limitTranscludedText( $text, $lim );
 	}
 
-	// slightly different from CategoryViewer::formatList() (no need to instantiate a CategoryViewer object)
+	/**
+	 * Slightly different from CategoryViewer::formatList() (no need to instantiate a CategoryViewer object)
+	 *
+	 * @param int $iStart
+	 * @param int $iCount
+	 * @return string
+	 */
 	function formatCategoryList( $iStart, $iCount ) {
 		for ( $i = $iStart; $i < $iStart + $iCount; $i++ ) {
 			$aArticles[] = $this->mArticles[$i]->mLink;

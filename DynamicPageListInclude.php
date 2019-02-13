@@ -104,7 +104,13 @@ class DPLInclude {
 	# at a low level. This is the general transclusion functionality
 	##############################################################
 
-	/// Register what we're working on in the parser, so we don't fall into a trap.
+	/**
+	 * Register what we're working on in the parser, so we don't fall into a trap.
+	 *
+	 * @param Parser $parser
+	 * @param string $part1
+	 * @return bool
+	 */
 	public static function open( $parser, $part1 ) {
 		// Infinite loop test
 		if ( isset( $parser->mTemplatePath[$part1] ) ) {
@@ -116,7 +122,12 @@ class DPLInclude {
 		}
 	}
 
-	/// Finish processing the function.
+	/**
+	 * Finish processing the function.
+	 *
+	 * @param Parser $parser
+	 * @param string $part1
+	 */
 	public static function close( $parser, $part1 ) {
 		// Infinite loop test
 		if ( isset( $parser->mTemplatePath[$part1] ) ) {
@@ -129,6 +140,18 @@ class DPLInclude {
 	/**
 	 * Handle recursive substitution here, so we can break cycles, and set up
 	 * return values so that edit sections will resolve correctly.
+	 *
+	 * @param Parser $parser
+	 * @param Title $title
+	 * @param string $text
+	 * @param string $part1
+	 * @param int $skiphead
+	 * @param bool $recursionCheck
+	 * @param int $maxLength
+	 * @param string $link
+	 * @param bool $trim
+	 * @param string[] $skipPattern
+	 * @return string
 	 */
 	private static function parse(
 		$parser,
@@ -176,13 +199,28 @@ class DPLInclude {
 	# And now, the labeled section transclusion
 	##############################################################
 
-	/// The section markers aren't paired, so we only need to remove them.
-	# this function doesn't seem to be in use. remove?
+	/**
+	 * The section markers aren't paired, so we only need to remove them.
+	 *
+	 * This function doesn't seem to be in use. remove?
+	 *
+	 * @param string $in
+	 * @param string[] $assocArgs
+	 * @param Parser|null $parser
+	 * @return string
+	 */
 	public static function emptyString( $in, $assocArgs = array(), $parser = null ) {
 		return '';
 	}
 
-	/// Generate a regex to match the section(s) we're interested in.
+	/**
+	 * Generate a regex to match the section(s) we're interested in.
+	 *
+	 * @param string $sec
+	 * @param string $to
+	 * @param bool &$any
+	 * @return string
+	 */
 	private static function createSectionPattern( $sec, $to, &$any ) {
 		$any = false;
 		if ( $sec[0] == '*' ) {
@@ -204,7 +242,13 @@ class DPLInclude {
 			"$ws\/?>/s";
 	}
 
-	/// Count headings in skipped text; the $parser arg could go away in the future.
+	/**
+	 * Count headings in skipped text; the $parser arg could go away in the future.
+	 *
+	 * @param string $text
+	 * @param int $limit
+	 * @return int
+	 */
 	private static function countHeadings( $text, $limit ) {
 		// count skipped headings, so parser (as of r18218) can skip them, to
 		// prevent wrong heading links (see bug 6563).
@@ -212,6 +256,13 @@ class DPLInclude {
 		return preg_match_all( "/$pat/im", substr( $text, 0, $limit ), $m );
 	}
 
+	/**
+	 * @param Parser $parser
+	 * @param string $page
+	 * @param Title|null &$title
+	 * @param string &$text
+	 * @return bool
+	 */
 	public static function text( $parser, $page, &$title, &$text ) {
 		$title = Title::newFromText( $page );
 
@@ -231,7 +282,18 @@ class DPLInclude {
 		}
 	}
 
-	/// section inclusion - include all matching sections
+	/**
+	 * Section inclusion - include all matching sections
+	 *
+	 * @param Parser $parser
+	 * @param string $page
+	 * @param string $sec
+	 * @param string $to
+	 * @param bool $recursionCheck
+	 * @param bool $trim
+	 * @param string[] $skipPattern
+	 * @return string[]
+	 */
 	public static function includeSection( $parser, $page = '', $sec = '', $to = '', $recursionCheck = true, $trim = false, $skipPattern = array() ) {
 		$output = array();
 		if ( self::text( $parser, $page, $title, $text ) == false ) {
@@ -390,7 +452,23 @@ class DPLInclude {
 		return self::extractHeadingFromText( $parser, $page, $title, $text, $sec, $to, $sectionHeading, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 	}
 
-	// section inclusion - include all matching sections (return array)
+	/**
+	 * Section inclusion - include all matching sections (return array)
+	 *
+	 * @param Parser $parser
+	 * @param string $page
+	 * @param Title $title
+	 * @param string $text
+	 * @param string $sec
+	 * @param string $to
+	 * @param string[] &$sectionHeading
+	 * @param bool $recursionCheck
+	 * @param int $maxLength
+	 * @param string $cLink
+	 * @param bool $trim
+	 * @param string[] $skipPattern
+	 * @return string[]
+	 */
 	public static function extractHeadingFromText( $parser, $page, $title, $text, $sec = '', $to = '', &$sectionHeading, $recursionCheck = true,
 												  $maxLength = -1, $cLink = 'default', $trim = false, $skipPattern = array() ) {
 		$continueSearch = true;
@@ -541,11 +619,27 @@ class DPLInclude {
 		return $output;
 	}
 
-	// template inclusion - find the place(s) where template1 is called,
-	// replace its name by template2, then expand template2 and return the result
-	// we return an array containing all occurences of the template call which match the condition "$mustMatch"
-	// and do NOT match the condition "$mustNotMatch" (if specified)
-	// we use a callback function to format retrieved parameters, accessible via $dpl->formatTemplateArg()
+	/**
+	 * Template inclusion - find the place(s) where template1 is called,
+	 * replace its name by template2, then expand template2 and return the result
+	 * we return an array containing all occurences of the template call which match the condition "$mustMatch"
+	 * and do NOT match the condition "$mustNotMatch" (if specified)
+	 * we use a callback function to format retrieved parameters, accessible via $dpl->formatTemplateArg()
+	 *
+	 * @param Parser $parser
+	 * @param DPL $dpl
+	 * @param int $dplNr
+	 * @param DPLArticle $article
+	 * @param string $template1
+	 * @param string $template2
+	 * @param string $defaultTemplate
+	 * @param string $mustMatch
+	 * @param string $mustNotMatch
+	 * @param bool $matchParsed
+	 * @param int $iTitleMaxLen
+	 * @param string $catlist
+	 * @return string[]
+	 */
 	public static function includeTemplate(
 		$parser,
 		$dpl,

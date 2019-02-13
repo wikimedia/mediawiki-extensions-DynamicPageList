@@ -1381,20 +1381,41 @@ class ExtDynamicPageList {
 		self::$modulesLoaded = true;
 	}
 
-	// ------------------------------------------------------------------------------------- ENTRY parser TAG intersection
+	/**
+	 * ENTRY parser TAG intersection
+	 *
+	 * @param string $input
+	 * @param string[] $params
+	 * @param Parser $parser
+	 * @return string
+	 */
 	public static function intersectionTag( $input, $params, $parser ) {
 		self::behaveLikeIntersection( true );
 		return self::executeTag( $input, $params, $parser );
 	}
 
-	// ------------------------------------------------------------------------------------- ENTRY parser TAG dpl
+	/**
+	 * ENTRY parser TAG dpl
+	 *
+	 * @param string $input
+	 * @param string[] $params
+	 * @param Parser $parser
+	 * @return string
+	 */
 	public static function dplTag( $input, $params, $parser ) {
 		self::behaveLikeIntersection( false );
 		return self::executeTag( $input, $params, $parser );
 	}
 
-	// ------------------------------------------------------------------------------------- ENTRY parser TAG
-	// The callback function wrapper for converting the input text to HTML output
+	/**
+	 * ENTRY parser TAG
+	 * The callback function wrapper for converting the input text to HTML output
+	 *
+	 * @param string $input
+	 * @param string[] $params
+	 * @param Parser $parser
+	 * @return string
+	 */
 	private static function executeTag( $input, $params, $parser ) {
 		// late loading of PHP modules, only if needed
 		self::loadModules();
@@ -1429,7 +1450,12 @@ class ExtDynamicPageList {
 		return $parsedDPL;
 	}
 
-	// ------------------------------------------------------------------------------------- ENTRY parser FUNCTION #dpl
+	/**
+	 * ENTRY parser FUNCTION #dpl
+	 *
+	 * @param Parser &$parser
+	 * @return array|string
+	 */
 	public static function dplParserFunction( &$parser ) {
 		// late loading of PHP modules, only if needed
 		self::loadModules();
@@ -1613,7 +1639,14 @@ class ExtDynamicPageList {
 		}
 	}
 
-	// remove section markers in case the LabeledSectionTransclusion extension is not installed.
+	/**
+	 * Remove section markers in case the LabeledSectionTransclusion extension is not installed.
+	 *
+	 * @param string $in
+	 * @param string[] $assocArgs
+	 * @param Parser|null $parser
+	 * @return string
+	 */
 	public static function removeSectionMarkers( $in, $assocArgs = array(), $parser = null ) {
 		return '';
 	}
@@ -1624,7 +1657,13 @@ class ExtDynamicPageList {
 		}
 	}
 
-	// reset everything; some categories may have been fixed, however via fixcategory=
+	/**
+	 * Reset everything; some categories may have been fixed, however via fixcategory=
+	 *
+	 * @param Parser &$parser
+	 * @param string $text
+	 * @return true
+	 */
 	public static function endReset( &$parser, $text ) {
 		if ( !self::$createdLinks['resetdone'] ) {
 			self::$createdLinks['resetdone'] = true;
