@@ -425,7 +425,7 @@ class DPL {
 				// calculate URL for existing images
 				$img = wfFindFile( Title::makeTitle( NS_FILE, $article->mTitle->getText() ) );
 				if ( $img && $img->exists() ) {
-					$imageUrl = $img->getURL();
+					$imageUrl = $img->getUrl();
 					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', $imageUrl );
 				} else {
 					$iTitle = Title::makeTitleSafe( NS_FILE, $article->mTitle->getDBkey() );
@@ -1602,7 +1602,7 @@ class DPL {
 	 * @return string
 	 */
 	static function imageWithPath( $imgName ) {
-		$title = Title::newfromText( 'Image:' . $imgName );
+		$title = Title::newFromText( 'Image:' . $imgName );
 		if ( !is_null( $title ) ) {
 			$iTitle = Title::makeTitleSafe( 6, $title->getDBkey() );
 			$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', RepoGroup::singleton()->getLocalRepo()->newFile( $iTitle )->getPath() );

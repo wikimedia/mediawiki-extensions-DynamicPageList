@@ -1339,7 +1339,8 @@ class ExtDynamicPageList {
 					$title,
 					EDIT_NEW | EDIT_FORCE_BOT
 				);
-				die( header( 'Location: ' . Title::newFromText( 'Template:Extension DPL' )->getFullURL() ) );
+				header( 'Location: ' . Title::newFromText( 'Template:Extension DPL' )->getFullURL() );
+				die();
 			}
 		}
 		require_once 'DPLVariables.php';
