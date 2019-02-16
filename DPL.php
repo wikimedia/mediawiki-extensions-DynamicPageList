@@ -822,13 +822,13 @@ class DPL {
 		}
 		// increase start value of ordered lists at multi-column output
 		$actStart = $mode->sListStart;
-		$start = preg_replace( '/.*start=([0-9]+).*/', '\1', $actStart );
-		if ( $start != '' ) {
-			// cast to integer else will throw non-numeric value is encountered
-			// warning as experienced from PHP 7.1+ (as $start is a string here)
-			$start = (int)$start + $iCount;
-			$mode->sListStart = preg_replace( '/start=[0-9]+/', "start=$start", $actStart );
-		}
+		$mode->sListStart = preg_replace_callback(
+			'/(?<=\bstart=)\d+\b/',
+			function ( $matches ) use ( $iCount ) {
+				return (int)$matches[0] + $iCount;
+			},
+			$actStart
+		);
 
 		return $actStart . $rBody . $mode->sListEnd;
 	}
