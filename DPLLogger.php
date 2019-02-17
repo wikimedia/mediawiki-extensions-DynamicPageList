@@ -12,7 +12,7 @@ class DPLLogger {
 	 */
 	public $iDebugLevel;
 
-	function __construct() {
+	public function __construct() {
 		$this->iDebugLevel = ExtDynamicPageList::$options['debug']['default'];
 	}
 
@@ -63,7 +63,7 @@ class DPLLogger {
 	 * @param int $msgid
 	 * @return string HTML
 	 */
-	function escapeMsg( $msgid ) {
+	public function escapeMsg( $msgid ) {
 		$args = func_get_args();
 		$args = array_map( 'htmlspecialchars', $args );
 		return call_user_func_array( array( $this, 'msg' ), $args );
@@ -76,7 +76,7 @@ class DPLLogger {
 	 * @param string $val The unescaped input value
 	 * @return string HTML error message
 	 */
-	function msgWrongParam( $paramvar, $val ) {
+	public function msgWrongParam( $paramvar, $val ) {
 		$msgid = ExtDynamicPageList::WARN_WRONGPARAM;
 		switch ( $paramvar ) {
 			case 'namespace':
