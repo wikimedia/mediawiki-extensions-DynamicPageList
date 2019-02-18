@@ -1025,7 +1025,7 @@ class DPL {
 				$tpv = $this->getTemplateParmValues( $text, $template );
 				$legendText = '';
 				if ( $legendPage != '' ) {
-					$legendTitle = '';
+					$legendTitle = null;
 					global $wgParser, $wgUser;
 					$parser = clone $wgParser;
 					DPLInclude::text( $parser, $legendPage, $legendTitle, $legendText );
@@ -1035,7 +1035,7 @@ class DPL {
 				$instructionText = '';
 				$instructions = array();
 				if ( $instructionPage != '' ) {
-					$instructionTitle = '';
+					$instructionTitle = null;
 					global $wgParser, $wgUser;
 					$parser = clone $wgParser;
 					DPLInclude::text( $parser, $instructionPage, $instructionTitle, $instructionText );
@@ -1631,6 +1631,8 @@ class DPL {
 	 * @return string
 	 */
 	function formatCategoryList( $iStart, $iCount ) {
+		$aArticles = [];
+		$aArticles_start_char = [];
 		for ( $i = $iStart; $i < $iStart + $iCount; $i++ ) {
 			$aArticles[] = $this->mArticles[$i]->mLink;
 			$aArticles_start_char[] = $this->mArticles[$i]->mStartChar;
