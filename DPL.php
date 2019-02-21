@@ -134,15 +134,6 @@ class DPL {
 		$this->mReplaceInTitle = $replaceInTitle;
 		$this->mTableRow = $aTableRow;
 
-		// cloning the parser in the following statement leads in some cases to a php error in MW 1.15
-		// 	You must apply the following patch to avoid this:
-		// add in LinkHoldersArray.php at the beginning of function 'merge' the following code lines:
-		//		if (!isset($this->interwikis)) {
-		//			$this->internals = array();
-		//			$this->interwikis = array();
-		//			$this->size = 0;
-		//			$this->parent = $other->parent;
-		//		}
 		$this->mParser = clone $parser;
 		// clear state of cloned parser; if the above patch of LinkHoldersArray is not made this
 		// can lead to links not being shown in the original document (probably the UIQ_QINU-tags no longer
@@ -370,8 +361,8 @@ class DPL {
 			$sTag = str_replace( '%SIZEFS%', floor( sqrt( log( $article->mSize ) ) * 2.5 - 5 ), $sTag );
 		}
 		if ( $article->mDate != '' ) {
-			// note: we must avoid literals in the code which could create confusion when transferred via HTTP
-			//       therefore we write '%'.'DA...'
+			// note: we must avoid literals in the code which could create confusion when
+			// transferred via HTTP therefore we write '%'.'DA...'
 			if ( $article->myDate != '' ) {
 				$sTag = str_replace( '%' . 'DATE%', $article->myDate, $sTag );
 			} else {
@@ -761,7 +752,6 @@ class DPL {
 				}
 				if ( $article->mCounter != '' && $mode->name != 'userformat' ) {
 					// Adapted from SpecialPopularPages::formatResult()
-					// $nv = $this->msgExt( 'nviews', array( 'parsemag', 'escape'), $wgLang->formatNum( $article->mCounter ) );
 					$nv = $this->msgExt( 'dpl-nviews', array( 'escape' ), $wgLang->formatNum( $article->mCounter ) );
 					$rBody .= ' ' . $wgContLang->getDirMark() . '(' . $nv . ')';
 				}

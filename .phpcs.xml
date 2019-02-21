@@ -2,19 +2,21 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
-		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
-		<exclude name="MediaWiki.Commenting.FunctionAnnotations.UnrecognizedAnnotation" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />
 		<exclude name="MediaWiki.Files.ClassMatchesFilename" />
-		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions" />
 		<exclude name="MediaWiki.Usage.DbrQueryUsage" />
-		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
+		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="PSR2.Classes.PropertyDeclaration" />
 		<exclude name="Squiz.Scope.MemberVarScope" />
 		<exclude name="Squiz.Scope.MethodScope" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgContLang" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgParser" />
+	</rule>
+	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
+		<properties>
+			<property name="ignoreList" type="array" value="ExtDynamicPageList__endReset,ExtDynamicPageList__endEliminate" />
+		</properties>
 	</rule>
 	<rule ref="Generic.Files.LineLength">
 		<properties>

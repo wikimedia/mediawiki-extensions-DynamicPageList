@@ -1725,9 +1725,6 @@ class ExtDynamicPageList {
 			}
 		}
 
-		// self::$createdLinks=array(
-		//		'resetLinks'=> false, 'resetTemplates' => false,
-		//		'resetCategories' => false, 'resetImages' => false, 'resetdone' => false );
 		return true;
 	}
 

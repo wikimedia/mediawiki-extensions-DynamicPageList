@@ -1788,8 +1788,6 @@ class DPLMain {
 
 		// more than one included category but ordermethod=categoryadd or addfirstcategorydate=true!
 		// we ALLOW this parameter combination, risking ambiguous results
-		// if ($iTotalIncludeCatCount > 1 && ($aOrderMethods[0] == 'categoryadd' || $bAddFirstCategoryDate == true) )
-		//	return $output . $logger->escapeMsg(ExtDynamicPageList::FATAL_CATDATEBUTMORETHAN1CAT);
 
 		// no more than one type of date at a time!
 		if ( $bAddPageTouchedDate + $bAddFirstCategoryDate + $bAddEditDate > 1 ) {
@@ -3236,36 +3234,6 @@ class DPLMain {
 							date( 'H:i:s' ) . "|dpltime=$dplElapsedTime|offset=$iOffset}}";
 			}
 			$parser->disableCache();
-		}
-
-		// update dependencies to CacheAPI if DPL is to respect the MW ParserCache and the page containing the DPL query is changed
-
-		if ( ExtDynamicPageList::$useCacheAPI && $bAllowCachedResults && $wgRequest->getVal( 'action', 'view' ) == 'submit' ) {
-/*
-			CacheAPI::remDependencies( $parser->mTitle->getArticleID());
-
-			// add category dependencies
-
-			$conditionTypes = array ( CACHETYPE_CATEGORY );
-			$conditions = array();
-			$conditions[0] = array();
-			$categorylist = array();
-			foreach ($aIncludeCategories as $categorygroup) {
-				$c=0;
-				foreach ($categorygroup as $category) {
-					if ($c==0) $conditions[0][]= $category;
-					$c++;
-				}
-			}
-
-			// add template dependencies
-
-			// add link dependencies
-
-			// add general dependencies
-
-			// CacheAPI::addDependencies ( $parser->mTitle->getArticleID(), $conditionTypes, $conditions);
-*/
 		}
 
 		// The following requires an extra parser step which may consume some time

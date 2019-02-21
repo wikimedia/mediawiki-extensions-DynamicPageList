@@ -1,31 +1,32 @@
 <?php
-/*
-   This is a side entry point for Extension:DPL which is intended for migration purpose ONLY
-   -----------------------------------------------------------------------------------------
 
-   If your wiki has been using Extension:Intersection you can require_once this file
-   to install Extension:DPL in PARALLEL to Extension:Intersection.
-
-   In your LocalSettings.php you write:
-
-        require_once '$IP/extensions/DynamicPageList/DynamicPageListMigration.php';
-
-   In this case DPL will NOT register the <DynamicPageList> tag.
-   Instead it will register a tag named <Intersection> which behaves like <DynamicPageList>.
-
-   You can test the compatibility by modifying some of your pages which use Extension:Intersection.
-   Just _temporarily_ replace the tag <DynamicPageList> (which is used by Extension:Intersection)
-   in a page by <Intersection> and you should not see any difference.
-
-   This will help you to make testing and transition as smooth as possible.
-
-   Once you have made sure that DPL works fine you should UNINSTALL Extension:Intersection
-   and switch to the standard entry point 'DynamicPageList.php'.
-
-   This will open the door to a rich set of additional functionality.
-   You can decide how much of that additional functionality you want to offer to your users.
-   See the documentation in DynamicPageList.php for more details.
-*/
+/**
+ * This is a side entry point for Extension:DPL which is intended for migration purpose ONLY
+ * -----------------------------------------------------------------------------------------
+ *
+ * If your wiki has been using Extension:Intersection you can require_once this file
+ * to install Extension:DPL in PARALLEL to Extension:Intersection.
+ *
+ * In your LocalSettings.php you write:
+ *
+ * 	require_once '$IP/extensions/DynamicPageList/DynamicPageListMigration.php';
+ *
+ * In this case DPL will NOT register the <DynamicPageList> tag.
+ * Instead it will register a tag named <Intersection> which behaves like <DynamicPageList>.
+ *
+ * You can test the compatibility by modifying some of your pages which use Extension:Intersection.
+ * Just _temporarily_ replace the tag <DynamicPageList> (which is used by Extension:Intersection)
+ * in a page by <Intersection> and you should not see any difference.
+ *
+ * This will help you to make testing and transition as smooth as possible.
+ *
+ * Once you have made sure that DPL works fine you should UNINSTALL Extension:Intersection
+ * and switch to the standard entry point 'DynamicPageList.php'.
+ *
+ * This will open the door to a rich set of additional functionality.
+ * You can decide how much of that additional functionality you want to offer to your users.
+ * See the documentation in DynamicPageList.php for more details.
+ */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This is not a valid entry point to MediaWiki.' );

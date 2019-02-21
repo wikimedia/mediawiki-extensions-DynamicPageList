@@ -1,6 +1,6 @@
 <?php
 
-/**#@+
+/**
  * This is a modified and enhanced copy of a mediawiki extension called
  *
  *	   LabeledSectionTransclusion
@@ -97,12 +97,12 @@
  *			added %ARGS% to template surrogate call
  */
 
+/**
+ * To do transclusion from an extension, we need to interact with the parser
+ * at a low level. This is the general transclusion functionality
+ * And for the labeled section transclusion
+ */
 class DPLInclude {
-
-	##############################################################
-	# To do transclusion from an extension, we need to interact with the parser
-	# at a low level. This is the general transclusion functionality
-	##############################################################
 
 	/**
 	 * Register what we're working on in the parser, so we don't fall into a trap.
@@ -194,10 +194,6 @@ class DPLInclude {
 				'<!-- WARNING: LST loop detected -->';
 		}
 	}
-
-	##############################################################
-	# And now, the labeled section transclusion
-	##############################################################
 
 	/**
 	 * The section markers aren't paired, so we only need to remove them.
