@@ -144,7 +144,7 @@ class DPL {
 		// that were made before a DPL call
 
 		$clearStateHooks = $wgHooks['ParserClearState'];
-		$wgHooks['ParserClearState'] = [];
+		$wgHooks['ParserClearState'] = array();
 		$this->mParser->clearState(); // eliminated to avoid conflict with CITE extension
 		$wgHooks['ParserClearState'] = $clearStateHooks;
 
@@ -1208,7 +1208,7 @@ class DPL {
 		$matches = array();
 		$noMatches = preg_match_all( '/\{\{\s*' . preg_quote( $template, '/' ) . '\s*[|}]/i', $text, $matches, PREG_OFFSET_CAPTURE );
 		if ( $noMatches <= 0 ) {
-			return [];
+			return array();
 		}
 		$textLen = strlen( $text );
 		$tval = array(); // the result array of template values
@@ -1621,8 +1621,8 @@ class DPL {
 	 * @return string
 	 */
 	function formatCategoryList( $iStart, $iCount ) {
-		$aArticles = [];
-		$aArticles_start_char = [];
+		$aArticles = array();
+		$aArticles_start_char = array();
 		for ( $i = $iStart; $i < $iStart + $iCount; $i++ ) {
 			$aArticles[] = $this->mArticles[$i]->mLink;
 			$aArticles_start_char[] = $this->mArticles[$i]->mStartChar;

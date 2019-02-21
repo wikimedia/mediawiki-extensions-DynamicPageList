@@ -23,6 +23,8 @@
 			<property name="lineLimit" value="283" />
 		</properties>
 	</rule>
+	<!-- keep support for php 5.3 -->
+	<rule ref="Generic.Arrays.DisallowShortArraySyntax" />
 	<file>.</file>
 	<arg name="extensions" value="php" />
 	<arg name="encoding" value="UTF-8" />

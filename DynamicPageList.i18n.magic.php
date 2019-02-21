@@ -1,13 +1,13 @@
 <?php
 
-$magicWords = [];
+$magicWords = array();
 
-$magicWords['en'] = [
-	'dpl' => [ 0, 'dpl' ],
-	'dplnum' => [ 0, 'dplnum' ],
-	'dplvar' => [ 0, 'dplvar' ],
-	'dplreplace' => [ 0, 'dplreplace' ],
-	'dplchapter' => [ 0, 'dplchapter' ],
-	'dplmatrix' => [ 0, 'dplmatrix' ],
-	'DynamicPageList' => [ 0, 'DynamicPageList' ],
-];
+$magicWords['en'] = array(
+	'dpl' => array( 0, 'dpl' ),
+	'dplnum' => array( 0, 'dplnum' ),
+	'dplvar' => array( 0, 'dplvar' ),
+	'dplreplace' => array( 0, 'dplreplace' ),
+	'dplchapter' => array( 0, 'dplchapter' ),
+	'dplmatrix' => array( 0, 'dplmatrix' ),
+	'DynamicPageList' => array( 0, 'DynamicPageList' ),
+);
