@@ -20,7 +20,7 @@
 	</rule>
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="283" />
+			<property name="lineLimit" value="204" />
 		</properties>
 	</rule>
 	<!-- keep support for php 5.3 -->

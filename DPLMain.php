@@ -1840,7 +1840,10 @@ class DPLMain {
 			$sDplClView = $dbr->tableName( 'dpl_clview' );
 			// If the view is not there, we can't perform logical operations on the Uncategorized.
 			if ( !$dbr->tableExists( 'dpl_clview' ) ) {
-				$sSqlCreate_dpl_clview = 'CREATE VIEW ' . $sDplClView . " AS SELECT IFNULL(cl_from, page_id) AS cl_from, IFNULL(cl_to, '') AS cl_to, cl_sortkey FROM " . $sPageTable . ' LEFT OUTER JOIN ' . $sCategorylinksTable . ' ON ' . $sPageTable . '.page_id=cl_from';
+				$sSqlCreate_dpl_clview = 'CREATE VIEW ' . $sDplClView .
+					" AS SELECT IFNULL(cl_from, page_id) AS cl_from, IFNULL(cl_to, '') AS cl_to," .
+					" cl_sortkey FROM " . $sPageTable . ' LEFT OUTER JOIN ' .
+					$sCategorylinksTable . ' ON ' . $sPageTable . '.page_id=cl_from';
 				$output .= $logger->escapeMsg( ExtDynamicPageList::FATAL_NOCLVIEW, $sDplClView, $sSqlCreate_dpl_clview );
 				return $output;
 			}
@@ -2007,7 +2010,9 @@ class DPLMain {
 					$sSqlRevisionTable = $sRevisionTable . ' AS rev, ';
 					$sSqlRev_timestamp = ', rev_timestamp';
 					// deleted because of conflict with revsion-parameters
-					$sSqlCond_page_rev = ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MIN(rev_aux.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux WHERE rev_aux.rev_page=rev.rev_page )';
+					$sSqlCond_page_rev = ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+						' AND rev.rev_timestamp=( SELECT MIN(rev_aux.rev_timestamp) FROM ' .
+						$sRevisionTable . ' AS rev_aux WHERE rev_aux.rev_page=rev.rev_page )';
 					break;
 				case 'pagetouched':
 					$sSqlPage_touched = ", $sPageTable.page_touched AS page_touched";
@@ -2019,7 +2024,9 @@ class DPLMain {
 						$sSqlRevisionTable = $sRevisionTable . ' AS rev, ';
 						$sSqlRev_timestamp = ', rev_timestamp';
 						// deleted because of conflict with revision-parameters
-						$sSqlCond_page_rev = ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MAX(rev_aux.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux WHERE rev_aux.rev_page=rev.rev_page )';
+						$sSqlCond_page_rev = ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+							' AND rev.rev_timestamp=( SELECT MAX(rev_aux.rev_timestamp) FROM ' .
+							$sRevisionTable . ' AS rev_aux WHERE rev_aux.rev_page=rev.rev_page )';
 					}
 					break;
 				case 'sortkey':
@@ -2038,9 +2045,15 @@ class DPLMain {
 					// see line 2011 (order method sortkey requires category
 					if ( count( $aIncludeCategories ) + count( $aExcludeCategories ) > 0 ) {
 						if ( in_array( 'category', $aOrderMethods ) && ( count( $aIncludeCategories ) + count( $aExcludeCategories ) > 0 ) ) {
-							$sSqlSortkey = ", IFNULL(cl_head.cl_sortkey, REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " . $sPageTable . ".page_title), '_', ' ')) " . $sOrderCollation . " as sortkey";
+							$sSqlSortkey = ", IFNULL(cl_head.cl_sortkey, REPLACE(CONCAT( IF(" .
+								$sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText .
+								", ':')), " . $sPageTable . ".page_title), '_', ' ')) " .
+								$sOrderCollation . " as sortkey";
 						} else {
-							$sSqlSortkey = ", IFNULL(cl0.cl_sortkey, REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " . $sPageTable . ".page_title), '_', ' ')) " . $sOrderCollation . " as sortkey";
+							$sSqlSortkey = ", IFNULL(cl0.cl_sortkey, REPLACE(CONCAT( IF(" .
+								$sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText .
+								", ':')), " . $sPageTable . ".page_title), '_', ' ')) " .
+								$sOrderCollation . " as sortkey";
 						}
 					} else {
 						$sSqlSortkey = ", REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " . $sPageTable . ".page_title), '_', ' ') " . $sOrderCollation . " as sortkey";
@@ -2432,11 +2445,15 @@ class DPLMain {
 
 		if ( $bAddAuthor && $sSqlRevisionTable == '' ) {
 			$sSqlRevisionTable = $sRevisionTable . ' AS rev, ';
-			$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MIN(rev_aux_min.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux_min WHERE rev_aux_min.rev_page=rev.rev_page )';
+			$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+				' AND rev.rev_timestamp=( SELECT MIN(rev_aux_min.rev_timestamp) FROM ' .
+				$sRevisionTable . ' AS rev_aux_min WHERE rev_aux_min.rev_page=rev.rev_page )';
 		}
 		if ( $bAddLastEditor && $sSqlRevisionTable == '' ) {
 			$sSqlRevisionTable = $sRevisionTable . ' AS rev, ';
-			$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MAX(rev_aux_max.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux_max WHERE rev_aux_max.rev_page=rev.rev_page )';
+			$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+				' AND rev.rev_timestamp=( SELECT MAX(rev_aux_max.rev_timestamp) FROM ' .
+				$sRevisionTable . ' AS rev_aux_max WHERE rev_aux_max.rev_page=rev.rev_page )';
 		}
 
 		if ( $sLastRevisionBefore . $sAllRevisionsBefore . $sFirstRevisionSince . $sAllRevisionsSince != '' ) {
@@ -2444,13 +2461,19 @@ class DPLMain {
 			$sSqlRev_timestamp = ', rev_timestamp';
 			$sSqlRev_id = ', rev_id';
 			if ( $sLastRevisionBefore != '' ) {
-				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MAX(rev_aux_bef.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux_bef WHERE rev_aux_bef.rev_page=rev.rev_page AND rev_aux_bef.rev_timestamp < ' . $sLastRevisionBefore . ')';
+				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+					' AND rev.rev_timestamp=( SELECT MAX(rev_aux_bef.rev_timestamp) FROM ' .
+					$sRevisionTable . ' AS rev_aux_bef WHERE rev_aux_bef.rev_page=rev.rev_page' .
+					' AND rev_aux_bef.rev_timestamp < ' . $sLastRevisionBefore . ')';
 			}
 			if ( $sAllRevisionsBefore != '' ) {
 				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp < ' . $sAllRevisionsBefore;
 			}
 			if ( $sFirstRevisionSince != '' ) {
-				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp=( SELECT MIN(rev_aux_snc.rev_timestamp) FROM ' . $sRevisionTable . ' AS rev_aux_snc WHERE rev_aux_snc.rev_page=rev.rev_page AND rev_aux_snc.rev_timestamp >= ' . $sFirstRevisionSince . ')';
+				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page' .
+					' AND rev.rev_timestamp=( SELECT MIN(rev_aux_snc.rev_timestamp) FROM ' .
+					$sRevisionTable . ' AS rev_aux_snc WHERE rev_aux_snc.rev_page=rev.rev_page' .
+					' AND rev_aux_snc.rev_timestamp >= ' . $sFirstRevisionSince . ')';
 			}
 			if ( $sAllRevisionsSince != '' ) {
 				$sSqlCond_page_rev .= ' AND ' . $sPageTable . '.page_id=rev.rev_page AND rev.rev_timestamp >= ' . $sAllRevisionsSince;
