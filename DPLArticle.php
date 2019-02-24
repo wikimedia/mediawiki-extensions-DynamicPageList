@@ -128,7 +128,7 @@ class DPLArticle {
 	 * @param Title $title
 	 * @param int $namespace
 	 */
-	function __construct( Title $title, $namespace ) {
+	public function __construct( Title $title, $namespace ) {
 		$this->mTitle     = $title;
 		$this->mNamespace = $namespace;
 	}

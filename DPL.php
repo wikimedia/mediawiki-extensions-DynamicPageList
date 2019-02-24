@@ -107,10 +107,36 @@ class DPL {
 	 */
 	public $mTableRow;
 
-	function __construct( $headings, $bHeadingCount, $iColumns, $iRows, $iRowSize, $sRowColFormat, $articles, $headingtype, $hlistmode,
-				 $listmode, $bescapelinks, $baddexternallink, $includepage, $includemaxlen, $includeseclabels, $includeseclabelsmatch,
-				 $includeseclabelsnotmatch, $includematchparsed, &$parser, $logger, $replaceInTitle, $iTitleMaxLen,
-				 $defaultTemplateSuffix, $aTableRow, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules ) {
+	public function __construct(
+		$headings,
+		$bHeadingCount,
+		$iColumns,
+		$iRows,
+		$iRowSize,
+		$sRowColFormat,
+		$articles,
+		$headingtype,
+		$hlistmode,
+		$listmode,
+		$bescapelinks,
+		$baddexternallink,
+		$includepage,
+		$includemaxlen,
+		$includeseclabels,
+		$includeseclabelsmatch,
+		$includeseclabelsnotmatch,
+		$includematchparsed,
+		&$parser,
+		$logger,
+		$replaceInTitle,
+		$iTitleMaxLen,
+		$defaultTemplateSuffix,
+		$aTableRow,
+		$bIncludeTrim,
+		$iTableSortCol,
+		$updateRules,
+		$deleteRules
+	) {
 		global $wgContLang, $wgHooks;
 		$this->nameSpaces = $wgContLang->getNamespaces();
 		$this->mArticles = $articles;
@@ -1472,7 +1498,7 @@ class DPL {
 	 * @param int $iTitleMaxLen
 	 * @return string
 	 */
-	function articleLink( $tag, $article, $iTitleMaxLen ) {
+	public function articleLink( $tag, $article, $iTitleMaxLen ) {
 		$pagename = $article->mTitle->getPrefixedText();
 		if ( $this->mEscapeLinks && ( $article->mNamespace == 14 || $article->mNamespace == 6 ) ) {
 			// links to categories or images need an additional ":"
@@ -1548,7 +1574,7 @@ class DPL {
 	 * @param DPLArticle $article
 	 * @return string
 	 */
-	function formatTemplateArg( $arg, $s, $argNr, $firstCall, $maxlen, $article ) {
+	public function formatTemplateArg( $arg, $s, $argNr, $firstCall, $maxlen, $article ) {
 		// we could try to format fields differently within the first call of a template
 		// currently we do not make such a difference
 
@@ -1590,7 +1616,7 @@ class DPL {
 	 *
 	 * @return int
 	 */
-	function getRowCount() {
+	public function getRowCount() {
 		return $this->filteredCount;
 	}
 
@@ -1688,7 +1714,7 @@ class DPL {
 		return $string;
 	}
 
-	function getText() {
+	public function getText() {
 		return $this->mOutput;
 	}
 

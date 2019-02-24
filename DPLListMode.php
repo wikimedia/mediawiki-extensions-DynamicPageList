@@ -18,8 +18,17 @@ class DPLListMode {
 	public $aMultiSecSeparators = array();
 	public $iDominantSection = -1;
 
-	function __construct( $listMode, $secSeparators, $multiSecSeparators, $inlineText, $listAttr = '', $itemAttr = '',
-						  $listSeparators, $iOffset, $dominantSection ) {
+	public function __construct(
+		$listMode,
+		$secSeparators,
+		$multiSecSeparators,
+		$inlineText,
+		$listAttr = '',
+		$itemAttr = '',
+		$listSeparators,
+		$iOffset,
+		$dominantSection
+	) {
 		// default for inlinetext (if not in mode=userformat)
 		if ( ( $listMode != 'userformat' ) && ( $inlineText == '' ) ) {
 			$inlineText = '&#160;-&#160;';

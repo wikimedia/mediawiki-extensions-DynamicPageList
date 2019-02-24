@@ -14,7 +14,7 @@ class DPLVariables {
 	 * @param string[] $arg
 	 * @return string
 	 */
-	static function setVar( $arg ) {
+	public static function setVar( $arg ) {
 		$numargs = count( $arg );
 		if ( $numargs >= 3 && $arg[2] == '' ) {
 			$start = 3;
@@ -32,7 +32,7 @@ class DPLVariables {
 		return '';
 	}
 
-	static function setVarDefault( $arg ) {
+	public static function setVarDefault( $arg ) {
 		$numargs = count( $arg );
 		if ( $numargs > 3 ) {
 			$value = $arg[3];
@@ -46,7 +46,7 @@ class DPLVariables {
 		return '';
 	}
 
-	static function getVar( $var ) {
+	public static function getVar( $var ) {
 		if ( array_key_exists( $var, self::$memoryVar ) ) {
 			return self::$memoryVar[$var];
 		}
