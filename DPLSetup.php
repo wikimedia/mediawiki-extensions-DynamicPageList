@@ -13,7 +13,7 @@
  *
  * @file
  * @ingroup Extensions
- * @link http://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)  Documentation
+ * @link https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)  Documentation
  * @author n:en:User:IlyaHaykinson
  * @author n:en:User:Amgine
  * @author w:de:Benutzer:Unendlich
@@ -761,7 +761,7 @@ class ExtDynamicPageList {
 		 * the next heading of the same or lower level. Note that this comparison is case
 		 * insensitive:
 		 * includepage = #heading1,#heading2,....
-		 * @see http://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion#Transcluding_sections_by_headings
+		 * @see https://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion#Transcluding_sections_by_headings
 		 * You can combine:
 		 * includepage= sec1,#heading1,...
 		 * To include nothing from the page (no transclusion), leave empty:
@@ -1331,7 +1331,7 @@ class ExtDynamicPageList {
 				$pageContent = ContentHandler::makeContent(
 					"<noinclude>This page was automatically created. It serves as an anchor page for " .
 					"all '''[[Special:WhatLinksHere/Template:Extension_DPL|invocations]]''' " .
-					"of [http://mediawiki.org/wiki/Extension:DynamicPageList Extension:DynamicPageList (DPL)].</noinclude>",
+					"of [https://mediawiki.org/wiki/Extension:DynamicPageList Extension:DynamicPageList (DPL)].</noinclude>",
 					$page->getTitle()
 				);
 				$page->doEditContent(

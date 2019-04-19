@@ -5,7 +5,7 @@
  *
  *	   LabeledSectionTransclusion
  *
- * @link http://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion Documentation
+ * @link https://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion Documentation
  *
  *
  * @author Steve Sanbeg

@@ -35,7 +35,7 @@ class DPLMain {
 		 */
 		$dplStartTime = microtime( true );
 
-		// Local parser created. See http://www.mediawiki.org/wiki/Extensions_FAQ#How_do_I_render_wikitext_in_my_extension.3F
+		// Local parser created. See https://www.mediawiki.org/wiki/Extensions_FAQ#How_do_I_render_wikitext_in_my_extension.3F
 		$localParser = new Parser();
 
 		// check if DPL shall only be executed from protected pages
