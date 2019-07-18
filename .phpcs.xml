@@ -12,6 +12,7 @@
 		<exclude name="Squiz.Scope.MethodScope" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgContLang" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgParser" />
+		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
 		<properties>
