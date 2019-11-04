@@ -1648,7 +1648,7 @@ class DPLMain {
 
 		// disable parser cache	if caching is not allowed (which is default for DPL but not for <DynamicPageList>)
 		if ( !$bAllowCachedResults ) {
-			$parser->disableCache();
+			$parser->getOutput()->updateCacheExpiry( 0 );
 		}
 		// place cache warning in resultsheader
 		if ( $bWarnCachedResults ) {
@@ -3256,7 +3256,7 @@ class DPLMain {
 				$output .= "{{Extension DPL cache|mode=update|page={{FULLPAGENAME}}|cache=$DPLCache|date=$cacheTimeStamp|age=0|now=" .
 							date( 'H:i:s' ) . "|dpltime=$dplElapsedTime|offset=$iOffset}}";
 			}
-			$parser->disableCache();
+			$parser->getOutput()->updateCacheExpiry( 0 );
 		}
 
 		// The following requires an extra parser step which may consume some time
