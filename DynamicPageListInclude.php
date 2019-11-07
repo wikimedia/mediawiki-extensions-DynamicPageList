@@ -65,7 +65,7 @@
  *			error corrected in reduceToText (limit=1 delivered string of length 2)
  * @version 1.5.4
  * 			new parser function {{#dplchapter:text|heading|limit|page|linktext}}
- *			added provision fpr pre and nowiki in wiki text truncation fuction
+ *			added provision for pre and nowiki in wiki text truncation function
  *			support %DATE% and %USER% within phantom templates
  * @version 1.6.1
  *			Escaping of "/" improved. In some cases a slash in a page name or in a template parameter could lead to php errors at INCLUDE

@@ -228,7 +228,7 @@
  * 			when using title= together with include=* there was a false warning about empty result set
  * 			new parser function {{#dplchapter:text|heading|limit|page|linktext}}
  * 			articlecategory added
- *			added provision fpr pre and nowiki in wiki text truncation fuction
+ *			added provision for pre and nowiki in wiki text truncation function
  *			support %DATE% and %USER% within phantom templates
  *			added randomseed
  * @version 1.6.0
