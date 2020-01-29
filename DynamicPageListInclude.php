@@ -266,7 +266,7 @@ class DPLInclude {
 			$text = '';
 			return true;
 		} else {
-			$text = $parser->fetchTemplate( $title );
+			list( $text, $title ) = $parser->fetchTemplateAndTitle( $title );
 		}
 
 		// if article doesn't exist, return a red link.
@@ -655,7 +655,7 @@ class DPLInclude {
 		$user = $article->mUserLink;
 		$title = Title::newFromText( $page );
 		/* get text and throw away html comments */
-		$text = preg_replace( '/<!--.*?-->/s', '', $parser->fetchTemplate( $title ) );
+		$text = preg_replace( '/<!--.*?-->/s', '', $parser->fetchTemplateAndTitle( $title )[0] );
 
 		if ( $template1 != '' && $template1[0] == '#' ) {
 			// --------------------------------------------- looking for a parser function call
