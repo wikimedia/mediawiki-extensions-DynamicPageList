@@ -477,7 +477,7 @@ class DPL {
 					} else {
 						$incwiki = '<br/>';
 					}
-					$text = $this->mParser->fetchTemplate( Title::newFromText( $title ) );
+					$text = $this->mParser->fetchTemplateAndTitle( Title::newFromText( $title ) )[0];
 					if (
 						( count( $this->mIncSecLabelsMatch ) <= 0 || $this->mIncSecLabelsMatch[0] == '' ||
 							!preg_match( $this->mIncSecLabelsMatch[0], $text ) == false ) &&
