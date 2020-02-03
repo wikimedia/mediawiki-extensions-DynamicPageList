@@ -508,7 +508,7 @@ class DPL {
 							$incwiki .= $message;
 						} else {
 							// append full text to output
-							if ( array_key_exists( '0', $mode->sSectionTags ) ) {
+							if ( isset( $mode->sSectionTags[0] ) ) {
 								$incwiki .= $this->substTagParm( $mode->sSectionTags[0], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen );
 								$pieces = array( 0 => $text );
 								$this->formatSingleItems( $pieces, 0, $article );
@@ -554,15 +554,12 @@ class DPL {
 								// regular expressions which define a skip pattern may precede the text
 								$fmtSec = explode( '~', substr( $sSecLabel, $limpos + 1, strlen( $sSecLabel ) - $limpos - 2 ) );
 								$sSecLabel = substr( $sSecLabel, 0, $limpos );
-								$cutInfo = explode( ' ', $fmtSec[count( $fmtSec ) - 1], 2 );
+								$cutInfo = explode( ' ', array_pop( $fmtSec ), 2 );
 								$maxlen = intval( $cutInfo[0] );
-								if ( array_key_exists( '1', $cutInfo ) ) {
+								if ( isset( $cutInfo[1] ) ) {
 									$cutLink = $cutInfo[1];
 								}
 								foreach ( $fmtSec as $skipKey => $skipPat ) {
-									if ( $skipKey == count( $fmtSec ) - 1 ) {
-										continue;
-									}
 									$skipPattern[] = $skipPat;
 								}
 							}
@@ -1049,20 +1046,17 @@ class DPL {
 				$tpv = $this->getTemplateParmValues( $text, $template );
 				$legendText = '';
 				if ( $legendPage != '' ) {
-					$legendTitle = null;
 					global $wgUser;
 					$parser = MediaWikiServices::getInstance()->getParser();
-					DPLInclude::text( $parser, $legendPage, $legendTitle, $legendText );
+					$legendText = DPLInclude::text( $parser, $legendPage );
 					$legendText = preg_replace( '/^.*?\<section\s+begin\s*=\s*legend\s*\/\>/s', '', $legendText );
 					$legendText = preg_replace( '/\<section\s+end\s*=\s*legend\s*\/\>.*/s', '', $legendText );
 				}
-				$instructionText = '';
 				$instructions = array();
 				if ( $instructionPage != '' ) {
-					$instructionTitle = null;
 					global $wgUser;
 					$parser = MediaWikiServices::getInstance()->getParser();
-					DPLInclude::text( $parser, $instructionPage, $instructionTitle, $instructionText );
+					$instructionText = DPLInclude::text( $parser, $instructionPage );
 					$instructions = $this->getTemplateParmValues( $instructionText, 'Template field' );
 				}
 				// construct an edit form containing all template invocations
@@ -1251,8 +1245,7 @@ class DPL {
 
 		foreach ( $matches as $matchA ) {
 			foreach ( $matchA as $matchB ) {
-				$match = $matchB[0];
-				$start = $matchB[1];
+				list( $match, $start ) = $matchB;
 				$tval[++$call] = array();
 				$nr = 0; // number of parameter if no name given
 				$parmValue = '';
@@ -1339,12 +1332,12 @@ class DPL {
 				if ( $occurence < $call ) {
 					continue;
 				}
-				$match = $matchB[0];
-				$start = $matchB[1];
+				list( $match, $start ) = $matchB;
 
 				if ( $match[strlen( $match ) - 1] == '}' ) {
 					// template was called without parameters, add new parameter and value
 					// append parameter and value
+					// FIXME: Undefined $i!
 					$beginSubst = $i;
 					$endSubst = $i;
 					$substitution = "|$parameter = $value";

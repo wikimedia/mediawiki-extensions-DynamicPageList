@@ -257,27 +257,19 @@ class DPLInclude {
 	/**
 	 * @param Parser $parser
 	 * @param string $page
-	 * @param Title|null &$title
-	 * @param string &$text
-	 * @return bool
+	 * @return string
 	 */
-	public static function text( $parser, $page, &$title, &$text ) {
+	public static function text( Parser $parser, $page ) {
 		$title = Title::newFromText( $page );
 
-		if ( is_null( $title ) ) {
-			$text = '';
-			return true;
-		} else {
-			list( $text, $title ) = $parser->fetchTemplateAndTitle( $title );
+		if ( !$title ) {
+			return '';
 		}
 
+		list( $text, $title ) = $parser->fetchTemplateAndTitle( $title );
+
 		// if article doesn't exist, return a red link.
-		if ( $text == false ) {
-			$text = '[[' . $title->getPrefixedText() . ']]';
-			return false;
-		} else {
-			return true;
-		}
+		return $text === false ? '[[' . $title->getPrefixedText() . ']]' : $text;
 	}
 
 	/**

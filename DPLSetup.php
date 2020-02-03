@@ -1691,6 +1691,11 @@ class ExtDynamicPageList {
 		return true;
 	}
 
+	/**
+	 * @param Parser &$parser
+	 * @param string &$text
+	 * @return true
+	 */
 	public static function endEliminate( &$parser, &$text ) {
 		// called during the final output phase; removes links created by DPL
 		if ( isset( self::$createdLinks ) ) {
@@ -1712,7 +1717,7 @@ class ExtDynamicPageList {
 						continue;
 					}
 
-					$parser->getOutput()->mTemplates[$nsp] = array_diff_assoc( $parser->getOutput()->mTemplates[$nsp], self::$createdLinks[1][$nsp] );
+					$parser->getOutput()->mTemplates[$nsp] = array_diff_assoc( $tpl[$nsp], self::$createdLinks[1][$nsp] );
 					if ( count( $parser->getOutput()->mTemplates[$nsp] ) == 0 ) {
 						unset( $parser->getOutput()->mTemplates[$nsp] );
 					}
