@@ -15,7 +15,7 @@ class DPLMain {
 	 * @param string $calledInMode
 	 * @return string
 	 */
-	public static function dynamicPageList( $input, $params, $parser, &$bReset, $calledInMode ) {
+	public static function dynamicPageList( $input, $params, Parser $parser, &$bReset, $calledInMode ) {
 		$output = '';
 
 		error_reporting( E_ALL );

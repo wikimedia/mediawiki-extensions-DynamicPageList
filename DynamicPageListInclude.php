@@ -284,7 +284,7 @@ class DPLInclude {
 	 * @param string[] $skipPattern
 	 * @return string[]
 	 */
-	public static function includeSection( $parser, $page = '', $sec = '', $to = '', $recursionCheck = true, $trim = false, $skipPattern = array() ) {
+	public static function includeSection( Parser $parser, $page = '', $sec = '', $to = '', $recursionCheck = true, $trim = false, $skipPattern = array() ) {
 		$output = array();
 		if ( self::text( $parser, $page, $title, $text ) == false ) {
 			$output[] = $text;
@@ -421,7 +421,7 @@ class DPLInclude {
 	}
 
 	public static function includeHeading(
-		$parser,
+		Parser $parser,
 		$page = '',
 		$sec = '',
 		$to = '',
@@ -631,7 +631,7 @@ class DPLInclude {
 	 * @return string[]
 	 */
 	public static function includeTemplate(
-		$parser,
+		Parser $parser,
 		$dpl,
 		$dplNr,
 		$article,

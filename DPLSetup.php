@@ -1391,7 +1391,7 @@ class ExtDynamicPageList {
 	 * @param Parser $parser
 	 * @return string
 	 */
-	public static function intersectionTag( $input, $params, $parser ) {
+	public static function intersectionTag( $input, $params, Parser $parser ) {
 		self::behaveLikeIntersection( true );
 		return self::executeTag( $input, $params, $parser );
 	}
@@ -1404,7 +1404,7 @@ class ExtDynamicPageList {
 	 * @param Parser $parser
 	 * @return string
 	 */
-	public static function dplTag( $input, $params, $parser ) {
+	public static function dplTag( $input, $params, Parser $parser ) {
 		self::behaveLikeIntersection( false );
 		return self::executeTag( $input, $params, $parser );
 	}
@@ -1418,7 +1418,7 @@ class ExtDynamicPageList {
 	 * @param Parser $parser
 	 * @return string
 	 */
-	private static function executeTag( $input, $params, $parser ) {
+	private static function executeTag( $input, $params, Parser $parser ) {
 		// late loading of PHP modules, only if needed
 		self::loadModules();
 
