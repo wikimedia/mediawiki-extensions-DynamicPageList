@@ -130,7 +130,6 @@ class DPLMain {
 		$sTitleMatchMode = ' LIKE ';
 		$sNotTitleMatchMode = ' LIKE ';
 
-		// execAndExit
 		$sExecAndExit = ExtDynamicPageList::$options['execandexit']['default'];
 
 		// ordermethod, order, mode, userdateformat, allowcachedresults:
@@ -2094,8 +2093,6 @@ class DPLMain {
 			}
 		}
 
-		// linksto
-
 		if ( count( $aLinksTo ) > 0 ) {
 			$sSqlPageLinksTable .= $sPageLinksTable . ' AS pl, ';
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id=pl.pl_from AND ';
@@ -2156,7 +2153,6 @@ class DPLMain {
 			}
 		}
 
-		// notlinksto
 		if ( count( $aNotLinksTo ) > 0 ) {
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id NOT IN (SELECT ' . $sPageLinksTable . '.pl_from FROM ' . $sPageLinksTable . ' WHERE (';
 			$n = 0;
@@ -2183,7 +2179,6 @@ class DPLMain {
 			$sSqlCond_page_pl .= ') )';
 		}
 
-		// linksfrom
 		if ( count( $aLinksFrom ) > 0 ) {
 			if ( $acceptOpenReferences ) {
 				$sSqlCond_page_pl .= ' AND (';
@@ -2218,7 +2213,6 @@ class DPLMain {
 			}
 		}
 
-		// notlinksfrom
 		if ( count( $aNotLinksFrom ) > 0 ) {
 			if ( $acceptOpenReferences ) {
 				$sSqlCond_page_pl .= ' AND (';
@@ -2250,7 +2244,6 @@ class DPLMain {
 			}
 		}
 
-		// linkstoexternal
 		if ( count( $aLinksToExternal ) > 0 ) {
 			$sSqlExternalLinksTable .= $sExternalLinksTable . ' AS el, ';
 			$sSqlCond_page_el .= ' AND ' . $sPageTable . '.page_id=el.el_from AND (';
@@ -2288,7 +2281,6 @@ class DPLMain {
 			}
 		}
 
-		// imageused
 		if ( count( $aImageUsed ) > 0 ) {
 			$sSqlPageLinksTable .= $sImageLinksTable . ' AS il, ';
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id=il.il_from AND (';
@@ -2308,7 +2300,6 @@ class DPLMain {
 			$sSqlCond_page_pl .= ')';
 		}
 
-		// imagecontainer
 		if ( count( $aImageContainer ) > 0 ) {
 			$sSqlPageLinksTable .= $sImageLinksTable . ' AS ic, ';
 			if ( $acceptOpenReferences ) {
@@ -2331,7 +2322,6 @@ class DPLMain {
 			$sSqlCond_page_pl .= ')';
 		}
 
-		// uses
 		if ( count( $aUses ) > 0 ) {
 			$sSqlPageLinksTable .= ' ' . $sTemplateLinksTable . ' AS tl, ';
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id=tl.tl_from AND (';
@@ -2351,7 +2341,6 @@ class DPLMain {
 			$sSqlCond_page_pl .= ')';
 		}
 
-		// notuses
 		if ( count( $aNotUses ) > 0 ) {
 			$sSqlCond_page_pl .= ' AND ' . $sPageTable . '.page_id NOT IN (SELECT ' . $sTemplateLinksTable . '.tl_from FROM ' . $sTemplateLinksTable . ' WHERE (';
 			$n = 0;
@@ -2370,7 +2359,6 @@ class DPLMain {
 			$sSqlCond_page_pl .= ') )';
 		}
 
-		// usedby
 		if ( count( $aUsedBy ) > 0 ) {
 			if ( $acceptOpenReferences ) {
 				$sSqlCond_page_tpl .= ' AND (';
@@ -2582,7 +2570,6 @@ class DPLMain {
 			}
 		}
 
-		// TitleIs
 		if ( $sTitleIs != '' ) {
 			if ( $bIgnoreCase ) {
 				$sSqlWhere .= ' AND LOWER(CAST(' . $sPageTable . '.page_title AS char)) = LOWER(' . $dbr->addQuotes( $sTitleIs ) . ')';
@@ -3008,7 +2995,6 @@ class DPLMain {
 				$dplArticle->mStartChar = $wgContLang->convert( $wgContLang->firstChar( $pageTitle ) );
 			}
 
-			// page_id
 			if ( isset( $row->page_id ) ) {
 				$dplArticle->mID = $row->page_id;
 			} else {
