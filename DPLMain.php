@@ -35,9 +35,6 @@ class DPLMain {
 		 */
 		$dplStartTime = microtime( true );
 
-		// Local parser created. See https://www.mediawiki.org/wiki/Extensions_FAQ#How_do_I_render_wikitext_in_my_extension.3F
-		$localParser = new Parser();
-
 		// check if DPL shall only be executed from protected pages
 		if ( array_key_exists( 'RunFromProtectedPagesOnly', ExtDynamicPageList::$options ) &&
 			ExtDynamicPageList::$options['RunFromProtectedPagesOnly'] == true && !( $parser->mTitle->isProtected( 'edit' ) ) ) {
@@ -3274,6 +3271,7 @@ class DPLMain {
 			) {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endEliminate';
 			}
+			$localParser = $parser->getFreshParser();
 			$parserOutput = $localParser->parse( $output, $parser->mTitle, $parser->mOptions );
 		}
 		if ( $bReset[4] ) {	// LINKS
