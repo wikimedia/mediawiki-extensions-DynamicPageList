@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class DPL {
 
 	/**
@@ -1180,7 +1182,8 @@ class DPL {
 		}
 
 		$titleX = Title::newFromText( $title );
-		$permissionErrors = $titleX->getUserPermissionsErrors( 'edit', $wgUser );
+		$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
+			->getPermissionErrors( 'edit', $wgUser, $titleX );
 		if ( count( $permissionErrors ) == 0 ) {
 			$pageX = WikiPage::factory( $titleX );
 			$pageXContent = ContentHandler::makeContent( $text, $pageX->getTitle() );
@@ -1472,7 +1475,8 @@ class DPL {
 		$titleX = Title::newFromText( $title );
 		if ( $exec ) {
 			# Check permissions
-			$permissionErrors = $titleX->getUserPermissionsErrors( 'delete', $wgUser );
+			$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
+				->getPermissionErrors( 'delete', $wgUser, $titleX );
 			if ( count( $permissionErrors ) > 0 ) {
 				$wgOut->showPermissionsErrorPage( $permissionErrors );
 				return 'permission error';
