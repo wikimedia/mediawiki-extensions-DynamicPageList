@@ -600,7 +600,7 @@ class ExtDynamicPageList {
 	public static $behavingLikeIntersection = false;
 
 	/**
-	 * The amount of functionality of DPL that is accesible for the user.
+	 * The amount of functionality of DPL that is accessible for the user.
 	 * To be set by DynamicPageList.php and DynamicPageListMigration.php
 	 */
 	public static $functionalRichness = 0;
