@@ -139,8 +139,8 @@ class DPL {
 		$updateRules,
 		$deleteRules
 	) {
-		global $wgContLang, $wgHooks;
-		$this->nameSpaces = $wgContLang->getNamespaces();
+		global $wgHooks;
+		$this->nameSpaces = MediaWikiServices::getInstance()->getContentLanguage()->getNamespaces();
 		$this->mArticles = $articles;
 		$this->mListMode = $listmode;
 		$this->mEscapeLinks = $bescapelinks;
@@ -168,7 +168,7 @@ class DPL {
 		// get replaced properly; in combination with the patch however, it does not do any harm.
 
 		// The CITE extension registers a hook on parser->clearState
-		// We must UNDO the effect of that call (Cite->clearState) because otherwise all Cititations would be lost
+		// We must UNDO the effect of that call (Cite->clearState) because otherwise all Citations would be lost
 		// that were made before a DPL call
 
 		$clearStateHooks = $wgHooks['ParserClearState'];
@@ -434,7 +434,7 @@ class DPL {
 	}
 
 	function formatList( $iStart, $iCount, $iTitleMaxLen, $defaultTemplateSuffix, $bIncludeTrim, $iTableSortCol, $updateRules, $deleteRules ) {
-		global $wgLang, $wgContLang;
+		global $wgLang;
 
 		$mode = $this->mListMode;
 		// categorypage-style list output mode
@@ -781,7 +781,7 @@ class DPL {
 				if ( $article->mCounter != '' && $mode->name != 'userformat' ) {
 					// Adapted from SpecialPopularPages::formatResult()
 					$nv = $this->msgExt( 'dpl-nviews', array( 'escape' ), $wgLang->formatNum( $article->mCounter ) );
-					$rBody .= ' ' . $wgContLang->getDirMark() . '(' . $nv . ')';
+					$rBody .= ' ' . MediaWikiServices::getInstance()->getContentLanguage()->getDirMark() . '(' . $nv . ')';
 				}
 				if ( $article->mUserLink != '' ) {
 					$rBody .= ' . . [[User:' . $article->mUser . '|' . $article->mUser . ']]';
@@ -1044,8 +1044,8 @@ class DPL {
 				$legendText = '';
 				if ( $legendPage != '' ) {
 					$legendTitle = null;
-					global $wgParser, $wgUser;
-					$parser = clone $wgParser;
+					global $wgUser;
+					$parser = MediaWikiServices::getInstance()->getParser();
 					DPLInclude::text( $parser, $legendPage, $legendTitle, $legendText );
 					$legendText = preg_replace( '/^.*?\<section\s+begin\s*=\s*legend\s*\/\>/s', '', $legendText );
 					$legendText = preg_replace( '/\<section\s+end\s*=\s*legend\s*\/\>.*/s', '', $legendText );
@@ -1054,8 +1054,8 @@ class DPL {
 				$instructions = array();
 				if ( $instructionPage != '' ) {
 					$instructionTitle = null;
-					global $wgParser, $wgUser;
-					$parser = clone $wgParser;
+					global $wgUser;
+					$parser = MediaWikiServices::getInstance()->getParser();
 					DPLInclude::text( $parser, $instructionPage, $instructionTitle, $instructionText );
 					$instructions = $this->getTemplateParmValues( $instructionText, 'Template field' );
 				}

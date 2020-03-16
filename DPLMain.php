@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MediaWikiServices;
 
 class DPLMain {
 
@@ -19,8 +20,10 @@ class DPLMain {
 
 		error_reporting( E_ALL );
 
-		global $wgLang, $wgContLang, $wgRequest;
+		global $wgLang, $wgRequest;
 		global $wgNonincludableNamespaces;
+
+		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
 
 		// logger (display of debug messages)
 		$logger = new DPLLogger();
@@ -54,7 +57,7 @@ class DPLMain {
 		// Extension variables
 		// Allowed namespaces for DPL: all namespaces except the first 2: Media (-2) and Special (-1), because we cannot use the DB for these to generate dynamic page lists.
 		if ( !is_array( ExtDynamicPageList::$allowedNamespaces ) ) { // Initialization
-			$aNs = $wgContLang->getNamespaces();
+			$aNs = $contLang->getNamespaces();
 			ExtDynamicPageList::$allowedNamespaces = array_slice( $aNs, 2, count( $aNs ), true );
 			if ( !is_array( ExtDynamicPageList::$options['namespace'] ) ) {
 				ExtDynamicPageList::$options['namespace'] = ExtDynamicPageList::$allowedNamespaces;
@@ -464,7 +467,7 @@ class DPLMain {
 						$sParam = trim( $sParam );
 						$sNs = $sParam;
 						if ( in_array( $sNs, ExtDynamicPageList::$options['namespace'] ) ) {
-							$aNamespaces[] = $wgContLang->getNsIndex( $sNs );
+							$aNamespaces[] = $contLang->getNsIndex( $sNs );
 							$bSelectionCriteriaFound = true;
 						} elseif ( array_key_exists( $sNs, array_keys( ExtDynamicPageList::$options['namespace'] ) ) ) {
 							$aNamespaces[] = $sNs;
@@ -643,7 +646,7 @@ class DPLMain {
 					if ( !in_array( $sNs, ExtDynamicPageList::$options['notnamespace'] ) ) {
 						return $logger->msgWrongParam( 'notnamespace', $sArg );
 					}
-					$aExcludeNamespaces[] = $wgContLang->getNsIndex( $sNs );
+					$aExcludeNamespaces[] = $contLang->getNsIndex( $sNs );
 					$bSelectionCriteriaFound = true;
 					break;
 
@@ -2975,7 +2978,7 @@ class DPLMain {
 				$articleLink = '[{{fullurl:' . $title->getText() . '|curid=' . $row->page_id . '}} ' . htmlspecialchars( $sTitleText ) . ']';
 			} elseif ( !$bEscapeLinks || ( $pageNamespace != 14 && $pageNamespace != 6 ) ) {
 				// links to categories or images need an additional ":"
-				$articleLink = '[[' . $title->getPrefixedText() . '|' . $wgContLang->convert( $sTitleText ) . ']]';
+				$articleLink = '[[' . $title->getPrefixedText() . '|' . $contLang->convert( $sTitleText ) . ']]';
 			} else {
 				$articleLink = '[{{fullurl:' . $title->getText() . '}} ' . htmlspecialchars( $sTitleText ) . ']';
 			}
@@ -2984,12 +2987,12 @@ class DPLMain {
 
 			// get first char used for category-style output
 			if ( isset( $row->sortkey ) ) {
-				$dplArticle->mStartChar = $wgContLang->convert( $wgContLang->firstChar( $row->sortkey ) );
+				$dplArticle->mStartChar = $contLang->convert( $contLang->firstChar( $row->sortkey ) );
 			}
 			if ( isset( $row->sortkey ) ) {
-				$dplArticle->mStartChar = $wgContLang->convert( $wgContLang->firstChar( $row->sortkey ) );
+				$dplArticle->mStartChar = $contLang->convert( $contLang->firstChar( $row->sortkey ) );
 			} else {
-				$dplArticle->mStartChar = $wgContLang->convert( $wgContLang->firstChar( $pageTitle ) );
+				$dplArticle->mStartChar = $contLang->convert( $contLang->firstChar( $pageTitle ) );
 			}
 
 			if ( isset( $row->page_id ) ) {

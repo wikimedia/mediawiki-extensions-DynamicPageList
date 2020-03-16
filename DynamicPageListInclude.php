@@ -97,6 +97,8 @@
  *			added %ARGS% to template surrogate call
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * To do transclusion from an extension, we need to interact with the parser
  * at a low level. This is the general transclusion functionality
@@ -686,8 +688,7 @@ class DPLInclude {
 			// we accept plain text as a template name, space or underscore are the same
 			// the localized name for "Template:" may preceed the template name
 			// the name may start with a different namespace for the surrogate template, followed by ::
-			global $wgContLang;
-			$nsNames = $wgContLang->getNamespaces();
+			$nsNames = MediaWikiServices::getInstance()->getContentLanguage()->getNamespaces();
 			$tCalls = preg_split(
 				'/\{\{\s*(Template:|' . $nsNames[10] . ':)?' .
 					self::spaceOrUnderscore( preg_quote( $template1, '/' ) ) .
