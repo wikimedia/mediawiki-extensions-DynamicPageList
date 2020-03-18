@@ -420,6 +420,8 @@
  * when making changes here you must update the version field in DynamicPageList.php and DynamicPageListMigration.php !
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @param Parser &$parser
  * @param string $text
@@ -1283,29 +1285,28 @@ class ExtDynamicPageList {
 	}
 
 	public static function setupDPL() {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		// DPL offers the same functionality as Intersection; so we register the <DynamicPageList> tag
 		// in case LabeledSection extension is not installed we need to remove section markers
 
-		$wgParser->setHook( 'section', array( __CLASS__, 'removeSectionMarkers' ) );
-		$wgParser->setHook( 'DPL', array( __CLASS__, 'dplTag' ) );
-		$wgParser->setHook( 'DynamicPageList', array( __CLASS__, 'intersectionTag' ) );
+		$parser->setHook( 'section', array( __CLASS__, 'removeSectionMarkers' ) );
+		$parser->setHook( 'DPL', array( __CLASS__, 'dplTag' ) );
+		$parser->setHook( 'DynamicPageList', array( __CLASS__, 'intersectionTag' ) );
 
-		$wgParser->setFunctionHook( 'dpl', array( __CLASS__, 'dplParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplnum', array( __CLASS__, 'dplNumParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplvar', array( __CLASS__, 'dplVarParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplreplace', array( __CLASS__, 'dplReplaceParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplchapter', array( __CLASS__, 'dplChapterParserFunction' ) );
-		$wgParser->setFunctionHook( 'dplmatrix', array( __CLASS__, 'dplMatrixParserFunction' ) );
+		$parser->setFunctionHook( 'dpl', array( __CLASS__, 'dplParserFunction' ) );
+		$parser->setFunctionHook( 'dplnum', array( __CLASS__, 'dplNumParserFunction' ) );
+		$parser->setFunctionHook( 'dplvar', array( __CLASS__, 'dplVarParserFunction' ) );
+		$parser->setFunctionHook( 'dplreplace', array( __CLASS__, 'dplReplaceParserFunction' ) );
+		$parser->setFunctionHook( 'dplchapter', array( __CLASS__, 'dplChapterParserFunction' ) );
+		$parser->setFunctionHook( 'dplmatrix', array( __CLASS__, 'dplMatrixParserFunction' ) );
 
 		self::commonSetup();
 	}
 
 	public static function setupMigration() {
 		// DPL offers the same functionality as Intersection under the tag name <Intersection>
-		global $wgParser;
-		$wgParser->setHook( 'Intersection', array( __CLASS__, 'intersectionTag' ) );
+		MediaWikiServices::getInstance()->getParser()->setHook( 'Intersection', array( __CLASS__, 'intersectionTag' ) );
 
 		self::commonSetup();
 	}
