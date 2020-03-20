@@ -445,6 +445,12 @@ class DPL {
 		// process results of query, outputing equivalent of <li>[[Article]]</li> for each result,
 		// or something similar if the list uses other startlist/endlist;
 		$rBody = '';
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$repo = MediaWikiServices::getInstance()->getRepoGroup();
+		} else {
+			$repo = RepoGroup::singleton();
+		}
 		// the following statement caused a problem with multiple columns:  $this->filteredCount = 0;
 		for ( $i = $iStart; $i < $iStart + $iCount; $i++ ) {
 			$article = $this->mArticles[$i];
@@ -452,13 +458,13 @@ class DPL {
 			$imageUrl = '';
 			if ( $article->mNamespace == NS_FILE ) {
 				// calculate URL for existing images
-				$img = wfFindFile( Title::makeTitle( NS_FILE, $article->mTitle->getText() ) );
+				$img = $repo->findFile( Title::makeTitle( NS_FILE, $article->mTitle->getText() ) );
 				if ( $img && $img->exists() ) {
 					$imageUrl = $img->getUrl();
 					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', $imageUrl );
 				} else {
 					$iTitle = Title::makeTitleSafe( NS_FILE, $article->mTitle->getDBkey() );
-					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', RepoGroup::singleton()->getLocalRepo()->newFile( $iTitle )->getPath() );
+					$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', $repo->getLocalRepo()->newFile( $iTitle )->getPath() );
 				}
 			}
 			if ( $this->mEscapeLinks && ( $article->mNamespace == NS_CATEGORY
@@ -1676,8 +1682,14 @@ class DPL {
 	static function imageWithPath( $imgName ) {
 		$title = Title::newFromText( 'Image:' . $imgName );
 		if ( !is_null( $title ) ) {
+			if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+				// MediaWiki 1.34+
+				$repo = MediaWikiServices::getInstance()->getRepoGroup();
+			} else {
+				$repo = RepoGroup::singleton();
+			}
 			$iTitle = Title::makeTitleSafe( 6, $title->getDBkey() );
-			$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', RepoGroup::singleton()->getLocalRepo()->newFile( $iTitle )->getPath() );
+			$imageUrl = preg_replace( '~^.*images/(.*)~', '\1', $repo->getLocalRepo()->newFile( $iTitle )->getPath() );
 		} else {
 			$imageUrl = '???';
 		}
