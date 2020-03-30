@@ -176,8 +176,8 @@ class DPL {
 		$this->mParser->clearState(); // eliminated to avoid conflict with CITE extension
 		$wgHooks['ParserClearState'] = $clearStateHooks;
 
-		$this->mParserOptions = $parser->mOptions;
-		$this->mParserTitle = $parser->mTitle;
+		$this->mParserOptions = $parser->getOptions();
+		$this->mParserTitle = $parser->getTitle();
 
 		if ( !empty( $headings ) ) {
 			if ( $iColumns != 1 || $iRows != 1 ) {

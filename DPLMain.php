@@ -29,8 +29,8 @@ class DPLMain {
 		$logger = new DPLLogger();
 
 		// check that we are not in an infinite transclusion loop
-		if ( isset( $parser->mTemplatePath[$parser->mTitle->getPrefixedText()] ) ) {
-			return $logger->escapeMsg( ExtDynamicPageList::WARN_TRANSCLUSIONLOOP, $parser->mTitle->getPrefixedText() );
+		if ( isset( $parser->mTemplatePath[$parser->getTitle()->getPrefixedText()] ) ) {
+			return $logger->escapeMsg( ExtDynamicPageList::WARN_TRANSCLUSIONLOOP, $parser->getTitle()->getPrefixedText() );
 		}
 
 		/**
@@ -40,7 +40,7 @@ class DPLMain {
 
 		// check if DPL shall only be executed from protected pages
 		if ( array_key_exists( 'RunFromProtectedPagesOnly', ExtDynamicPageList::$options ) &&
-			ExtDynamicPageList::$options['RunFromProtectedPagesOnly'] == true && !( $parser->mTitle->isProtected( 'edit' ) ) ) {
+			ExtDynamicPageList::$options['RunFromProtectedPagesOnly'] == true && !( $parser->getTitle()->isProtected( 'edit' ) ) ) {
 
 			// Ideally we would like to allow using a DPL query if the query istelf is coded on a template page
 			// which is protected. Then there would be no need for the article to be protected.
@@ -1370,8 +1370,8 @@ class DPLMain {
 
 				case 'dplcache':
 					if ( $sArg != '' ) {
-						$DPLCache = sha1( $parser->mTitle->getArticleID() . '_' . str_replace( '/', '_', $sArg ) ) . '.dplc';
-						$DPLCachePath = $parser->mTitle->getArticleID() % 10;
+						$DPLCache = sha1( $parser->getTitle()->getArticleID() . '_' . str_replace( '/', '_', $sArg ) ) . '.dplc';
+						$DPLCachePath = $parser->getTitle()->getArticleID() % 10;
 					} else {
 						$output .= $logger->msgWrongParam( 'dplcache', $sArg );
 					}
@@ -3261,7 +3261,7 @@ class DPLMain {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endEliminate';
 			}
 			$localParser = $parser->getFreshParser();
-			$parserOutput = $localParser->parse( $output, $parser->mTitle, $parser->mOptions );
+			$parserOutput = $localParser->parse( $output, $parser->getTitle(), $parser->getOptions() );
 		}
 		if ( $bReset[4] ) {	// LINKS
 			// we trigger the MediaWiki parser to find links, images, categories etc. which are contained in the DPL output
