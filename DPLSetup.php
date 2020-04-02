@@ -423,20 +423,20 @@
 use MediaWiki\MediaWikiServices;
 
 /**
- * @param Parser &$parser
+ * @param Parser $parser
  * @param string $text
  * @return true
  */
-function ExtDynamicPageList__endReset( &$parser, $text ) {
+function ExtDynamicPageList__endReset( Parser $parser, $text ) {
 	return ExtDynamicPageList::endReset( $parser, $text );
 }
 
 /**
- * @param Parser &$parser
+ * @param Parser $parser
  * @param string $text
  * @return true
  */
-function ExtDynamicPageList__endEliminate( &$parser, $text ) {
+function ExtDynamicPageList__endEliminate( Parser $parser, $text ) {
 	return ExtDynamicPageList::endEliminate( $parser, $text );
 }
 
@@ -1455,10 +1455,10 @@ class ExtDynamicPageList {
 	/**
 	 * ENTRY parser FUNCTION #dpl
 	 *
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @return array|string
 	 */
-	public static function dplParserFunction( &$parser ) {
+	public static function dplParserFunction( Parser $parser ) {
 		// late loading of PHP modules, only if needed
 		self::loadModules();
 
@@ -1489,7 +1489,7 @@ class ExtDynamicPageList {
 		);
 	}
 
-	public static function dplNumParserFunction( &$parser, $text = '' ) {
+	public static function dplNumParserFunction( $parser, $text = '' ) {
 		$num = str_replace( '&#160;', ' ', $text );
 		$num = str_replace( '&nbsp;', ' ', $num );
 		$num = preg_replace( '/(\d)\.(\d\d?[^\d,])/', '\1,\2', $num );
@@ -1507,7 +1507,7 @@ class ExtDynamicPageList {
 		return $num;
 	}
 
-	public static function dplVarParserFunction( &$parser, $cmd ) {
+	public static function dplVarParserFunction( $parser, $cmd ) {
 		$args = func_get_args();
 		if ( $cmd == 'set' ) {
 			return DPLVariables::setVar( $args );
@@ -1534,7 +1534,7 @@ class ExtDynamicPageList {
 		return false;
 	}
 
-	public static function dplReplaceParserFunction( &$parser, $text, $pat, $repl = '' ) {
+	public static function dplReplaceParserFunction( $parser, $text, $pat, $repl = '' ) {
 		if ( $text == '' || $pat == '' ) {
 			return '';
 		}
@@ -1549,12 +1549,12 @@ class ExtDynamicPageList {
 		return preg_replace( $pat, $repl, $text );
 	}
 
-	public static function dplChapterParserFunction( &$parser, $text = '', $heading = ' ', $maxLength = -1, $page = '?page?', $link = 'default', $trim = false ) {
+	public static function dplChapterParserFunction( Parser $parser, $text = '', $heading = ' ', $maxLength = -1, $page = '?page?', $link = 'default', $trim = false ) {
 		$output = DPLInclude::extractHeadingFromText( $parser, $page, '?title?', $text, $heading, '', $sectionHeading, true, $maxLength, $link, $trim );
 		return $output[0];
 	}
 
-	public static function dplMatrixParserFunction( &$parser, $name, $yes, $no, $flip, $matrix ) {
+	public static function dplMatrixParserFunction( $parser, $name, $yes, $no, $flip, $matrix ) {
 		$lines = explode( "\n", $matrix );
 		$m = array();
 		$sources = array();
@@ -1662,11 +1662,11 @@ class ExtDynamicPageList {
 	/**
 	 * Reset everything; some categories may have been fixed, however via fixcategory=
 	 *
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @param string $text
 	 * @return true
 	 */
-	public static function endReset( &$parser, $text ) {
+	public static function endReset( Parser $parser, $text ) {
 		if ( !self::$createdLinks['resetdone'] ) {
 			self::$createdLinks['resetdone'] = true;
 			foreach ( $parser->getOutput()->mCategories as $key => $val ) {
@@ -1692,11 +1692,11 @@ class ExtDynamicPageList {
 	}
 
 	/**
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @param string &$text
 	 * @return true
 	 */
-	public static function endEliminate( &$parser, &$text ) {
+	public static function endEliminate( Parser $parser, &$text ) {
 		// called during the final output phase; removes links created by DPL
 		if ( isset( self::$createdLinks ) ) {
 			if ( array_key_exists( 0, self::$createdLinks ) ) {

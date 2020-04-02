@@ -128,7 +128,7 @@ class DPL {
 		$includeseclabelsmatch,
 		$includeseclabelsnotmatch,
 		$includematchparsed,
-		&$parser,
+		Parser $parser,
 		$logger,
 		$replaceInTitle,
 		$iTitleMaxLen,

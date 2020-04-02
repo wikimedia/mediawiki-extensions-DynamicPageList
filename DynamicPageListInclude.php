@@ -113,7 +113,7 @@ class DPLInclude {
 	 * @param string $part1
 	 * @return bool
 	 */
-	public static function open( $parser, $part1 ) {
+	public static function open( Parser $parser, $part1 ) {
 		// Infinite loop test
 		if ( isset( $parser->mTemplatePath[$part1] ) ) {
 			wfDebug( __METHOD__ . ": template loop broken at '$part1'\n" );
@@ -156,7 +156,7 @@ class DPLInclude {
 	 * @return string
 	 */
 	private static function parse(
-		$parser,
+		Parser $parser,
 		$title,
 		$text,
 		$part1,
@@ -459,7 +459,7 @@ class DPLInclude {
 	 * @param string[] $skipPattern
 	 * @return string[]
 	 */
-	public static function extractHeadingFromText( $parser, $page, $title, $text, $sec = '', $to = '', &$sectionHeading, $recursionCheck = true,
+	public static function extractHeadingFromText( Parser $parser, $page, $title, $text, $sec = '', $to = '', &$sectionHeading, $recursionCheck = true,
 												  $maxLength = -1, $cLink = 'default', $trim = false, $skipPattern = array() ) {
 		$continueSearch = true;
 		$n = 0;
