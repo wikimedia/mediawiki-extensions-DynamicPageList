@@ -256,11 +256,14 @@ class DPLInclude {
 
 	/**
 	 * @param Parser $parser
-	 * @param string $page
+	 * @param Title|string $title
+	 *
 	 * @return string
 	 */
-	public static function text( Parser $parser, $page ) {
-		$title = Title::newFromText( $page );
+	public static function text( Parser $parser, $title ) {
+		if ( !( $title instanceof Title ) ) {
+			$title = Title::newFromText( $title );
+		}
 
 		if ( !$title ) {
 			return '';
@@ -286,10 +289,11 @@ class DPLInclude {
 	 */
 	public static function includeSection( Parser $parser, $page = '', $sec = '', $to = '', $recursionCheck = true, $trim = false, $skipPattern = array() ) {
 		$output = array();
-		if ( self::text( $parser, $page, $title, $text ) == false ) {
-			$output[] = $text;
-			return $output;
+		$title = Title::newFromText( $page );
+		if ( !$title ) {
+			return array( '' );
 		}
+		$text = self::text( $parser, $title );
 		$any = false;
 		$pat = self::createSectionPattern( $sec, $to, $any );
 
@@ -432,11 +436,11 @@ class DPLInclude {
 		$trim = false,
 		$skipPattern = array()
 	) {
-		$output = array();
-		if ( self::text( $parser, $page, $title, $text ) == false ) {
-			$output[0] = $text;
-			return $output;
+		$title = Title::newFromText( $page );
+		if ( !$title ) {
+			return array( '' );
 		}
+		$text = self::text( $parser, $title );
 		/* throw away comments */
 		$text = preg_replace( '/<!--.*?-->/s', '', $text );
 		return self::extractHeadingFromText( $parser, $page, $title, $text, $sec, $to, $sectionHeading, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
