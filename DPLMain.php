@@ -2392,7 +2392,7 @@ class DPLMain {
 		if ( $bAddContribution ) {
 			$sSqlRCTable = $sRCTable . ' AS rc, ';
 			$sSqlSelPage .= ', SUM( ABS( rc.rc_new_len - rc.rc_old_len ) ) AS contribution, rc.rc_user_text AS contributor';
-			$sSqlWhere   .= ' AND page.page_id=rc.rc_cur_id';
+			$sSqlWhere   .= " AND $sPageTable.page_id=rc.rc_cur_id";
 			if ( $sSqlGroupBy != '' ) {
 				$sSqlGroupBy .= ', ';
 			}
@@ -2688,10 +2688,10 @@ class DPLMain {
 		$sSqlWhere .= $sSqlCond_page_rev;
 
 		if ( $iMinRevisions != null ) {
-			$sSqlWhere .= " AND ((SELECT COUNT(rev_aux2.rev_page) FROM revision AS rev_aux2 WHERE rev_aux2.rev_page=page.page_id) >= $iMinRevisions)";
+			$sSqlWhere .= " AND ((SELECT COUNT(rev_aux2.rev_page) FROM $sRevisionTable AS rev_aux2 WHERE rev_aux2.rev_page=$sPageTable.page_id) >= $iMinRevisions)";
 		}
 		if ( $iMaxRevisions != null ) {
-			$sSqlWhere .= " AND ((SELECT COUNT(rev_aux3.rev_page) FROM revision AS rev_aux3 WHERE rev_aux3.rev_page=page.page_id) <= $iMaxRevisions)";
+			$sSqlWhere .= " AND ((SELECT COUNT(rev_aux3.rev_page) FROM $sRevisionTable AS rev_aux3 WHERE rev_aux3.rev_page=$sPageTable.page_id) <= $iMaxRevisions)";
 		}
 
 		// count(all categories) <= max no of categories
