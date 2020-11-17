@@ -417,13 +417,13 @@ class DPLMain {
 								}
 								foreach ( $sParamList as $sPar ) {
 									$title = Title::newFromText( $sPar );
-									if ( !is_null( $title ) ) {
+									if ( $title !== null ) {
 										$aCategories[] = $title->getDBkey();
 									}
 								}
 							} else {
 								$title = Title::newFromText( $sParam );
-								if ( !is_null( $title ) ) {
+								if ( $title !== null ) {
 									$aCategories[] = $title->getDBkey();
 								}
 							}
@@ -455,7 +455,7 @@ class DPLMain {
 					break;
 				case 'notcategory':
 					$title = Title::newFromText( $sArg );
-					if ( !is_null( $title ) ) {
+					if ( $title !== null ) {
 						$aExcludeCategories[] = $title->getDBkey();
 						$bConflictsWithOpenReferences = true;
 					}
@@ -1996,7 +1996,8 @@ class DPLMain {
 			switch ( $sOrderMethod ) {
 				case 'category':
 					$sSqlCl_to = 'cl_head.cl_to, '; // Gives category headings in the result
-					$sSqlClHeadTable = ( ( in_array( '', $aCatHeadings ) || in_array( '', $aCatNotHeadings ) ) ? $sDplClView : $sCategorylinksTable ) . ' AS cl_head'; // use dpl_clview if Uncategorized in headings
+					$sSqlClHeadTable = ( ( in_array( '', $aCatHeadings )
+						|| in_array( '', $aCatNotHeadings ) ) ? $sDplClView : $sCategorylinksTable ) . ' AS cl_head'; // use dpl_clview if Uncategorized in headings
 					$sSqlCond_page_cl_head = 'page_id=cl_head.cl_from';
 					if ( !empty( $aCatHeadings ) ) {
 						$sSqlWhere .= ' AND cl_head.cl_to IN (' . $dbr->makeList( $aCatHeadings ) . ')';
@@ -2055,7 +2056,8 @@ class DPLMain {
 								$sOrderCollation . " as sortkey";
 						}
 					} else {
-						$sSqlSortkey = ", REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " . $sPageTable . ".page_title), '_', ' ') " . $sOrderCollation . " as sortkey";
+						$sSqlSortkey = ", REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " .
+							$sPageTable . ".page_title), '_', ' ') " . $sOrderCollation . " as sortkey";
 					}
 					break;
 				case 'pagesel':
@@ -2081,7 +2083,8 @@ class DPLMain {
 						}
 						$sSqlNsIdToText .= ' END';
 						// Generate sortkey like for category links. UTF-8 created problems with non-utf-8 MySQL databases
-						$sSqlSortkey = ", REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " . $sPageTable . ".page_title), '_', ' ') " . $sOrderCollation . " AS sortkey";
+						$sSqlSortkey = ", REPLACE(CONCAT( IF(" . $sPageTable . ".page_namespace=0, '', CONCAT(" . $sSqlNsIdToText . ", ':')), " .
+							$sPageTable . ".page_title), '_', ' ') " . $sOrderCollation . " AS sortkey";
 					}
 					break;
 				case 'user':
@@ -2519,13 +2522,15 @@ class DPLMain {
 								$sPageTable . '.page_title AS page_title,' . $sPageTable . '.page_id AS page_id' . $sSqlSelPage . $sSqlSortkey . $sSqlPage_counter .
 								$sSqlPage_size . $sSqlPage_touched . $sSqlRev_user .
 								$sSqlRev_timestamp . $sSqlRev_id . $sSqlCats . $sSqlCl_timestamp .
-								' FROM ' . $sSqlRevisionTable . $sSqlCreationRevisionTable . $sSqlNoCreationRevisionTable . $sSqlChangeRevisionTable . $sSqlRCTable . $sSqlPageLinksTable . $sSqlExternalLinksTable . $sPageTable;
+								' FROM ' . $sSqlRevisionTable . $sSqlCreationRevisionTable . $sSqlNoCreationRevisionTable . $sSqlChangeRevisionTable . $sSqlRCTable .
+								$sSqlPageLinksTable . $sSqlExternalLinksTable . $sPageTable;
 		}
 
 		// JOIN ...
 		if ( $sSqlClHeadTable != '' || $sSqlClTableForGC != '' ) {
 			$b2tables = ( $sSqlClHeadTable != '' ) && ( $sSqlClTableForGC != '' );
-			$sSqlSelectFrom .= ' LEFT OUTER JOIN ' . $sSqlClHeadTable . ( $b2tables ? ', ' : '' ) . $sSqlClTableForGC . ' ON (' . $sSqlCond_page_cl_head . ( $b2tables ? ' AND ' : '' ) . $sSqlCond_page_cl_gc . ')';
+			$sSqlSelectFrom .= ' LEFT OUTER JOIN ' . $sSqlClHeadTable . ( $b2tables ? ', ' : '' ) . $sSqlClTableForGC .
+				' ON (' . $sSqlCond_page_cl_head . ( $b2tables ? ' AND ' : '' ) . $sSqlCond_page_cl_gc . ')';
 		}
 
 		// Include categories...
@@ -3406,7 +3411,8 @@ class DPLMain {
 			return '00:' . str_pad( floor( $t / 60 ), 2, "0", STR_PAD_LEFT ) . ':' . str_pad( floor( fmod( $t, 60 ) ), 2, "0", STR_PAD_LEFT );
 		}
 		if ( $t < 86400 ) {
-			return str_pad( floor( $t / 3600 ), 2, "0", STR_PAD_LEFT ) . ':' . str_pad( floor( fmod( floor( $t / 60 ), 60 ) ), 2, "0", STR_PAD_LEFT ) . ':' . str_pad( fmod( $t, 60 ), 2, "0", STR_PAD_LEFT );
+			return str_pad( floor( $t / 3600 ), 2, "0", STR_PAD_LEFT ) . ':' .
+				str_pad( floor( fmod( floor( $t / 60 ), 60 ) ), 2, "0", STR_PAD_LEFT ) . ':' . str_pad( fmod( $t, 60 ), 2, "0", STR_PAD_LEFT );
 		}
 		if ( $t < 2 * 86400 ) {
 			return '1 day';

@@ -350,7 +350,7 @@ class DPL {
 	function substTagParm( $tag, $pagename, $article, $imageUrl, $nr, $titleMaxLength ) {
 		global $wgLang;
 
-		if ( strchr( $tag, '%' ) < 0 ) {
+		if ( strstr( $tag, '%' ) < 0 ) {
 			return $tag;
 		}
 
@@ -709,14 +709,26 @@ class DPL {
 						// separator tags
 						if ( count( $mode->sSectionTags ) == 1 ) {
 							// If there is only one separator tag use it always
-							$septag[$s * 2] = str_replace( '%SECTION%', $sectionHeading[0], $this->substTagParm( $mode->sSectionTags[0], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ) );
+							$septag[$s * 2] = str_replace(
+								'%SECTION%',
+								$sectionHeading[0],
+								$this->substTagParm( $mode->sSectionTags[0], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen )
+							);
 						} elseif ( isset( $mode->sSectionTags[$s * 2] ) ) {
-							$septag[$s * 2] = str_replace( '%SECTION%', $sectionHeading[0], $this->substTagParm( $mode->sSectionTags[$s * 2], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ) );
+							$septag[$s * 2] = str_replace(
+								'%SECTION%',
+								$sectionHeading[0],
+								$this->substTagParm( $mode->sSectionTags[$s * 2], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen )
+							);
 						} else {
 							$septag[$s * 2] = '';
 						}
 						if ( isset( $mode->sSectionTags[$s * 2 + 1] ) ) {
-							$septag[$s * 2 + 1] = str_replace( '%SECTION%', $sectionHeading[0], $this->substTagParm( $mode->sSectionTags[$s * 2 + 1], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen ) );
+							$septag[$s * 2 + 1] = str_replace(
+								'%SECTION%',
+								$sectionHeading[0],
+								$this->substTagParm( $mode->sSectionTags[$s * 2 + 1], $pagename, $article, $imageUrl, $this->filteredCount, $iTitleMaxLen )
+							);
 						} else {
 							$septag[$s * 2 + 1] = '';
 						}
@@ -1674,7 +1686,7 @@ class DPL {
 	 */
 	static function imageWithPath( $imgName ) {
 		$title = Title::newFromText( 'Image:' . $imgName );
-		if ( !is_null( $title ) ) {
+		if ( $title !== null ) {
 			if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
 				// MediaWiki 1.34+
 				$repo = MediaWikiServices::getInstance()->getRepoGroup();
