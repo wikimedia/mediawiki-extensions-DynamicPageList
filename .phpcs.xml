@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
@@ -18,7 +17,6 @@
 		<exclude name="PSR2.Classes.PropertyDeclaration" />
 		<exclude name="Squiz.Scope.MemberVarScope" />
 		<exclude name="Squiz.Scope.MethodScope" />
-		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
 		<properties>
@@ -30,8 +28,13 @@
 			<property name="lineLimit" value="204" />
 		</properties>
 	</rule>
+
 	<!-- keep support for php 5.3 -->
 	<rule ref="Generic.Arrays.DisallowShortArraySyntax" />
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax">
+		<severity>0</severity>
+	</rule>
+
 	<file>.</file>
 	<arg name="extensions" value="php" />
 	<arg name="encoding" value="UTF-8" />
