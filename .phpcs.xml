@@ -12,11 +12,6 @@
 		<exclude name="MediaWiki.Files.ClassMatchesFilename" />
 		<exclude name="MediaWiki.Usage.DbrQueryUsage" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
-		<exclude name="PEAR.Functions.ValidDefaultValue.NotAtEnd" />
-		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
-		<exclude name="PSR2.Classes.PropertyDeclaration" />
-		<exclude name="Squiz.Scope.MemberVarScope" />
-		<exclude name="Squiz.Scope.MethodScope" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
 		<properties>
@@ -32,6 +27,21 @@
 	<!-- keep support for php 5.3 -->
 	<rule ref="Generic.Arrays.DisallowShortArraySyntax" />
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PEAR.Functions.ValidDefaultValue.NotAtEnd">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PSR12.Properties.ConstantVisibility">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PSR2.Classes.PropertyDeclaration">
+		<severity>0</severity>
+	</rule>
+	<rule ref="Squiz.Scope.MemberVarScope">
+		<severity>0</severity>
+	</rule>
+	<rule ref="Squiz.Scope.MethodScope">
 		<severity>0</severity>
 	</rule>
 
