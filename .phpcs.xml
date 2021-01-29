@@ -7,10 +7,10 @@
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingVar" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.WrongStyle" />
-		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />
+		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
+		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
+		<exclude name="MediaWiki.Usage.DbrQueryUsage.DbrQueryFound" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgUser" />
-		<exclude name="MediaWiki.Files.ClassMatchesFilename" />
-		<exclude name="MediaWiki.Usage.DbrQueryUsage" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
