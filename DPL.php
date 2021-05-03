@@ -857,7 +857,7 @@ class DPL {
 		$actStart = $mode->sListStart;
 		$mode->sListStart = preg_replace_callback(
 			'/(?<=\bstart=)\d+\b/',
-			function ( $matches ) use ( $iCount ) {
+			static function ( $matches ) use ( $iCount ) {
 				return (int)$matches[0] + $iCount;
 			},
 			$actStart
