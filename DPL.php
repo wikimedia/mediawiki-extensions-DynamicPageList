@@ -1051,14 +1051,13 @@ class DPL {
 
 		// deal with template parameters =================================================
 
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
 		if ( $template != '' ) {
 			if ( $exec == 'edit' ) {
 				$tpv = $this->getTemplateParmValues( $text, $template );
 				$legendText = '';
 				if ( $legendPage != '' ) {
-					global $wgUser;
 					$parser = MediaWikiServices::getInstance()->getParser();
 					$legendText = DPLInclude::text( $parser, $legendPage );
 					$legendText = preg_replace( '/^.*?\<section\s+begin\s*=\s*legend\s*\/\>/s', '', $legendText );
@@ -1066,7 +1065,6 @@ class DPL {
 				}
 				$instructions = array();
 				if ( $instructionPage != '' ) {
-					global $wgUser;
 					$parser = MediaWikiServices::getInstance()->getParser();
 					$instructionText = DPLInclude::text( $parser, $instructionPage );
 					$instructions = $this->getTemplateParmValues( $instructionText, 'Template field' );
@@ -1122,7 +1120,8 @@ class DPL {
 				foreach ( $hidden as $hide ) {
 					$form .= "<input type=hidden " . $hide . " />";
 				}
-				$form .= "<input type=hidden name=\"token\" value=\"" . $wgUser->getEditToken() . "\" />";
+				$user = RequestContext::getMain()->getUser();
+				$form .= "<input type=hidden name=\"token\" value=\"" . $user->getEditToken() . "\" />";
 				foreach ( $preview as $prev ) {
 					$form .= "<input type=submit " . $prev . " /> ";
 				}
@@ -1186,21 +1185,23 @@ class DPL {
 	}
 
 	function updateArticle( $title, $text, $summary ) {
-		global $wgUser, $wgRequest, $wgOut;
+		global $wgRequest, $wgOut;
 
-		if ( !$wgUser->matchEditToken( $wgRequest->getVal( 'token' ) ) ) {
+		$user = RequestContext::getMain()->getUser();
+		if ( !$user->matchEditToken( $wgRequest->getVal( 'token' ) ) ) {
 			$wgOut->addWikiMsg( 'sessionfailure' );
 			return 'session failure';
 		}
 
 		$titleX = Title::newFromText( $title );
 		$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
-			->getPermissionErrors( 'edit', $wgUser, $titleX );
+			->getPermissionErrors( 'edit', $user, $titleX );
 		if ( count( $permissionErrors ) == 0 ) {
 			$pageX = WikiPage::factory( $titleX );
 			$pageXContent = ContentHandler::makeContent( $text, $pageX->getTitle() );
-			$pageX->doEditContent(
+			$pageX->doUserEditContent(
 				$pageXContent,
+				$user,
 				$summary,
 				EDIT_UPDATE | EDIT_DEFER_UPDATES | EDIT_AUTOSUMMARY
 			);
@@ -1444,7 +1445,7 @@ class DPL {
 	}
 
 	function deleteArticleByRule( $title, $text, $rulesText ) {
-		global $wgUser, $wgOut;
+		global $wgOut;
 
 		// return "deletion of articles by DPL is disabled.";
 
@@ -1485,9 +1486,10 @@ class DPL {
 
 		$titleX = Title::newFromText( $title );
 		if ( $exec ) {
+			$user = RequestContext::getMain()->getUser();
 			# Check permissions
 			$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
-				->getPermissionErrors( 'delete', $wgUser, $titleX );
+				->getPermissionErrors( 'delete', $user, $titleX );
 			if ( count( $permissionErrors ) > 0 ) {
 				$wgOut->showPermissionsErrorPage( $permissionErrors );
 				return 'permission error';
