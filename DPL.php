@@ -1493,7 +1493,7 @@ class DPL {
 			if ( count( $permissionErrors ) > 0 ) {
 				$wgOut->showPermissionsErrorPage( $permissionErrors );
 				return 'permission error';
-			} elseif ( wfReadOnly() ) {
+			} elseif ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
 				throw new ReadOnlyError;
 			} else {
 				$articleX = new Article( $titleX );
