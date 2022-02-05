@@ -2874,7 +2874,7 @@ class DPLMain {
 			return $result;
 		}
 
-		if ( $dbr->numRows( $res ) <= 0 ) {
+		if ( $res->numRows() <= 0 ) {
 			$header = str_replace( '%TOTALPAGES%', '0', str_replace( '%PAGES%', '0', $sNoResultsHeader ) );
 			if ( $sNoResultsHeader != '' ) {
 				$output .= str_replace( '\n', "\n", str_replace( "¶", "\n", $header ) );
@@ -2886,7 +2886,6 @@ class DPLMain {
 			if ( $sNoResultsHeader == '' && $sNoResultsFooter == '' ) {
 				$output .= $logger->escapeMsg( ExtDynamicPageList::WARN_NORESULTS );
 			}
-			$dbr->freeResult( $res );
 			return $output;
 		}
 
@@ -2897,7 +2896,7 @@ class DPLMain {
 		$pick[0] = true;
 
 		if ( isset( $iRandomCount ) ) {
-			$nResults = $dbr->numRows( $res );
+			$nResults = $res->numRows();
 			if ( isset( $iRandomSeed ) ) {
 				mt_srand( $iRandomSeed );
 			} else {
@@ -3119,13 +3118,11 @@ class DPLMain {
 
 			$aArticles[] = $dplArticle;
 		}
-		$dbr->freeResult( $res );
 		$rowcount = -1;
 		if ( $sSqlCalcFoundRows != '' ) {
 			$res = $dbr->query( 'SELECT FOUND_ROWS() AS rowcount' );
-			$row = $dbr->fetchObject( $res );
+			$row = $res->fetchObject();
 			$rowcount = $row->rowcount;
-			$dbr->freeResult( $res );
 		}
 
 		// backward scrolling: if the user specified titleLE we reverse the output order
@@ -3393,7 +3390,6 @@ class DPLMain {
 				$cats .= '|' . $row->page_title;
 			}
 		}
-		$dbr->freeResult( $res );
 		return $cats;
 	}
 
