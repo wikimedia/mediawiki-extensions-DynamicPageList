@@ -11,6 +11,18 @@
 		<exclude name="Squiz.Scope.MemberVarScope" />
 		<exclude name="Squiz.Scope.MethodScope" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
+		<exclude name="PEAR.Functions.ValidDefaultValue.NotAtEnd" />
+		<exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment" />
+		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
+		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />
+		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingVar" />
+		<exclude name="MediaWiki.Commenting.PropertyDocumentation.WrongStyle" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
+		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgUser" />
+		<exclude name="MediaWiki.Usage.IsNull.IsNull" />
+		<exclude name="MediaWiki.Usage.StaticClosure.StaticClosure" />
+		<exclude name="MediaWiki.Usage.ForbiddenFunctions.strchr" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
 		<properties>
@@ -19,7 +31,7 @@
 	</rule>
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="204" />
+			<property name="lineLimit" value="234" />
 		</properties>
 	</rule>
 	<!-- keep support for php 5.3 -->
