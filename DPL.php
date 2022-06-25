@@ -1197,7 +1197,7 @@ class DPL {
 		$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
 			->getPermissionErrors( 'edit', $user, $titleX );
 		if ( count( $permissionErrors ) == 0 ) {
-			$pageX = WikiPage::factory( $titleX );
+			$pageX = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $titleX );
 			$pageXContent = ContentHandler::makeContent( $text, $pageX->getTitle() );
 			$pageX->doUserEditContent(
 				$pageXContent,

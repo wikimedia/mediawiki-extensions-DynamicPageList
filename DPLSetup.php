@@ -1328,7 +1328,7 @@ class ExtDynamicPageList {
 			$title = Title::newFromText( 'Template:Extension DPL' );
 			$user = RequestContext::getMain()->getUser();
 			if ( !$title->exists() && $user->isAllowed( 'edit' ) ) {
-				$page = WikiPage::factory( $title );
+				$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 				$pageContent = ContentHandler::makeContent(
 					"<noinclude>This page was automatically created. It serves as an anchor page for " .
 					"all '''[[Special:WhatLinksHere/Template:Extension_DPL|invocations]]''' " .
