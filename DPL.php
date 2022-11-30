@@ -1169,6 +1169,7 @@ class DPL {
 			. '<input type="hidden" value="" name="wpSection" />' . "\n"
 			. '<input type="hidden" value="' . wfTimestampNow() . '" name="wpStarttime" />' . "\n"
 			. '<input type="hidden" value="' . $articleX->getTimestamp() . '" name="wpEdittime" />' . "\n"
+			. '<input type="hidden" value="' . $articleX->getRevision()->getId() . '" name="editRevId" />' . "\n"
 			. '<input type="hidden" value="" name="wpScrolltop" id="wpScrolltop" />' . "\n"
 			. '<textarea tabindex="1" accesskey="," name="wpTextbox1" id="wpTextbox1" rows="25" cols="80" >'
 			. htmlspecialchars( $text )
