@@ -300,7 +300,7 @@ class DPLInclude {
 		preg_match_all( $pat, $text, $m, PREG_PATTERN_ORDER );
 
 		foreach ( $m[2] as $nr => $piece ) {
-			$piece = self::parse( $parser, $title, $piece, "#lst:${page}|${sec}", 0, $recursionCheck, $trim, $skipPattern );
+			$piece = self::parse( $parser, $title, $piece, "#lst:{$page}|{$sec}", 0, $recursionCheck, $trim, $skipPattern );
 			if ( $any ) {
 				$output[] = $m[1][$nr] . '::' . $piece;
 			} else {
@@ -527,7 +527,7 @@ class DPLInclude {
 			if ( $nr == -2 ) {
 				// output text before first section and done
 				$piece = substr( $text, 0, $m[1][1] - 1 );
-				$output[0] = self::parse( $parser, $title, $piece, "#lsth:${page}|${sec}", 0, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
+				$output[0] = self::parse( $parser, $title, $piece, "#lsth:{$page}|{$sec}", 0, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 				return $output;
 			}
 
@@ -595,18 +595,18 @@ class DPLInclude {
 
 			if ( $nr == 1 ) {
 				// output n-th section and done
-				$output[0] = self::parse( $parser, $title, $piece, "#lsth:${page}|${sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
+				$output[0] = self::parse( $parser, $title, $piece, "#lsth:{$page}|{$sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 				break;
 			}
 			if ( $nr == -1 ) {
 				if ( !isset( $end_off ) ) {
 					// output last section and done
-					$output[0] = self::parse( $parser, $title, $piece, "#lsth:${page}|${sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
+					$output[0] = self::parse( $parser, $title, $piece, "#lsth:{$page}|{$sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 					break;
 				}
 			} else {
 				// output section by name and continue search for another section with the same name
-				$output[$n++] = self::parse( $parser, $title, $piece, "#lsth:${page}|${sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
+				$output[$n++] = self::parse( $parser, $title, $piece, "#lsth:{$page}|{$sec}", $nhead, $recursionCheck, $maxLength, $link, $trim, $skipPattern );
 			}
 		} while ( $continueSearch );
 
