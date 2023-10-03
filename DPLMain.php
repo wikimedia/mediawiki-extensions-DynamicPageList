@@ -3263,7 +3263,7 @@ class DPLMain {
 			) {
 				$wgHooks['ParserAfterTidy'][] = 'ExtDynamicPageList' . '__endEliminate';
 			}
-			$localParser = $parser->getFreshParser();
+			$localParser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
 			$parserOutput = $localParser->parse( $output, $parser->getTitle(), $parser->getOptions() );
 		}
 		if ( $bReset[4] ) {	// LINKS
