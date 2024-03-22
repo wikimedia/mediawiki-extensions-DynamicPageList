@@ -23,7 +23,8 @@ class DPLMain {
 		global $wgLang, $wgRequest;
 		global $wgNonincludableNamespaces;
 
-		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
+		$services = MediaWikiServices::getInstance();
+		$contLang = $services->getContentLanguage();
 
 		// logger (display of debug messages)
 		$logger = new DPLLogger();
@@ -51,7 +52,7 @@ class DPLMain {
 		}
 
 		// get database access
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = $services->getConnectionProvider()->getReplicaDatabase();
 		$sPageTable = $dbr->tableName( 'page' );
 		$sCategorylinksTable = $dbr->tableName( 'categorylinks' );
 
@@ -3379,7 +3380,8 @@ class DPLMain {
 	}
 
 	private static function getSubcategories( $cat, $sPageTable, $depth ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = MediaWikiServices::getInstance()->getConnectionProvider()->getReplicaDatabase();
+
 		$cats = $cat;
 		$res = $dbr->query( "SELECT DISTINCT page_title FROM " . $dbr->tableName( 'page' ) . " INNER JOIN "
 				. $dbr->tableName( 'categorylinks' ) . " AS cl0 ON " . $sPageTable . ".page_id = cl0.cl_from AND cl0.cl_to='"
